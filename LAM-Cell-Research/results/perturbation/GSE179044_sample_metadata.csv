@@ -1,0 +1,17 @@
+sample_id,genotype,environment,treatment,replicate
+Pietrobon_S01,WT,hydrogel,vehicle,1
+Pietrobon_S02,TSC2ko,hydrogel,vehicle,1
+Pietrobon_S03,WT,hydrogel,rapamycin,1
+Pietrobon_S04,TSC2ko,hydrogel,rapamycin,1
+Pietrobon_S05,WT,plastic,vehicle,1
+Pietrobon_S06,TSC2ko,plastic,vehicle,1
+Pietrobon_S07,WT,plastic,rapamycin,1
+Pietrobon_S08,TSC2ko,plastic,rapamycin,1
+Pietrobon_S09,WT,hydrogel,vehicle,2
+Pietrobon_S10,TSC2ko,hydrogel,vehicle,2
+Pietrobon_S11,WT,hydrogel,rapamycin,2
+Pietrobon_S12,TSC2ko,hydrogel,rapamycin,2
+Pietrobon_S13,WT,plastic,vehicle,2
+Pietrobon_S14,TSC2ko,plastic,vehicle,2
+Pietrobon_S15,WT,plastic,rapamycin,2
+Pietrobon_S16,TSC2ko,plastic,rapamycin,2

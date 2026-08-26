@@ -1,0 +1,7 @@
+step,author,project,impact
+LAM1/LAM3 representation,"RunCCA + AlignSubspace, 50 dimensions","sample-centered sparse PCA approximation, 50 dimensions",not exact; label independent reimplementation
+LAM2 representation,"PCA on variable genes, 15 PCs","sparse PCA on baseline HVGs, 15 dimensions",close but software implementation differs
+LAM4 representation,"PCA on variable genes, 15 PCs","sparse PCA on baseline HVGs, 15 dimensions",close but software implementation differs
+Graph,custom kNN Jaccard + Louvain,custom kNN Jaccard + igraph multilevel Louvain,conceptually aligned; exact RNG/software differs
+LAMCORE identification,known markers after unbiased clustering,known markers after author-style graph; 777-gene score is post hoc,boundary aligned
+Doublet,not explicit in public scripts,record only in Phase 1,boundary aligned

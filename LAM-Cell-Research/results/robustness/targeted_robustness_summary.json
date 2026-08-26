@@ -1,0 +1,22 @@
+{
+  "phase1_cells": 30708,
+  "phase2_cells_after_doublet_removal": 30077,
+  "predicted_doublets": 631,
+  "phase1_candidate_cells": 140,
+  "phase2_candidate_cells_after_doublet_removal": 140,
+  "loose_candidate_cells": 140,
+  "strict_candidate_cells": 85,
+  "candidate_by_donor": {
+    "LAM1": 31,
+    "LAM2": 4,
+    "LAM3": 84,
+    "LAM4": 21
+  },
+  "candidate_by_assay": {
+    "scRNA": 115,
+    "snRNA": 25
+  },
+  "777_rank_score_status": "completed",
+  "ssGSEA_status": "not_run_in_phase2_baseline",
+  "interpretation": "targeted sensitivity filter; no mechanical donor pass/fail gate"
+}

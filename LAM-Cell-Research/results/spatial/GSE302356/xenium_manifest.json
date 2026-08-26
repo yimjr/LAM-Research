@@ -1,0 +1,48 @@
+{
+  "dataset": "GSE302356",
+  "modality": "xenium",
+  "sample_id": "LAM19",
+  "patient_id": "LAM4",
+  "assay": "Xenium",
+  "unit": "cell",
+  "n_matrix_units": 173579,
+  "n_units_analyzed_after_position_filter": 173579,
+  "program_genes_present": {
+    "LAMCORE": [
+      "MLANA",
+      "ACTA2",
+      "CTSK",
+      "ESR1"
+    ],
+    "LAF_fibroblast": [
+      "PDGFRA",
+      "C7"
+    ],
+    "lymphatic_endothelial": [
+      "PDPN",
+      "LYVE1",
+      "PROX1",
+      "PECAM1"
+    ],
+    "immune": [
+      "PTPRC",
+      "AIF1",
+      "CD68",
+      "CD3D",
+      "CD3E"
+    ],
+    "protease": [
+      "CTSK"
+    ],
+    "antiprotease": [],
+    "ECM_remodeling": [
+      "VCAN",
+      "TNC"
+    ]
+  },
+  "panel_unobserved_rule": "A missing gene in Xenium is panel-unobserved, not a biological negative.",
+  "cross_modality_rule": "Do not pool raw units, scores, or p-values across Visium, Visium HD, and Xenium.",
+  "co_localization_note": "Nearest-neighbor enrichment and score correlation are candidate niche evidence only.",
+  "max_units_for_neighbor_summary": 50000,
+  "seed": 20260823
+}

@@ -1,0 +1,15 @@
+{
+  "input": "data/processed/reproduction_core/GSE135851_core_reproduction.h5ad",
+  "known_program_source": "config/known_lam_programs.yaml",
+  "pooled_program_source": "results/program_discovery/pooled_program_genes.csv",
+  "donor_program_source": "results/program_discovery/donor_wise_program_genes.csv",
+  "top_k": [
+    25,
+    50,
+    100
+  ],
+  "null_iterations": 500,
+  "seed": 20260823,
+  "interpretation": "Positive-control benchmark for method sensitivity; does not establish a biological claim.",
+  "unknown_program_interpretation_gate": "Do not interpret weak cross-PatientID matching as patient-specific biology until known-program benchmark is adequate."
+}

@@ -1,0 +1,28 @@
+{
+  "inputs": [
+    "results/perturbation/GSE179044_cross_environment_retained_genes.csv",
+    "results/spatial/GSE302356/single_cell_protease_source_attribution.csv",
+    "results/adaptation/four_group_lung_acquired_interactions.csv",
+    "results/program_discovery/benchmark/known_program_extended_benchmark_summary.csv"
+  ],
+  "protein_sources": [
+    "MSV000099051",
+    "LAM_SomaScan_2025"
+  ],
+  "protein_status": "Protein matrices remain pending; this table does not claim a plasma/EV abundance result.",
+  "integration_rule": "Cross-cohort evidence integration only; no patient-level RNA-protein correlation without matched PatientID.",
+  "priority_genes": [
+    "CCL14",
+    "CTSK",
+    "CTSS",
+    "ELANE",
+    "FAP",
+    "MMP2",
+    "MMP8",
+    "MMP9",
+    "PMEL",
+    "S100A4",
+    "VEGFD"
+  ],
+  "interpretation": "A cross-modal candidate link is not a confirmed mechanism and requires independent validation."
+}

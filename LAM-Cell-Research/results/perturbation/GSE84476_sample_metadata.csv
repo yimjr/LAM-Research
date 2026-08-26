@@ -1,0 +1,7 @@
+sample_id,cell_line,genotype,treatment
+103cell_siCtrl,103cell,TSC2-reexpressed,siCtrl
+103cell_siSTAT3,103cell,TSC2-reexpressed,siSTAT3
+103cell_Rap,103cell,TSC2-reexpressed,Rap
+102cell_siCtrl,102cell,TSC2-null,siCtrl
+102cell_siSTAT3,102cell,TSC2-null,siSTAT3
+102cell_Rap,102cell,TSC2-null,Rap

@@ -1,0 +1,16 @@
+{
+  "dataset": "GSE122960_normal_lung",
+  "source_matrix": "../LAM-Cell-Research/data/processed/external/GSE122960_normal_lung.h5ad",
+  "source_size_bytes": 311951038,
+  "source_mtime_ns": 1787399081569813604,
+  "shape": [
+    33020,
+    95
+  ],
+  "available_gene_count": 90,
+  "target_gene_count": 95,
+  "raw_counts_available": true,
+  "state_rule": "raw count > 0 means detected; low/high describe expression intervals among nonzero observations",
+  "output": "results/cell_scores/GSE122960_normal_lung_cell_visibility_scores.csv",
+  "intervals": "manifests/GSE122960_normal_lung_expression_intervals.csv"
+}

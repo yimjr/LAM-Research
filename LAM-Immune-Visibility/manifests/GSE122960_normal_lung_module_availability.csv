@@ -1,0 +1,16 @@
+dataset,module,n_genes_requested,n_genes_available,available_genes,missing_genes,module_status
+GSE122960_normal_lung,identity_protected,7,6,ACTA2;CTSK;FIGF;ESR1;HOXA11;HOXD11,VEGFD,partial_coverage
+GSE122960_normal_lung,antigen_associated,6,6,PMEL;MLANA;TYRP1;DCT;MITF;GPNMB,,analyzable
+GSE122960_normal_lung,presentation_machinery,12,12,B2M;HLA-A;HLA-B;HLA-C;TAP1;TAP2;TAPBP;PSMB8;PSMB9;ERAP1;ERAP2;NLRC5,,analyzable
+GSE122960_normal_lung,ifn_response,9,9,STAT1;IRF1;ISG15;IFIT1;IFIT2;IFIT3;IFITM3;IFITM1;IFITM2,,analyzable
+GSE122960_normal_lung,immune_evasion,7,6,CD274;PDCD1LG2;LGALS9;CD276;HLA-E;PVR,NECTIN2,partial_coverage
+GSE122960_normal_lung,nk_ligands,8,5,MICA;MICB;ULBP1;ULBP2;ULBP3,ULBP4;ULBP5;ULBP6,partial_coverage
+GSE122960_normal_lung,cd8_cytotoxicity,5,5,GZMB;PRF1;NKG7;IFNG;CCL5,,analyzable
+GSE122960_normal_lung,t_cell_exhaustion,5,5,PDCD1;TIGIT;LAG3;HAVCR2;TOX,,analyzable
+GSE122960_normal_lung,nk_state,5,5,NKG7;GNLY;KLRD1;KLRC1;FCGR3A,,analyzable
+GSE122960_normal_lung,macrophage_suppressive,8,8,TREM2;TYROBP;APOE;C1QA;C1QB;C1QC;LST1;FCER1G,,analyzable
+GSE122960_normal_lung,t_cell_markers,6,6,CD3D;CD3E;TRBC1;TRBC2;CD8A;CD8B,,analyzable
+GSE122960_normal_lung,nk_markers,4,4,NKG7;GNLY;KLRD1;KLRC1,,analyzable
+GSE122960_normal_lung,macrophage_markers,7,7,LST1;TYROBP;FCER1G;AIF1;C1QA;C1QB;C1QC,,analyzable
+GSE122960_normal_lung,stem_like,10,10,MDK;SOX2;PROM1;NES;LGR5;EPCAM;KLF4;NANOG;DPPA4;HMGA2,,analyzable
+GSE122960_normal_lung,inflammatory,10,10,IL6;IL1B;CXCL8;CCL2;CCL7;NFKBIA;TNFAIP3;STAT1;ISG15;IFIT1,,analyzable

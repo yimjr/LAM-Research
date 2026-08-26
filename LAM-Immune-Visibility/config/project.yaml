@@ -1,0 +1,19 @@
+project: LAM-Immune-Visibility
+source_manifest: config/source_manifest.yaml
+signatures: config/signatures.yaml
+random_seed: 20260823
+
+expression:
+  positive_expression_quantile: 0.25
+  min_positive_observations_for_interval: 20
+  low_quality_min_genes: 200
+  low_quality_min_counts: 500
+
+modules:
+  min_available_genes: 2
+  min_detected_genes_for_cell_type: 2
+
+independence:
+  minimum_patients_for_association: 3
+  same_patient_modalities_are_not_independent: true
+

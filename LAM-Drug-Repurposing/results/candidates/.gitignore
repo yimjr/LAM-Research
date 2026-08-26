@@ -1,0 +1,5 @@
+# Large locally generated LINCS detail/summary tables.
+# The compact, reviewable candidate table remains versionable.
+GSE92742_LINCS_signature_WTCS.parquet
+LINCS_context_summary.csv.gz
+LINCS_candidate_ranking.csv

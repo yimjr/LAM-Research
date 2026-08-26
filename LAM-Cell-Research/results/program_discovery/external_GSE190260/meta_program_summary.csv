@@ -1,0 +1,4 @@
+pool,best_pooled_program,independently_discovered_donors,mean_top_gene_jaccard,min_top_gene_jaccard,max_top_gene_jaccard
+broad_lam_like,program_5,1,0.16279069767441862,0.16279069767441862,0.16279069767441862
+unrestricted_lam,program_2,1,0.16279069767441862,0.16279069767441862,0.16279069767441862
+unrestricted_lam,program_5,1,0.17647058823529413,0.17647058823529413,0.17647058823529413

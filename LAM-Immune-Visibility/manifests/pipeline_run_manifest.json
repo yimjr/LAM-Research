@@ -1,0 +1,7 @@
+{
+  "stages": [
+    "score"
+  ],
+  "python": "../LAM-Cell-Research/.venv/bin/python",
+  "source_write_policy": "read-only source projects; all outputs under this project"
+}

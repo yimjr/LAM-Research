@@ -1,0 +1,21 @@
+{
+  "GSE302356": {
+    "metadata": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE302nnn/GSE302356/miniml/GSE302356_family.xml.tgz",
+    "selected_archives": [
+      "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9102nnn/GSM9102552/suppl/GSM9102552_LAM3.tar.gz",
+      "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9102nnn/GSM9102553/suppl/GSM9102553_LAM4.tar.gz",
+      "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9226nnn/GSM9226654/suppl/GSM9226654_LAM18.tar.gz",
+      "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9226nnn/GSM9226655/suppl/GSM9226655_LAM19.tar.gz",
+      "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9226nnn/GSM9226656/suppl/GSM9226656_LAM20.tar.gz"
+    ],
+    "intentionally_not_downloaded": ["LAM10/LAM13 Multiome archives"]
+  },
+  "GSE84476": {
+    "fold_changes": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE84nnn/GSE84476/suppl/GSE84476_VKMJ-STAT3_fold_changes.txt.gz",
+    "annotation": "https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_24/gencode.v24.annotation.gtf.gz"
+  },
+  "GSE104335": {
+    "raw_archive": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE104nnn/GSE104335/suppl/GSE104335_RAW.tar",
+    "status": "downloaded; HTA-2_0 processed CHP gene-level extraction completed"
+  }
+}

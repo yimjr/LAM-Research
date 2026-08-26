@@ -1,0 +1,51 @@
+lamcore_formal:
+  source: "LAM Cell Atlas interactive LAMCORE signature table, adapted from Guo et al. AJRCCM 2020"
+  source_url: "https://research.cchmc.org/pbge/lunggens/lungDisease/lamcore_query.html"
+  file: "data/raw/reference/LAM_core_signature_genes.csv"
+  gene_column: "Gene"
+  expected_genes: 777
+
+lamcore_fallback:
+  source: "Exploratory four-gene marker panel; not the formal LAMCORE signature"
+  genes:
+    - ACTA2
+    - PMEL
+    - FIGF
+    - MLANA
+
+programs:
+  contractile:
+    - ACTA2
+    - TAGLN
+    - MYL9
+    - CNN1
+    - MYH11
+    - TPM2
+  ecM_remodeling:
+    - COL1A1
+    - COL1A2
+    - COL3A1
+    - DCN
+    - LUM
+    - FN1
+    - SPARC
+  proliferation:
+    - MKI67
+    - TOP2A
+    - PCNA
+    - UBE2C
+    - CENPF
+  stress_hypoxia:
+    - HIF1A
+    - VEGFA
+    - DDIT3
+    - ATF4
+    - HSPA1A
+    - HSPA1B
+  inflammatory_response:
+    - IL6
+    - CXCL8
+    - CCL2
+    - TNF
+    - NFKBIA
+    - IFITM3

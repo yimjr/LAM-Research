@@ -1,0 +1,7 @@
+program,pulmonary_LAM_minus_normal_lung,LAM_uterus_minus_normal_uterus,lung_acquired_interaction,classification,interpretation
+lineage_origin_smooth_muscle,1.5600512075512176,2.7905032280629483,-1.2304520205117306,lineage_or_LAM_transformation_candidate,population-level descriptive interaction; not patient-matched causal evidence
+lung_adaptation,0.6673493617489515,0.0,0.6673493617489515,lung_acquired_candidate,population-level descriptive interaction; not patient-matched causal evidence
+ECM_interaction,0.4547786792764845,0.4673564686271878,-0.012577789350703306,lineage_or_LAM_transformation_candidate,population-level descriptive interaction; not patient-matched causal evidence
+survival_stress,-0.055442485965429555,-0.10820424627663427,0.05276176031120472,unresolved_or_reference_sensitive,population-level descriptive interaction; not patient-matched causal evidence
+immune_evasion,-0.04540220818791563,0.0,-0.04540220818791563,unresolved_or_reference_sensitive,population-level descriptive interaction; not patient-matched causal evidence
+hormone_related,0.0,0.7753390708417411,-0.7753390708417411,unresolved_or_reference_sensitive,population-level descriptive interaction; not patient-matched causal evidence

@@ -1,0 +1,6 @@
+# Large generated result files (>50 MB)
+results/spatial/visium_hd_visibility_unit_scores.csv
+results/cell_scores/GSE190260_cell_visibility_scores.csv
+results/cell_scores/GSE135851_cell_visibility_scores.csv
+results/spatial/xenium_visibility_unit_scores.csv
+results/cell_scores/GSE122960_normal_lung_cell_visibility_scores.csv

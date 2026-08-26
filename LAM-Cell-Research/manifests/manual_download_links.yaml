@@ -1,0 +1,23 @@
+download_links:
+  GSE190260_LAM1163:
+    url: https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM5718nnn/GSM5718715/suppl/GSM5718715_LAM1163.tar.gz
+    destination: data/raw/external/GSE190260/samples/GSM5718715_LAM1163.tar.gz
+    expected_size_bytes: 100022737
+  GSE302356_LAM14_snATAC:
+    url: https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9226nnn/GSM9226651/suppl/GSM9226651_LAM14.tar.gz
+    destination: data/raw/external/GSE302356/GSM9226651_LAM14.tar.gz
+    expected_size_bytes: 54956907
+  GSE302356_LAM15_snATAC:
+    url: https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9226nnn/GSM9226652/suppl/GSM9226652_LAM15.tar.gz
+    destination: data/raw/external/GSE302356/GSM9226652_LAM15.tar.gz
+    expected_size_bytes: 84294125
+  GSE302356_LAM10_Multiome:
+    url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE302nnn/GSE302356/suppl/GSE302356_LAM10.tar.gz
+    destination: data/raw/external/GSE302356/GSE302356_LAM10.tar.gz
+  GSE302356_LAM13_Multiome:
+    url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE302nnn/GSE302356/suppl/GSE302356_LAM13.tar.gz
+    destination: data/raw/external/GSE302356/GSE302356_LAM13.tar.gz
+  GSE302356_LAM19_Xenium:
+    url: https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9226nnn/GSM9226655/suppl/GSM9226655_LAM19.tar.gz
+    destination: data/raw/external/GSE302356/GSM9226655_LAM19.tar.gz
+verification: gzip -t archive.tar.gz && tar -tzf archive.tar.gz >/dev/null

@@ -1,0 +1,2 @@
+dataset,donor_id,cells,mean_contractile,mean_ecm_remodeling,mean_proliferative,mean_stress_hypoxia,mean_inflammatory,mean_hormone_related,mean_metabolic,mean_mTOR_related,mean_lymphatic_endothelial,mean_vascular_endothelial,mean_fibroblast,mean_immune
+GSE118180_wildtype_uterus,GSE118180_Wildtype_Uterus,6487,0.23143057634612282,0.8047866454879664,0.06499090723844045,0.021483212206657214,0.10037855547373442,-0.0949514455279319,-0.045531218365676286,-0.0003484742282246843,-0.014641037526934837,-0.00022655576935352802,0.7655508892094385,-0.0011365075945860017

@@ -1,0 +1,20 @@
+{
+  "records": [
+    {"accession": "GSE179044", "path": "data/raw/GSE179044/GSE179044_raw_counts_matrix.csv.gz", "sha256": "3819e9fdae0f1f95c1e28e1c8c039d20aca04ddfab8687afef3c858ea31fe013", "size": 2096202, "status": "downloaded"},
+    {"accession": "GSE27982", "path": "data/raw/GSE27982/GSE27982_series_matrix.txt.gz", "sha256": "4a1bdee12d7bba1a79888fedca8a2eea69554e2bf98f354ad4a4d472dfa840a0", "size": 1102802, "status": "downloaded"},
+    {"accession": "GPL339", "path": "data/raw/GPL339/GPL339.annot.gz", "sha256": "a097185b03ce8bbc3f2757e9c2865438380132a7425777af1879e228bf1d9d9c", "size": 5130293, "status": "downloaded"},
+    {"accession": "GSE16944", "path": "data/raw/GSE16944/GSE16944_series_matrix.txt.gz", "sha256": "01b3e4b6d2f96482606029ffb0e35d39a76c36258a6ccc5556e3717f0302632a", "size": 1901089, "status": "downloaded"},
+    {"accession": "GPL2895", "path": "data/raw/GPL2895/GPL2895.annot.gz", "sha256": "91e4f679c2a99e6274583b98906c28d4702146e85c63f26b927dc183d0041ce9", "size": 6360585, "status": "downloaded"},
+    {"accession": "GSE84476", "path": "data/raw/GSE84476/GSE84476_VKMJ-STAT3_kallisto_abundance.txt.gz", "sha256": "93f76fb642c880f5f9edd80f9f95c472da54497c3c3b83b1c3ab4fca06c7356f", "size": 8980069, "status": "downloaded"},
+    {"accession": "GSE84476", "path": "data/raw/GSE84476/GSE84476_VKMJ-STAT3_fold_changes.txt.gz", "sha256": "01851834a2b91874cd4ae1ebf0bfdc24141467dfddc46818a09862315fe41d31", "size": 1685124, "status": "downloaded"},
+    {"accession": "Gencode", "path": "data/raw/annotation/gencode.v24.annotation.gtf.gz", "sha256": "147e62909c2cdd622433edae71796367b5774aa17f676174242801a79220093d", "size": 38708036, "status": "downloaded"},
+    {"accession": "Gencode", "path": "data/raw/annotation/gencode.v44.annotation.gtf.gz", "sha256": "01f817afed65feee863361b4baf30a95e722ee5c5d508ff77b04106ef7ba20d3", "size": 49721965, "status": "downloaded"},
+    {"accession": "GSE104335", "path": "data/raw/GSE104335/GSE104335_RAW.tar", "sha256": "f3ad86ec74148a9ed25e282690d9c2390f8af4a705becf871d997bef91252e94", "size": 581529600, "status": "downloaded"},
+    {"accession": "GSE302356", "path": "data/raw/GSE302356/GSE302356_family.xml.tgz", "sha256": "c3861163a713eb0bb406007fc112b737a365cd61e5c5ccbedff515654af2852a", "size": 5348, "status": "downloaded"},
+    {"accession": "GSE302356", "path": "data/raw/GSE302356/GSM9102552_LAM3.tar.gz", "sha256": "54fb7df37fb3f88f5383482002877cfabc05037466e1084e1d7ca98c47cf44fd", "size": 73088181, "status": "downloaded"},
+    {"accession": "GSE302356", "path": "data/raw/GSE302356/GSM9102553_LAM4.tar.gz", "sha256": "c7c1f607ecf5abef08d30303604e62921db6d70c2c4551986a3772c5fcddbf39", "size": 45247735, "status": "downloaded"},
+    {"accession": "GSE302356", "path": "data/raw/GSE302356/GSM9226654_LAM18.tar.gz", "sha256": "512222fcc11ae35092add4b212bb7ded3ba3ca7394cb3f38622a2248993fb297", "size": 54956907, "status": "downloaded"},
+    {"accession": "GSE302356", "path": "data/raw/GSE302356/GSM9226655_LAM19.tar.gz", "sha256": "", "size": 9691444498, "status": "downloaded; gzip -t passed; checksum not computed because archive is large"},
+    {"accession": "GSE302356", "path": "data/raw/GSE302356/GSM9226656_LAM20.tar.gz", "sha256": "95d0b5dab8edbc8173a5f0bf97603af6a8387d79028fed4ea98cfafe86d0362d", "size": 24765853, "status": "downloaded"}
+  ]
+}

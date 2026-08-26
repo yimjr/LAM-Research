@@ -1,0 +1,16 @@
+{
+  "primary_panel": "tsc2_loss_plastic top150 up + top150 down",
+  "n_primary_panel_genes": 300,
+  "n_common_genes_GSE92742_GSE70138": 204,
+  "n_unique_compounds": 29,
+  "n_reversal_only_compounds": 20,
+  "n_mimic_only_compounds": 9,
+  "min_valid_signatures": 3,
+  "min_direction_fraction": 0.6,
+  "neutral_definition": "available data but neither reversal nor mimic fraction reaches stability threshold",
+  "not_available_definition": "insufficient valid signatures or gene not available in the release",
+  "cross_release_gene_panel_definition": "intersection of release-specific analyzable genes",
+  "module_match_rule": "Jaccard >= 0.5 and at least 3 shared genes",
+  "enrichment_background": "actual clusterable genes per release; common analyzable genes for cross-release comparison",
+  "go_reactome_msigdb": "not_run_no_local_gmt"
+}

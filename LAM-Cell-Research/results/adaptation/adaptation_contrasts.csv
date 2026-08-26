@@ -1,0 +1,7 @@
+program,lamcore_candidate_median_across_donors,normal_lung_reference_median_across_donors,mouse_uterus_reference_median,lam_vs_normal_lung_difference,lam_vs_mouse_uterus_difference,interpretation
+lineage_origin_smooth_muscle,1.5600512075512176,0.0,1.1926137682146467,1.5600512075512176,0.3674374393365709,"descriptive origin/adaptation comparison; uterus is a lineage reference, not a negative control"
+lung_adaptation,0.6673493617489517,0.0,0.0,0.6673493617489517,0.6673493617489517,"descriptive origin/adaptation comparison; uterus is a lineage reference, not a negative control"
+ECM_interaction,0.5901199665536103,0.1353412872771258,1.805855766262805,0.4547786792764845,-1.2157357997091947,"descriptive origin/adaptation comparison; uterus is a lineage reference, not a negative control"
+survival_stress,0.8600811152461657,0.9155236012115953,0.2737237676184746,-0.055442485965429555,0.5863573476276911,"descriptive origin/adaptation comparison; uterus is a lineage reference, not a negative control"
+immune_evasion,0.9555145360245031,1.0009167442124187,0.0,-0.04540220818791563,0.9555145360245031,"descriptive origin/adaptation comparison; uterus is a lineage reference, not a negative control"
+hormone_related,0.0,0.0,0.0,0.0,0.0,"descriptive origin/adaptation comparison; uterus is a lineage reference, not a negative control"

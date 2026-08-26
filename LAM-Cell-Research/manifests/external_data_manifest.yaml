@@ -1,0 +1,72 @@
+status: downloaded_and_extracted
+datasets:
+- accession: GSE118180
+  role: normal_mouse_uterus_auxiliary
+  source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE118180
+  download_url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE118nnn/GSE118180/suppl/GSE118180_RAW.tar
+  downloaded_at: '2026-08-22T11:28:55.387607+00:00'
+  archive:
+    path: data/raw/GSE118180/GSE118180_RAW.tar
+    size_bytes: 19507200
+    sha256: 2976da682fa8b9fd05f414de8b6edb8208e48ab38ee00934ad5d4b57241f5d5e
+  requested_samples:
+  - GSM3320143
+  archive_members:
+  - GSM3320142_A910D91011_out_gene_exon_tagged.dge.txt.gz
+  - GSM3320143_WT_Uterus_out_gene_exon_tagged.dge.txt.gz
+  - GSM3320144_ACD_het_out_gene_exon_tagged.dge.txt.gz
+  nested_members: []
+  extracted_dir: data/raw/GSE118180/extracted
+- accession: GSE122960
+  role: additional_normal_human_lung
+  source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE122960
+  download_url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE122nnn/GSE122960/suppl/GSE122960_RAW.tar
+  downloaded_at: '2026-08-22T11:28:54.921830+00:00'
+  archive:
+    path: data/raw/GSE122960/GSE122960_RAW.tar
+    size_bytes: 755537920
+    sha256: 8735652ee99beb5cb50bf3bb51fd1556f01599b9f456f31bd37fff24a1261ab7
+  requested_samples:
+  - GSM3489182
+  - GSM3489187
+  - GSM3489189
+  - GSM3489191
+  - GSM3489193
+  - GSM3489195
+  archive_members:
+  - GSM3489182_Donor_01_filtered_gene_bc_matrices_h5.h5
+  - GSM3489182_Donor_01_raw_gene_bc_matrices_h5.h5
+  - GSM3489183_IPF_01_filtered_gene_bc_matrices_h5.h5
+  - GSM3489183_IPF_01_raw_gene_bc_matrices_h5.h5
+  - GSM3489184_IPF_02_filtered_gene_bc_matrices_h5.h5
+  - GSM3489184_IPF_02_raw_gene_bc_matrices_h5.h5
+  - GSM3489185_Donor_02_filtered_gene_bc_matrices_h5.h5
+  - GSM3489185_Donor_02_raw_gene_bc_matrices_h5.h5
+  - GSM3489186_Cryobiopsy_01_filtered_gene_bc_matrices_h5.h5
+  - GSM3489186_Cryobiopsy_01_raw_gene_bc_matrices_h5.h5
+  - GSM3489187_Donor_03_filtered_gene_bc_matrices_h5.h5
+  - GSM3489187_Donor_03_raw_gene_bc_matrices_h5.h5
+  - GSM3489188_IPF_03_filtered_gene_bc_matrices_h5.h5
+  - GSM3489188_IPF_03_raw_gene_bc_matrices_h5.h5
+  - GSM3489189_Donor_04_filtered_gene_bc_matrices_h5.h5
+  - GSM3489189_Donor_04_raw_gene_bc_matrices_h5.h5
+  - GSM3489190_IPF_04_filtered_gene_bc_matrices_h5.h5
+  - GSM3489190_IPF_04_raw_gene_bc_matrices_h5.h5
+  - GSM3489191_Donor_05_filtered_gene_bc_matrices_h5.h5
+  - GSM3489191_Donor_05_raw_gene_bc_matrices_h5.h5
+  - GSM3489192_HP_01_filtered_gene_bc_matrices_h5.h5
+  - GSM3489192_HP_01_raw_gene_bc_matrices_h5.h5
+  - GSM3489193_Donor_06_filtered_gene_bc_matrices_h5.h5
+  - GSM3489193_Donor_06_raw_gene_bc_matrices_h5.h5
+  - GSM3489194_SSc-ILD_01_filtered_gene_bc_matrices_h5.h5
+  - GSM3489194_SSc-ILD_01_raw_gene_bc_matrices_h5.h5
+  - GSM3489195_Donor_07_filtered_gene_bc_matrices_h5.h5
+  - GSM3489195_Donor_07_raw_gene_bc_matrices_h5.h5
+  - GSM3489196_Myositis-ILD_01_filtered_gene_bc_matrices_h5.h5
+  - GSM3489196_Myositis-ILD_01_raw_gene_bc_matrices_h5.h5
+  - GSM3489197_Donor_08_filtered_gene_bc_matrices_h5.h5
+  - GSM3489197_Donor_08_raw_gene_bc_matrices_h5.h5
+  - GSM3489198_SSc-ILD_02_filtered_gene_bc_matrices_h5.h5
+  - GSM3489198_SSc-ILD_02_raw_gene_bc_matrices_h5.h5
+  nested_members: []
+  extracted_dir: data/raw/GSE122960/extracted

@@ -1,0 +1,49 @@
+{
+  "status": "downloaded_verified_and_moved",
+  "source_directory": "../data",
+  "destination_directory": "data/raw/LINCS",
+  "verification": [
+    "gzip -t passed for all downloaded gzip files",
+    "SHA512 matched the GEO-provided SHA512SUMS files for every downloaded file"
+  ],
+  "datasets": {
+    "GSE92742": {
+      "source": "NCBI GEO supplementary files",
+      "files": [
+        {"path": "data/raw/LINCS/GSE92742/GSE92742_Broad_LINCS_Level5_COMPZ.MODZ_n473647x12328.gctx.gz", "size_bytes": 21328033748, "sha512": "6a3115cf3aaa402bb1bc098678b52b9c03632fc21087050e3e1a56c24a60196c4809bbac3797978dab63a47d955ff7a2c6110025a6e6d3cef4c5f6e010208a2a"},
+        {"path": "data/raw/LINCS/GSE92742/GSE92742_Broad_LINCS_gene_info.txt.gz", "size_bytes": 216692, "sha512": "b2df105ebf7a69799b23130d03b7da769bfd6ab83fd69cbb419c91c78ae069ae3e5d474e09d36e3ac4271f3b7fc56b24caaf1ac5ece9554ea7738b15535dfefd"},
+        {"path": "data/raw/LINCS/GSE92742/GSE92742_Broad_LINCS_pert_info.txt.gz", "size_bytes": 1138509, "sha512": "cdba99a4a6204ecdd26adb2338a418e60ac3da9e18d6d75214dea87c3cf06e951f9356e876f581dd7d6081014a428a11b6ad93b68486954cddbae5e29177530b"},
+        {"path": "data/raw/LINCS/GSE92742/GSE92742_Broad_LINCS_cell_info.txt.gz", "size_bytes": 2528, "sha512": "75b5d4cf9b6f3955bfe888ce22ae85134dd9fd053111c0f0d7b02298640269454267b0bdfcb2dc9ab562e0281b332703eb1d94337e57355945ccc3505b609b4a"},
+        {"path": "data/raw/LINCS/GSE92742/GSE92742_Broad_LINCS_inst_info.txt.gz", "size_bytes": 12046182, "sha512": "4c91c838d348f03c50381fbe4e281edb2a45844d0b792780db3642554275e1b29ac3fbbc542b9cf4e18858135eeb6d58f1fc8206ae96153a40f083286fca7f16"},
+        {"path": "data/raw/LINCS/GSE92742/GSE92742_Broad_LINCS_sig_info.txt.gz", "size_bytes": 11124404, "sha512": "3e334edd319b4abc6f879bec125ad78f869f73f0a222279269b54aac04f81877ed6d2cdcd034adf5efdf378329349242bdcd636113ab78617473dbfae43261c6"},
+        {"path": "data/raw/LINCS/GSE92742/GSE92742_Broad_LINCS_sig_metrics.txt.gz", "size_bytes": 12520228, "sha512": "81b729319fde1144e133ee63a930ead94a79cec12ed311f2e6e0716cce94c68528fd7459c0f3188d1e5aabe389970889e4d6d95fdcd397ea6cfd951d88ea5286"},
+        {"path": "data/raw/LINCS/GSE92742/GSE92742_SHA512SUMS.txt.gz", "size_bytes": 1429, "sha512": "658982ac91c22d4e03f3c3838c4d72b80c82b3eb4d72203a1c202887c33aa70b18d1dc00a30a52c6afbe662e2bc3e8e53f07a8b2863299949bb55ebc82bed962"}
+      ]
+    },
+    "GSE70138": {
+      "source": "NCBI GEO supplementary files",
+      "files": [
+        {"path": "data/raw/LINCS/GSE70138/GSE70138_Broad_LINCS_Level5_COMPZ_n118050x12328_2017-03-06.gctx.gz", "size_bytes": 5365179698, "sha512": "9d078903d3d028f37b0bae584c1afe48f5bab0082e61f6e542de471674c78946cff710132b8e95beb997a39dc2dd6442fdda0fbb1cc9b2399ef21cf636975c9f"},
+        {"path": "data/raw/LINCS/GSE70138/GSE70138_Broad_LINCS_gene_info_2017-03-06.txt.gz", "size_bytes": 216692, "sha512": "b2df105ebf7a69799b23130d03b7da769bfd6ab83fd69cbb419c91c78ae069ae3e5d474e09d36e3ac4271f3b7fc56b24caaf1ac5ece9554ea7738b15535dfefd"},
+        {"path": "data/raw/LINCS/GSE70138/GSE70138_Broad_LINCS_inst_info_2017-03-06.txt.gz", "size_bytes": 4783200, "sha512": "bb162b68fbe94dde005246ba893ba7a43f3eb1f4930339ff137311fd18e05f52a0c1a0c8c15708da4ccee88762fd5327a51a6a9301179300cf9a792739414ae0"},
+        {"path": "data/raw/LINCS/GSE70138/GSE70138_Broad_LINCS_pert_info_2017-03-06.txt.gz", "size_bytes": 82376, "sha512": "b0df8aaa5653c581bd69a3dddd6eaa64e6296a70f40f50b1b80a2854abbee17a9d66e874dc00657c045be738df521f2e673115c1aae9f5972e820e88f0032ddc"},
+        {"path": "data/raw/LINCS/GSE70138/GSE70138_Broad_LINCS_sig_info_2017-03-06.txt.gz", "size_bytes": 1943865, "sha512": "8d16dfc3a8fdfba572797f2519f9bc96b687c3666c78d386b53fc997164dd2a8ab5953c0b323795ec7f62de5de4ddbd0285e79f8be48487156479dc8ee0128c9"},
+        {"path": "data/raw/LINCS/GSE70138/GSE70138_Broad_LINCS_sig_metrics_2017-03-06.txt.gz", "size_bytes": 3137083, "sha512": "b9a79bc8835aa19bb46a824e1458d15ecc6d5ceff16afee1f02e759f495a7c2e8b4c99761e1d00ca8db10fc4789a6ba65958f9aabf3daa557681fd542a5ab89a"},
+        {"path": "data/raw/LINCS/GSE70138/GSE70138_Broad_LINCS_cell_info_2017-04-28.txt.gz", "size_bytes": 2528, "sha512": "75b5d4cf9b6f3955bfe888ce22ae85134dd9fd053111c0f0d7b02298640269454267b0bdfcb2dc9ab562e0281b332703eb1d94337e57355945ccc3505b609b4a"},
+        {"path": "data/raw/LINCS/GSE70138/GSE70138_SHA512SUMS.txt.gz", "size_bytes": 1071, "sha512": "77ef120b924c790088111511bdbdfcbfefc4083fbfbb2f59996bf5fb5343e1a5982c3624aad3d6874edc3f8a85851e020cabfade5e2d6898c7fa6dbb30d151e4"}
+      ]
+    }
+  },
+  "post_audit_moves": [
+    {
+      "source": "../data/GSM9226655_LAM19.tar.gz",
+      "destination": "data/raw/GSE302356/GSM9226655_LAM19.tar.gz",
+      "reason": "Project-owned GSE302356/LAM19 input; neighboring LAM-Cell-Research has an independent copy and does not reference the shared-root path."
+    },
+    {
+      "source": "../research_log/2026-08-23_stress_enrichment_validation.md",
+      "destination": "../../../../private/tmp/LAM-Drug-Repurposing-misplaced-20260826/2026-08-23_stress_enrichment_validation_root_copy.md",
+      "reason": "Duplicate project research log found in the shared root; the corrected project-folder copy was retained."
+    }
+  ]
+}

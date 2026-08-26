@@ -1,0 +1,57 @@
+external_datasets:
+  - accession: GSE190260
+    role: external_rna_known_state_trap
+    organism: Homo sapiens
+    assay: scRNA
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE190260
+    download_url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE190nnn/GSE190260/suppl/GSE190260_RAW.tar
+    donor_policy: "Use patient_id; LAM1164-1/2/3 are one pending donor until confirmed."
+  - accession: GSE217108
+    role: external_rna_atac_orthogonal
+    organism: Homo sapiens
+    assay: snRNA+snATAC
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE217108
+    donor_policy: "Two donors: LAM32 and LAM44; RNA and ATAC are same-donor orthogonal evidence."
+  - accession: GSE302356
+    role: external_rna_atac_spatial
+    organism: Homo sapiens
+    assay: scRNA+snATAC+spatial
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE302356
+    donor_policy: "Count PatientID, not SampleID; same-donor assays are orthogonal evidence."
+  - accession: GSE122960
+    role: additional_normal_human_lung
+    organism: Homo sapiens
+    assay: scRNA
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE122960
+    download_url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE122nnn/GSE122960/suppl/GSE122960_RAW.tar
+    include_samples:
+      - gsm: GSM3489182
+        sample_id: GSE122960_Donor_01
+        donor_id: GSE122960_Donor_01
+      - gsm: GSM3489187
+        sample_id: GSE122960_Donor_03
+        donor_id: GSE122960_Donor_03
+      - gsm: GSM3489189
+        sample_id: GSE122960_Donor_04
+        donor_id: GSE122960_Donor_04
+      - gsm: GSM3489191
+        sample_id: GSE122960_Donor_05
+        donor_id: GSE122960_Donor_05
+      - gsm: GSM3489193
+        sample_id: GSE122960_Donor_06
+        donor_id: GSE122960_Donor_06
+      - gsm: GSM3489195
+        sample_id: GSE122960_Donor_07
+        donor_id: GSE122960_Donor_07
+    note: "Six additional human donor lungs used by the original study's lung-control module; Donor_08 is retained in the accession manifest but not in the initial core comparison."
+  - accession: GSE118180
+    role: normal_mouse_uterus_auxiliary
+    organism: Mus musculus
+    assay: scRNA
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE118180
+    download_url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE118nnn/GSE118180/suppl/GSE118180_RAW.tar
+    include_samples:
+      - gsm: GSM3320143
+        sample_id: GSE118180_Wildtype_Uterus
+        donor_id: GSE118180_Wildtype_Uterus
+    note: "Wild-type mouse uterus is an auxiliary tissue-origin comparison, not part of the core human lung baseline."

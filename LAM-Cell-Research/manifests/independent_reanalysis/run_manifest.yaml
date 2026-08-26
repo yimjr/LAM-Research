@@ -1,0 +1,26 @@
+status: analysis_completed_formal_signature_robustness_checked
+project: LAM-Cell-Research
+python: 3.12.13 (main, Aug  7 2026, 02:15:23) [Clang 22.1.3 ]
+steps:
+- name: qc_and_preprocess
+  completed_at: '2026-08-22T09:27:25.755758+00:00'
+  input: data/interim/GSE135851_combined_raw.h5ad
+  output: data/processed/GSE135851_preprocessed.h5ad
+  doublet_status: completed
+  harmony_status: completed
+- name: analyze_lam_states
+  completed_at: '2026-08-22T10:18:54.404200+00:00'
+  input: data/processed/GSE135851_preprocessed.h5ad
+  output: data/processed/GSE135851_lam_states.h5ad
+  formal_signature_file: data/raw/reference/LAM_core_signature_genes.csv
+  formal_signature_sha256: c96cf4c684e6aac0976775fc3ce4dc894e13d264007e035f29950bb95d7fe9d6
+  formal_candidate_method: cluster_mean_score
+  fallback_candidate_method: cell_score_fallback
+- name: robustness_tests
+  completed_at: '2026-08-22T10:23:27.664055+00:00'
+  input: data/processed/GSE135851_lam_states.h5ad
+  outputs:
+  - results/tables/robustness_threshold_sensitivity.csv
+  - results/tables/robustness_qc_sensitivity.csv
+  - results/tables/robustness_assay_summary.csv
+  - results/tables/robustness_summary.json

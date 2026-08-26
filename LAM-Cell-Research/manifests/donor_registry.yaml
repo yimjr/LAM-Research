@@ -1,0 +1,155 @@
+version: 1
+unit_of_independence: actual_donor_or_study_system
+notes:
+  - "Accessions are not independent replicates by themselves."
+  - "GSE139819 and GSE139534 are one study system; GSE139534 is the human scRNA subseries and is not counted as a second independent validation cohort."
+donors:
+  - donor_id: LAM1
+    accession: GSE135851
+    gsm: GSM4035465
+    tissue: lung
+    assay: scRNA
+    condition: LAM
+    role: core_lam_donor
+    independent_group: GSE135851_LAM_core
+  - donor_id: LAM2
+    accession: GSE135851
+    gsm: GSM4035466
+    tissue: lung
+    assay: snRNA
+    condition: LAM
+    role: core_lam_donor
+    independent_group: GSE135851_LAM_core
+  - donor_id: LAM3
+    accession: GSE135851
+    gsm: GSM4035467
+    tissue: lung
+    assay: scRNA
+    condition: LAM
+    role: core_lam_donor
+    independent_group: GSE135851_LAM_core
+  - donor_id: LAM4
+    accession: GSE135851
+    gsm: GSM4035468
+    tissue: lung
+    assay: snRNA
+    condition: LAM
+    role: core_lam_donor
+    independent_group: GSE135851_LAM_core
+  - donor_id: Donor1
+    accession: GSE135851
+    gsm: GSM4035472
+    tissue: lung
+    assay: scRNA
+    condition: control
+    role: core_reference_lung
+    independent_group: GSE135851_reference
+  - donor_id: GSE122960_Donor_01
+    accession: GSE122960
+    gsm: GSM3489182
+    tissue: lung
+    assay: scRNA
+    condition: control
+    role: additional_normal_lung
+    independent_group: GSE122960_normal_lung
+  - donor_id: GSE122960_Donor_03
+    accession: GSE122960
+    gsm: GSM3489187
+    tissue: lung
+    assay: scRNA
+    condition: control
+    role: additional_normal_lung
+    independent_group: GSE122960_normal_lung
+  - donor_id: GSE122960_Donor_04
+    accession: GSE122960
+    gsm: GSM3489189
+    tissue: lung
+    assay: scRNA
+    condition: control
+    role: additional_normal_lung
+    independent_group: GSE122960_normal_lung
+  - donor_id: GSE122960_Donor_05
+    accession: GSE122960
+    gsm: GSM3489191
+    tissue: lung
+    assay: scRNA
+    condition: control
+    role: additional_normal_lung
+    independent_group: GSE122960_normal_lung
+  - donor_id: GSE122960_Donor_06
+    accession: GSE122960
+    gsm: GSM3489193
+    tissue: lung
+    assay: scRNA
+    condition: control
+    role: additional_normal_lung
+    independent_group: GSE122960_normal_lung
+  - donor_id: GSE122960_Donor_07
+    accession: GSE122960
+    gsm: GSM3489195
+    tissue: lung
+    assay: scRNA
+    condition: control
+    role: additional_normal_lung
+    independent_group: GSE122960_normal_lung
+  - donor_id: GSE118180_Wildtype_Uterus
+    accession: GSE118180
+    gsm: GSM3320143
+    tissue: uterus
+    organism: Mus musculus
+    assay: scRNA
+    condition: control
+    role: auxiliary_tissue_origin_reference
+    independent_group: GSE118180_mouse_uterus
+  - donor_id: GSE139819_GSE139534_human_lam_system
+    accession: GSE139819/GSE139534
+    gsm: GSM4143260;GSM4143261
+    tissue: lung
+    assay: scRNA
+    condition: LAM_and_control
+    role: planned_external_validation
+    independent_group: GSE139819_GSE139534_same_study_system
+  - donor_id: GSE217108_registry_pending
+    accession: GSE217108
+    tissue: lung
+    role: planned_external_validation
+    independent_group: GSE217108_pending
+
+# Corrected evidence registry. PatientID is the independence key; SampleID is
+# only a sequencing or spatial item. Same-donor assays add orthogonal evidence.
+patient_id_policy:
+  primary_key: patient_id
+  sample_key: sample_id
+  specimen_key: specimen_id
+  same_donor_assays_are_independent_donors: false
+  pending_identity_must_not_be_counted_as_independent: true
+
+sample_mappings:
+  GSE217108:
+    - {sample_id: GSM6705234, patient_id: LAM32, specimen_id: LAM32, assay: snRNA-seq, tissue: lung, evidence_type: independent_donor, independence_group: GSE217108_LAM32}
+    - {sample_id: GSM6705232, patient_id: LAM32, specimen_id: LAM32, assay: snATAC-seq, tissue: lung, evidence_type: same_donor_orthogonal, independence_group: GSE217108_LAM32}
+    - {sample_id: GSM6705235, patient_id: LAM44, specimen_id: LAM44, assay: snRNA-seq, tissue: lung, evidence_type: independent_donor, independence_group: GSE217108_LAM44}
+    - {sample_id: GSM6705233, patient_id: LAM44, specimen_id: LAM44, assay: snATAC-seq, tissue: lung, evidence_type: same_donor_orthogonal, independence_group: GSE217108_LAM44}
+  GSE190260:
+    - {sample_id: GSM5718713, patient_id: LAM1110, specimen_id: LAM1110, assay: scRNA-seq, tissue: lung, evidence_type: independent_donor, independence_group: GSE190260_LAM1110, identity_status: confirmed_from_geo}
+    - {sample_id: GSM5718714, patient_id: LAM1158, specimen_id: LAM1158, assay: scRNA-seq, tissue: lung, evidence_type: independent_donor, independence_group: GSE190260_LAM1158, identity_status: confirmed_from_geo}
+    - {sample_id: GSM5718715, patient_id: LAM1163, specimen_id: LAM1163, assay: scRNA-seq, tissue: lung, evidence_type: independent_donor, independence_group: GSE190260_LAM1163, identity_status: confirmed_from_geo}
+    - {sample_id: GSM5718716, patient_id: LAM1164, specimen_id: LAM1164-1, assay: scRNA-seq, tissue: lung, evidence_type: pending, independence_group: GSE190260_LAM1164, identity_status: pending_metadata_confirmation}
+    - {sample_id: GSM5718717, patient_id: LAM1164, specimen_id: LAM1164-2, assay: scRNA-seq, tissue: lung, evidence_type: pending, independence_group: GSE190260_LAM1164, identity_status: pending_metadata_confirmation}
+    - {sample_id: GSM5718718, patient_id: LAM1164, specimen_id: LAM1164-3, assay: scRNA-seq, tissue: lung, evidence_type: pending, independence_group: GSE190260_LAM1164, identity_status: pending_metadata_confirmation}
+  GSE302356:
+    - {sample_id: LAM3, patient_id: LAM32, specimen_id: LAM3, assay: scRNA-seq, tissue: lung, evidence_type: same_donor_orthogonal, independence_group: patient_LAM32, identity_status: mapped_from_paper_patient_id}
+    - {sample_id: LAM4, patient_id: LAM18, specimen_id: LAM4, assay: scRNA-seq, tissue: lung, evidence_type: independent_donor, independence_group: patient_LAM18, identity_status: mapped_from_paper_patient_id}
+    - {sample_id: LAM10, patient_id: LAM3, specimen_id: LAM10, assay: scRNA-seq, tissue: lung, evidence_type: same_donor_orthogonal, independence_group: patient_LAM3, identity_status: mapped_from_paper_patient_id}
+    - {sample_id: LAM13, patient_id: LAM50, specimen_id: LAM13, assay: scRNA-seq, tissue: lung, evidence_type: independent_donor, independence_group: patient_LAM50, identity_status: mapped_from_paper_patient_id}
+    - {sample_id: LAM14, patient_id: LAM3, specimen_id: LAM14, assay: snATAC-seq, tissue: lung, evidence_type: same_donor_orthogonal, independence_group: patient_LAM3, identity_status: mapped_from_paper_patient_id}
+    - {sample_id: LAM15, patient_id: LAM4, specimen_id: LAM15, assay: snATAC-seq, tissue: lung, evidence_type: same_donor_orthogonal, independence_group: patient_LAM4, identity_status: mapped_from_paper_patient_id}
+    - {sample_id: LAM18, patient_id: LAM3, specimen_id: LAM18, assay: Visium HD, tissue: lung, evidence_type: same_donor_orthogonal, independence_group: patient_LAM3, identity_status: mapped_from_paper_patient_id}
+    - {sample_id: LAM19, patient_id: LAM4, specimen_id: LAM19, assay: spatial, tissue: lung, evidence_type: same_donor_orthogonal, independence_group: patient_LAM4, identity_status: mapped_from_paper_patient_id}
+    - {sample_id: LAM20, patient_id: LAM4, specimen_id: LAM20, assay: spatial, tissue: lung, evidence_type: same_donor_orthogonal, independence_group: patient_LAM4, identity_status: mapped_from_paper_patient_id}
+    - {sample_id: LAM16, patient_id: null, specimen_id: LAM16, assay: snATAC-seq, tissue: lung, evidence_type: pending, independence_group: pending_LAM16, identity_status: pending_metadata_confirmation}
+
+registry_notes:
+  - "GSE217108 has two actual LAM patients: LAM32 and LAM44."
+  - "GSE190260 sample/specimen count must not be equated with donor count; LAM1164-1/2/3 remains one pending donor."
+  - "GSE302356 SampleID labels LAM3/LAM4 are not PatientID labels; verify the corrected mapping against source metadata before final counting."

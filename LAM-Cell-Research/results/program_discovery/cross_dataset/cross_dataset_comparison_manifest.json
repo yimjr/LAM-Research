@@ -1,0 +1,44 @@
+{
+  "datasets": {
+    "GSE135851_core": {
+      "dir": "results/program_discovery",
+      "patient_ids": [
+        "LAM1",
+        "LAM2",
+        "LAM3",
+        "LAM4"
+      ]
+    },
+    "GSE190260": {
+      "dir": "results/program_discovery/external_GSE190260",
+      "patient_ids": [
+        "LAM1110",
+        "LAM1158",
+        "LAM1163",
+        "LAM1164"
+      ]
+    },
+    "GSE217108": {
+      "dir": "results/program_discovery/external_GSE217108",
+      "patient_ids": [
+        "LAM32",
+        "LAM44"
+      ]
+    },
+    "GSE302356": {
+      "dir": "results/program_discovery/external_GSE302356",
+      "patient_ids": [
+        "LAM32",
+        "LAM18",
+        "LAM3",
+        "LAM50"
+      ]
+    }
+  },
+  "top_gene_threshold": 0.15,
+  "interpretation": "Gene-set overlap is a candidate matching signal; independent PatientID and orthogonal assay evidence must be assessed separately.",
+  "outputs": [
+    "cross_dataset_program_matches.csv",
+    "cross_dataset_meta_programs.csv"
+  ]
+}

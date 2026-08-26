@@ -1,0 +1,119 @@
+datasets:
+  GSE179044:
+    role: core_factorial_discovery
+    organism: Homo sapiens
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE179044
+    files:
+      - name: raw_counts_matrix.csv.gz
+        url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE179nnn/GSE179044/suppl/GSE179044_raw_counts_matrix.csv.gz
+        path: data/raw/GSE179044/GSE179044_raw_counts_matrix.csv.gz
+    samples:
+      - {sample_id: GSM5404467, genotype: WT, treatment: vehicle, environment: hydrogel, replicate: 1}
+      - {sample_id: GSM5404468, genotype: KO, treatment: vehicle, environment: hydrogel, replicate: 1}
+      - {sample_id: GSM5404469, genotype: WT, treatment: rapamycin, environment: hydrogel, replicate: 1}
+      - {sample_id: GSM5404470, genotype: KO, treatment: rapamycin, environment: hydrogel, replicate: 1}
+      - {sample_id: GSM5404471, genotype: WT, treatment: vehicle, environment: plastic, replicate: 1}
+      - {sample_id: GSM5404472, genotype: KO, treatment: vehicle, environment: plastic, replicate: 1}
+      - {sample_id: GSM5404473, genotype: WT, treatment: rapamycin, environment: plastic, replicate: 1}
+      - {sample_id: GSM5404474, genotype: KO, treatment: rapamycin, environment: plastic, replicate: 1}
+      - {sample_id: GSM5404475, genotype: WT, treatment: vehicle, environment: hydrogel, replicate: 2}
+      - {sample_id: GSM5404476, genotype: KO, treatment: vehicle, environment: hydrogel, replicate: 2}
+      - {sample_id: GSM5404477, genotype: WT, treatment: rapamycin, environment: hydrogel, replicate: 2}
+      - {sample_id: GSM5404478, genotype: KO, treatment: rapamycin, environment: hydrogel, replicate: 2}
+      - {sample_id: GSM5404479, genotype: WT, treatment: vehicle, environment: plastic, replicate: 2}
+      - {sample_id: GSM5404480, genotype: KO, treatment: vehicle, environment: plastic, replicate: 2}
+      - {sample_id: GSM5404481, genotype: WT, treatment: rapamycin, environment: plastic, replicate: 2}
+      - {sample_id: GSM5404482, genotype: KO, treatment: rapamycin, environment: plastic, replicate: 2}
+
+  GSE27982:
+    role: external_tsc2_rapamycin_2x2
+    organism: Mus musculus
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE27982
+    files:
+      - name: series_matrix.txt.gz
+        url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE27nnn/GSE27982/matrix/GSE27982_series_matrix.txt.gz
+        path: data/raw/GSE27982/GSE27982_series_matrix.txt.gz
+      - name: GPL339.annot.gz
+        url: https://ftp.ncbi.nlm.nih.gov/geo/platforms/GPLnnn/GPL339/annot/GPL339.annot.gz
+        path: data/raw/GPL339/GPL339.annot.gz
+    samples:
+      - {sample_id: GSM692432, genotype: WT, treatment: vehicle, replicate: 1}
+      - {sample_id: GSM692433, genotype: WT, treatment: vehicle, replicate: 2}
+      - {sample_id: GSM692434, genotype: WT, treatment: rapamycin, replicate: 1}
+      - {sample_id: GSM692435, genotype: WT, treatment: rapamycin, replicate: 2}
+      - {sample_id: GSM692436, genotype: KO, treatment: vehicle, replicate: 1}
+      - {sample_id: GSM692437, genotype: KO, treatment: vehicle, replicate: 2}
+      - {sample_id: GSM692438, genotype: KO, treatment: rapamycin, replicate: 1}
+      - {sample_id: GSM692439, genotype: KO, treatment: rapamycin, replicate: 2}
+
+  GSE16944:
+    role: historical_rapamycin_insensitive_support
+    organism: Homo sapiens
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE16944
+    files:
+      - name: series_matrix.txt.gz
+        url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE16nnn/GSE16944/matrix/GSE16944_series_matrix.txt.gz
+        path: data/raw/GSE16944/GSE16944_series_matrix.txt.gz
+      - name: GPL2895.annot.gz
+        url: https://ftp.ncbi.nlm.nih.gov/geo/platforms/GPL2nnn/GPL2895/annot/GPL2895.annot.gz
+        path: data/raw/GPL2895/GPL2895.annot.gz
+
+  GSE84476:
+    role: STAT3_mechanism_support
+    organism: Homo sapiens
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE84476
+    files:
+      - name: kallisto_abundance.txt.gz
+        url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE84nnn/GSE84476/suppl/GSE84476_VKMJ-STAT3_kallisto_abundance.txt.gz
+        path: data/raw/GSE84476/GSE84476_VKMJ-STAT3_kallisto_abundance.txt.gz
+      - name: fold_changes.txt.gz
+        url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE84nnn/GSE84476/suppl/GSE84476_VKMJ-STAT3_fold_changes.txt.gz
+        path: data/raw/GSE84476/GSE84476_VKMJ-STAT3_fold_changes.txt.gz
+      - name: gencode.v24.annotation.gtf.gz
+        url: https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_24/gencode.v24.annotation.gtf.gz
+        path: data/raw/annotation/gencode.v24.annotation.gtf.gz
+
+  GSE104335:
+    role: SRPK2_mechanism_support
+    organism: Homo sapiens
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE104335
+    files:
+      - name: GSE104335_RAW.tar
+        url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE104nnn/GSE104335/suppl/GSE104335_RAW.tar
+        path: data/raw/GSE104335/GSE104335_RAW.tar
+
+  GSE135851:
+    role: human_lamcore_validation
+    organism: Homo sapiens
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE135851
+    files: []
+
+  GSE302356:
+    role: human_lamcore_laf_spatial_validation
+    organism: Homo sapiens
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE302356
+    files:
+      - name: GSE302356_family.xml.tgz
+        url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE302nnn/GSE302356/miniml/GSE302356_family.xml.tgz
+        path: data/raw/GSE302356/GSE302356_family.xml.tgz
+      - name: GSM9102552_LAM3.tar.gz
+        url: https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9102nnn/GSM9102552/suppl/GSM9102552_LAM3.tar.gz
+        path: data/raw/GSE302356/GSM9102552_LAM3.tar.gz
+      - name: GSM9102553_LAM4.tar.gz
+        url: https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9102nnn/GSM9102553/suppl/GSM9102553_LAM4.tar.gz
+        path: data/raw/GSE302356/GSM9102553_LAM4.tar.gz
+      - name: GSM9226654_LAM18.tar.gz
+        url: https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9226nnn/GSM9226654/suppl/GSM9226654_LAM18.tar.gz
+        path: data/raw/GSE302356/GSM9226654_LAM18.tar.gz
+      - name: GSM9226655_LAM19.tar.gz
+        url: https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9226nnn/GSM9226655/suppl/GSM9226655_LAM19.tar.gz
+        path: data/raw/GSE302356/GSM9226655_LAM19.tar.gz
+      - name: GSM9226656_LAM20.tar.gz
+        url: https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9226nnn/GSM9226656/suppl/GSM9226656_LAM20.tar.gz
+        path: data/raw/GSE302356/GSM9226656_LAM20.tar.gz
+
+  LINCS_GSE70138:
+    role: cmap_candidate_generation
+    organism: Homo sapiens
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE70138
+    files: []

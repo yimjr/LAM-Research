@@ -1,0 +1,18 @@
+{
+  "query_contrasts": [
+    "tsc2_loss_plastic",
+    "tsc2_loss_hydrogel",
+    "residual_plastic",
+    "residual_hydrogel",
+    "escape_plastic",
+    "escape_hydrogel",
+    "hydrogel_specific_residual",
+    "environment_dependent_escape"
+  ],
+  "top_n_per_direction": 150,
+  "fdr_cutoff": 0.1,
+  "min_effect_gate": 0.5,
+  "direction_reversal": "diagnostic only; excluded from default CMap query set",
+  "functional_modules": "downstream summaries, not independent signatures",
+  "external_overlap": "supportive case-normalized human/mouse comparison, not formal replication/meta-analysis"
+}

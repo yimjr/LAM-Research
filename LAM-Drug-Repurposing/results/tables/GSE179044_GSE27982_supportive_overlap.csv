@@ -1,0 +1,4 @@
+factorial_contrast,external_contrast,n_common_top_features,sign_concordance,spearman_like_rank_correlation
+tsc2_loss_hydrogel,tsc2_loss,22,0.9090909090909091,0.7357425183512141
+residual_hydrogel,residual_after_rapamycin,19,0.47368421052631576,0.368421052631579
+escape_hydrogel,genotype_dependent_rapamycin_response,17,0.8235294117647058,0.44852941176470595

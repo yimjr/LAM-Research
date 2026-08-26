@@ -1,0 +1,37 @@
+{
+  "common_gene_background": 204,
+  "stable_modules": {
+    "mimic_only__stable_1": {
+      "scope": "mimic_only",
+      "n_genes": 70,
+      "jaccard": 0.6140350877192983
+    },
+    "reversal_only__stable_2": {
+      "scope": "reversal_only",
+      "n_genes": 86,
+      "jaccard": 0.7166666666666667
+    },
+    "reversal_only__stable_3": {
+      "scope": "reversal_only",
+      "n_genes": 27,
+      "jaccard": 0.5192307692307693
+    }
+  },
+  "generic_stress_reference": "operational local signed templates; deconvolution by ridge regression on robust-z drug effects",
+  "generic_programs": [
+    "generic_apoptosis",
+    "upr_er_stress",
+    "heat_shock",
+    "cell_cycle_arrest",
+    "proteostasis_translation_stress"
+  ],
+  "enrichment_background": "204 genes shared by GSE92742/GSE70138 and used for cross-release modules",
+  "enrichment_libraries": [
+    "GO_Biological_Process_2023",
+    "Reactome_2022",
+    "MSigDB_Hallmark_2020"
+  ],
+  "human_GSE135851": "preliminary candidate/other labels; patient-state pseudobulk; not formal LAMCORE/LAF taxonomy",
+  "human_GSE302356": "sample/modality-level mapping using raw matrices and paper-derived marker-score columns; no formal state labels in staged archives",
+  "interpretation": "generic stress burden and adjusted module retention are hypothesis-generating; no cytotoxicity cutoff is used as a hard candidate filter in this pass"
+}

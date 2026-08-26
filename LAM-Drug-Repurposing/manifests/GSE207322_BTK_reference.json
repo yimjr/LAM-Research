@@ -1,0 +1,18 @@
+{
+  "dataset": "GSE207322",
+  "role": "independent BTK-oriented pharmacological reference",
+  "treatment": "ibrutinib, 10 nM, 24 hours",
+  "genotypes": [
+    "WT",
+    "C481S",
+    "C481F",
+    "C481Y",
+    "C481R"
+  ],
+  "n_replicates_per_genotype_treatment": 2,
+  "matrix_sha256": "b3aca7ba8bd864c0149fe3c522329669c5b87dcecbd1ff76716663e70a7d3ef8",
+  "interpretation": "C481 mutants provide a BTK-resistance contrast; ibrutinib is not a single-target drug and TMD8 is not a LAM model.",
+  "n_genes_expression": 57189,
+  "n_genes_panel": 300,
+  "n_gene_rows": 915
+}

@@ -1,0 +1,14 @@
+{
+  "dataset": "GSE49414",
+  "role": "independent RET-oriented pharmacological reference",
+  "treatment": "RPI-1, 24 hours",
+  "control": "DMSO, 24 hours",
+  "n_replicates_per_condition": 3,
+  "platform": "GPL17518",
+  "matrix_sha256": "990575afb0fdc33e70ebce485e5e033edf402c59b66535977ed59681519fe6c2",
+  "annotation_sha256": "a4cbcacac2d69b8fcde7170e3c22eae3ddacf0c55ce500971a6af52086f8bca8",
+  "interpretation": "RPI-1 is an external pharmacological reference, not a clean RET-only validation; module-level directional evidence is reported without assigning causality to RET.",
+  "n_genes_expression": 19627,
+  "n_genes_panel": 300,
+  "n_gene_rows": 183
+}

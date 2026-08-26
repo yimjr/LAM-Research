@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Large and generated project data
+data/raw/*
+data/interim/*
+data/processed/*
+results/figures/*
+results/tables/*
+results/report/*
+results/spatial/GSE302356/visium_hd_source_attribution_and_balance.csv
+
+# Keep directory placeholders and manifests under version control if this project is later placed in Git.
+!.gitkeep
+!manifests/*.yaml

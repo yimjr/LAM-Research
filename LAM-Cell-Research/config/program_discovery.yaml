@@ -1,0 +1,52 @@
+schema_version: "1.0"
+seed: 20260822
+input_h5ad: data/processed/reproduction_core/GSE135851_core_reproduction.h5ad
+known_programs: config/known_lam_programs.yaml
+output_dir: results/program_discovery
+candidate_pool_labels: results/program_discovery/candidate_pool_labels.csv
+
+candidate_pools:
+  high_confidence:
+    description: "Conservative LAMCORE-like cells for identity and donor-level summaries."
+    source_flags: [lamcore_candidate_author_style, lamcore_candidate_formal]
+    min_marker_count: 2
+    min_known_marker_combo: 2
+  broad_lam_like:
+    description: "High-recall exploratory pool; identity remains provisional."
+    min_marker_count: 1
+    min_known_marker_combo: 1
+    allow_weak_lineage_evidence: true
+    require_condition: LAM
+  uncertain_identity:
+    description: "Program-positive cells whose LAM identity cannot yet be confirmed."
+    generated_after_program_discovery: true
+
+nmf:
+  ranks: [2, 3, 4, 5, 6]
+  seeds: [0, 1, 2, 3, 4]
+  max_genes: 2000
+  top_genes_per_program: 50
+  max_cells_per_donor: 1500
+  max_cells_pooled: 6000
+  min_cells_per_donor_for_nmf: 40
+  min_cells_per_donor_for_pseudobulk: 10
+  max_iter: 500
+  tol: 0.0001
+
+scoring:
+  use_layer: null
+  exclude_var_patterns: ["^MT-", "^RPS", "^RPL"]
+  residual_covariates: [n_genes_by_counts, total_counts, assay]
+  top_known_overlap_genes: 50
+
+validation:
+  preferred_min_patient_ids: 3
+  preferred_min_independence_groups: 2
+  preferred_min_independent_donor_discoveries: 2
+  require_external_validation_for_high_confidence: true
+  orthogonal_support_types: [ATAC, spatial, protein]
+
+external_inputs:
+  GSE190260: data/processed/external/GSE190260.h5ad
+  GSE217108: data/processed/external/GSE217108.h5ad
+  GSE302356: data/processed/external/GSE302356.h5ad

@@ -1,0 +1,7 @@
+{
+  "source": "GSE84476",
+  "matrix": "kallisto TPM",
+  "transcript_to_gene": "mapped from GEO fold-change table",
+  "genotype_mapping": "102cell=TSC2-null; 103cell=TSC2-reexpressed; confirmed from GEO family metadata",
+  "interpretation": "Perturbation evidence for candidate TSC2-loss and rapamycin-associated mechanisms; one LAM-derived cell-line system, not patient-level evidence."
+}

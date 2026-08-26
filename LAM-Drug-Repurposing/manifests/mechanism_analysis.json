@@ -1,0 +1,9 @@
+{
+  "status": {
+    "GSE84476": "gene_level_table_created",
+    "GSE104335": "gene_level_CHP_contrasts_created"
+  },
+  "GSE84476_role": "STAT3/TSC2/rapamycin mechanism support; transcript-level source requires mapping",
+  "GSE104335_role": "SRPK2/rapamycin mechanism comparison; processed HTA 2.0 CHP values mapped to gene symbols and analyzed with limma",
+  "caveat": "Mechanism-support datasets are not substitutes for the factorial discovery or external 2x2 validation."
+}

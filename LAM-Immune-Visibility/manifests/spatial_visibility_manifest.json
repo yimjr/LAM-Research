@@ -1,0 +1,28 @@
+{
+  "modalities": [
+    {
+      "modality": "visium",
+      "patient_id": "LAM4",
+      "assay": "Visium",
+      "n_units": 2311,
+      "n_association_rows": 5
+    },
+    {
+      "modality": "visium_hd",
+      "patient_id": "LAM3",
+      "assay": "Visium_HD",
+      "n_units": 268206,
+      "n_association_rows": 5
+    },
+    {
+      "modality": "xenium",
+      "patient_id": "LAM4",
+      "assay": "Xenium",
+      "n_units": 173579,
+      "n_association_rows": 5
+    }
+  ],
+  "same_patient_modalities_are_not_independent": true,
+  "missing_panel_rule": "panel-unobserved is not biological negative",
+  "interpretation": "Spatial axes are candidate associations only."
+}

@@ -1,0 +1,33 @@
+{
+  "filter": {
+    "contrast": "tsc2_loss_plastic",
+    "perturbation_class": "compound",
+    "cross_phase_status": "replicated_concordant"
+  },
+  "filtered_rows": 92,
+  "unique_drugs": 29,
+  "direction_rows": {
+    "reversal_direction": 60,
+    "mimic_direction": 32
+  },
+  "direction_unique_drugs": {
+    "reversal_direction": 20,
+    "mimic_direction": 9
+  },
+  "target_records": 188,
+  "pubchem_identity_records": 29,
+  "pubchem_assay_target_evidence_rows": 21292,
+  "bindingdb_affinity_evidence_rows": 1177,
+  "drugs_with_annotated_mechanism_or_literature_fallback": 29,
+  "drugs_without_annotated_mechanism_or_literature_fallback": 0,
+  "interpretation_note": "replicated_concordant means cross-release direction category concordance; it does not imply every drug has positive reversal connectivity.",
+  "target_scope_note": "Primary target table combines ChEMBL curated mechanism annotations with explicitly labeled literature fallbacks for compounds lacking a ChEMBL mechanism record. PubChem BioAssay and BindingDB outputs are separate evidence layers; their assay/panel associations are not automatically primary targets.",
+  "sources": {
+    "ranking": "results/candidates/LINCS_candidate_ranking.csv",
+    "chembl_api": "https://www.ebi.ac.uk/chembl/api/data",
+    "pubchem_pug_api": "https://pubchem.ncbi.nlm.nih.gov/rest/pug",
+    "bindingdb_rest_api": "https://bindingdb.org/rest/getTargetByCompound",
+    "lincs_pert_info_GSE92742": "data/raw/LINCS/GSE92742/GSE92742_Broad_LINCS_pert_info.txt.gz",
+    "lincs_pert_info_GSE70138": "data/raw/LINCS/GSE70138/GSE70138_Broad_LINCS_pert_info_2017-03-06.txt.gz"
+  }
+}

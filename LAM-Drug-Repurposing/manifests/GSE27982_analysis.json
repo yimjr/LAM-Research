@@ -1,0 +1,7 @@
+{
+  "dataset": "GSE27982",
+  "role": "external Tsc2 x rapamycin response validation",
+  "interpretation": "Genotype-dependent rapamycin response is not automatically classified as escape under low serum.",
+  "ratio_gate": 0.5,
+  "n_features": 13064
+}

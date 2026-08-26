@@ -1,0 +1,6 @@
+modality,patient_id,source,target,n_units,source_units,target_neighbor_high_rate,target_global_high_rate,interpretation
+Xenium,LAM4,identity_protected_LAMCORE_like_top_decile,source_immune,50000,5000,0.0326,0.10024,spatial candidate association; not proof of communication
+Xenium,LAM4,identity_protected_LAMCORE_like_top_decile,t_cell_exhaustion,50000,5000,0.0322,1.0,spatial candidate association; not proof of communication
+Xenium,LAM4,identity_protected_LAMCORE_like_top_decile,nk_state,50000,5000,0.038,0.10018,spatial candidate association; not proof of communication
+Xenium,LAM4,identity_protected_LAMCORE_like_top_decile,macrophage_suppressive,50000,5000,1.0,1.0,spatial candidate association; not proof of communication
+Xenium,LAM4,identity_protected_LAMCORE_like_top_decile,immune_evasion,50000,5000,0.0406,1.0,spatial candidate association; not proof of communication

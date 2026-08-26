@@ -1,0 +1,87 @@
+{
+  "project": "LAM-Immune-Visibility",
+  "datasets": [
+    {
+      "dataset": "GSE135851",
+      "source_matrix": "../LAM-Cell-Research/data/processed/GSE135851_lam_states.h5ad",
+      "source_size_bytes": 455414758,
+      "source_mtime_ns": 1787393934328681502,
+      "shape": [
+        30077,
+        95
+      ],
+      "available_gene_count": 89,
+      "target_gene_count": 95,
+      "raw_counts_available": true,
+      "state_rule": "raw count > 0 means detected; low/high describe expression intervals among nonzero observations",
+      "output": "results/cell_scores/GSE135851_cell_visibility_scores.csv",
+      "intervals": "manifests/GSE135851_expression_intervals.csv"
+    },
+    {
+      "dataset": "GSE190260",
+      "source_matrix": "../LAM-Cell-Research/data/processed/external/GSE190260.h5ad",
+      "source_size_bytes": 329699482,
+      "source_mtime_ns": 1787414266423625648,
+      "shape": [
+        39979,
+        95
+      ],
+      "available_gene_count": 90,
+      "target_gene_count": 95,
+      "raw_counts_available": true,
+      "state_rule": "raw count > 0 means detected; low/high describe expression intervals among nonzero observations",
+      "output": "results/cell_scores/GSE190260_cell_visibility_scores.csv",
+      "intervals": "manifests/GSE190260_expression_intervals.csv"
+    },
+    {
+      "dataset": "GSE217108",
+      "source_matrix": "../LAM-Cell-Research/data/processed/external/GSE217108.h5ad",
+      "source_size_bytes": 126738083,
+      "source_mtime_ns": 1787414276424686813,
+      "shape": [
+        12396,
+        95
+      ],
+      "available_gene_count": 91,
+      "target_gene_count": 95,
+      "raw_counts_available": true,
+      "state_rule": "raw count > 0 means detected; low/high describe expression intervals among nonzero observations",
+      "output": "results/cell_scores/GSE217108_cell_visibility_scores.csv",
+      "intervals": "manifests/GSE217108_expression_intervals.csv"
+    },
+    {
+      "dataset": "GSE302356",
+      "source_matrix": "../LAM-Cell-Research/data/processed/external/GSE302356.h5ad",
+      "source_size_bytes": 282227669,
+      "source_mtime_ns": 1787414302407517391,
+      "shape": [
+        23759,
+        95
+      ],
+      "available_gene_count": 91,
+      "target_gene_count": 95,
+      "raw_counts_available": true,
+      "state_rule": "raw count > 0 means detected; low/high describe expression intervals among nonzero observations",
+      "output": "results/cell_scores/GSE302356_cell_visibility_scores.csv",
+      "intervals": "manifests/GSE302356_expression_intervals.csv"
+    },
+    {
+      "dataset": "GSE122960_normal_lung",
+      "source_matrix": "../LAM-Cell-Research/data/processed/external/GSE122960_normal_lung.h5ad",
+      "source_size_bytes": 311951038,
+      "source_mtime_ns": 1787399081569813604,
+      "shape": [
+        33020,
+        95
+      ],
+      "available_gene_count": 90,
+      "target_gene_count": 95,
+      "raw_counts_available": true,
+      "state_rule": "raw count > 0 means detected; low/high describe expression intervals among nonzero observations",
+      "output": "results/cell_scores/GSE122960_normal_lung_cell_visibility_scores.csv",
+      "intervals": "manifests/GSE122960_normal_lung_expression_intervals.csv"
+    }
+  ],
+  "read_only_sources": true,
+  "state_rule": "detected_low means nonzero count and a low-expression interval after detection"
+}

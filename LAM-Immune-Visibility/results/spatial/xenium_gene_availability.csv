@@ -1,0 +1,96 @@
+modality,patient_id,gene,panel_gene_available,n_units,n_detected_units,not_detected_fraction,detected_low_fraction,detected_high_fraction,low_expression_upper_bound,high_expression_lower_bound,state_note
+Xenium,LAM4,ACTA2,True,173579,91155.0,0.47485006826862697,0.12922070066079422,0.13155393221530254,5.430541086359215,7.036468263519029,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,AIF1,True,173579,30501.0,0.8242817391504733,0.04319070855345405,0.04499392207582714,4.719490443017389,5.630414969030203,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,APOE,False,173579,,,,,,,not_assayed
+Xenium,LAM4,B2M,False,173579,,,,,,,not_assayed
+Xenium,LAM4,C1QA,False,173579,,,,,,,not_assayed
+Xenium,LAM4,C1QB,False,173579,,,,,,,not_assayed
+Xenium,LAM4,C1QC,False,173579,,,,,,,not_assayed
+Xenium,LAM4,CCL2,False,173579,,,,,,,not_assayed
+Xenium,LAM4,CCL5,True,173579,11590.0,0.9332292500820952,0.016447842192891998,0.016995143421727282,4.799765508596617,5.845940345101734,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,CCL7,False,173579,,,,,,,not_assayed
+Xenium,LAM4,CD274,True,173579,6036.0,0.965226208239476,0.00858398769436395,0.008820191382598125,4.476842621238596,5.264283180082056,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,CD276,False,173579,,,,,,,not_assayed
+Xenium,LAM4,CD3D,True,173579,10014.0,0.9423086894151942,0.014368097523317913,0.014771372112986018,4.823958588381503,5.6584861997410245,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,CD3E,True,173579,16899.0,0.9026437529885528,0.024121581527719368,0.024432679068320477,4.9003242732785735,5.88093194910298,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,CD8A,True,173579,7062.0,0.9593153549680549,0.010150997528502872,0.010260457774269928,4.8742054564267185,5.954840459801967,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,CD8B,False,173579,,,,,,,not_assayed
+Xenium,LAM4,CTSK,True,173579,92740.0,0.4657187793454277,0.13259092401730624,0.13357030516364307,5.408167787478715,7.184186174463625,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,CXCL8,False,173579,,,,,,,not_assayed
+Xenium,LAM4,DCT,False,173579,,,,,,,not_assayed
+Xenium,LAM4,DPPA4,False,173579,,,,,,,not_assayed
+Xenium,LAM4,EPCAM,True,173579,19566.0,0.887278991122198,0.02804486717863336,0.028275309801300847,4.787888489464497,5.672825110341424,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,ERAP1,False,173579,,,,,,,not_assayed
+Xenium,LAM4,ERAP2,False,173579,,,,,,,not_assayed
+Xenium,LAM4,ESR1,True,173579,12062.0,0.9305100271346188,0.017254391372228207,0.017646143830762937,4.188670393093711,4.968820743663249,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,FCER1G,False,173579,,,,,,,not_assayed
+Xenium,LAM4,FCGR3A,True,173579,11096.0,0.9360752164720386,0.01594662948859021,0.01603304547209052,4.655546393313158,5.55067114056188,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,FIGF,False,173579,,,,,,,not_assayed
+Xenium,LAM4,GNLY,True,173579,3145.0,0.9818814487927687,0.004482109010882653,0.004562763928816274,4.764556306383163,6.121495502161354,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,GPNMB,False,173579,,,,,,,not_assayed
+Xenium,LAM4,GZMB,True,173579,4647.0,0.9732283283116046,0.006544570483756676,0.00670011925405723,4.787888489464497,6.048636654124914,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,HAVCR2,True,173579,15355.0,0.9115388382235178,0.022030314727011908,0.02240478398884658,4.6764016846302034,5.55067114056188,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,HLA-A,False,173579,,,,,,,not_assayed
+Xenium,LAM4,HLA-B,False,173579,,,,,,,not_assayed
+Xenium,LAM4,HLA-C,False,173579,,,,,,,not_assayed
+Xenium,LAM4,HLA-E,False,173579,,,,,,,not_assayed
+Xenium,LAM4,HMGA2,False,173579,,,,,,,not_assayed
+Xenium,LAM4,HOXA11,False,173579,,,,,,,not_assayed
+Xenium,LAM4,HOXD11,False,173579,,,,,,,not_assayed
+Xenium,LAM4,IFIT1,False,173579,,,,,,,not_assayed
+Xenium,LAM4,IFIT2,False,173579,,,,,,,not_assayed
+Xenium,LAM4,IFIT3,False,173579,,,,,,,not_assayed
+Xenium,LAM4,IFITM1,False,173579,,,,,,,not_assayed
+Xenium,LAM4,IFITM2,False,173579,,,,,,,not_assayed
+Xenium,LAM4,IFITM3,False,173579,,,,,,,not_assayed
+Xenium,LAM4,IFNG,False,173579,,,,,,,not_assayed
+Xenium,LAM4,IL1B,False,173579,,,,,,,not_assayed
+Xenium,LAM4,IL6,False,173579,,,,,,,not_assayed
+Xenium,LAM4,IRF1,False,173579,,,,,,,not_assayed
+Xenium,LAM4,ISG15,False,173579,,,,,,,not_assayed
+Xenium,LAM4,KLF4,False,173579,,,,,,,not_assayed
+Xenium,LAM4,KLRC1,True,173579,3274.0,0.981138271334666,0.004660702043449956,0.004787445485917075,4.6764016846302034,5.55067114056188,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,KLRD1,True,173579,4679.0,0.9730439742134706,0.006723163516323979,0.006895995483324596,4.787888489464497,5.717127377459133,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,LAG3,True,173579,1643.0,0.9905345692739329,0.002356275816775071,0.0023793200790418194,4.511849017779065,5.2453344628532985,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,LGALS9,False,173579,,,,,,,not_assayed
+Xenium,LAM4,LGR5,True,173579,796.0,0.995414191808917,0.0011464520477707557,0.0011694963100375045,4.5931015923573195,5.386288427820895,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,LST1,False,173579,,,,,,,not_assayed
+Xenium,LAM4,MDK,False,173579,,,,,,,not_assayed
+Xenium,LAM4,MICA,False,173579,,,,,,,not_assayed
+Xenium,LAM4,MICB,False,173579,,,,,,,not_assayed
+Xenium,LAM4,MITF,False,173579,,,,,,,not_assayed
+Xenium,LAM4,MLANA,True,173579,1134.0,0.9934669516473768,0.0015958151619723585,0.0016707090143392922,4.333203575226563,5.105547978118739,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,NANOG,False,173579,,,,,,,not_assayed
+Xenium,LAM4,NECTIN2,False,173579,,,,,,,not_assayed
+Xenium,LAM4,NES,False,173579,,,,,,,not_assayed
+Xenium,LAM4,NFKBIA,False,173579,,,,,,,not_assayed
+Xenium,LAM4,NKG7,True,173579,3381.0,0.9805218373190305,0.004868100403850696,0.005075498764251436,4.7085397099476785,5.55067114056188,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,NLRC5,False,173579,,,,,,,not_assayed
+Xenium,LAM4,PDCD1,True,173579,424.0,0.9975573081997247,0.0006049118845021575,0.0006337172123355936,4.655546393313158,5.3439278778000885,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,PDCD1LG2,False,173579,,,,,,,not_assayed
+Xenium,LAM4,PMEL,False,173579,,,,,,,not_assayed
+Xenium,LAM4,PRF1,True,173579,6473.0,0.9627086225868337,0.009211943841132856,0.009425103267100284,4.823958588381503,5.845940345101734,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,PROM1,False,173579,,,,,,,not_assayed
+Xenium,LAM4,PSMB8,False,173579,,,,,,,not_assayed
+Xenium,LAM4,PSMB9,False,173579,,,,,,,not_assayed
+Xenium,LAM4,PVR,False,173579,,,,,,,not_assayed
+Xenium,LAM4,SOX2,True,173579,4058.0,0.9766215959303833,0.005772587697820589,0.00585324261575421,4.811787687378323,5.717127377459133,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,STAT1,False,173579,,,,,,,not_assayed
+Xenium,LAM4,TAP1,False,173579,,,,,,,not_assayed
+Xenium,LAM4,TAP2,False,173579,,,,,,,not_assayed
+Xenium,LAM4,TAPBP,False,173579,,,,,,,not_assayed
+Xenium,LAM4,TIGIT,False,173579,,,,,,,not_assayed
+Xenium,LAM4,TNFAIP3,False,173579,,,,,,,not_assayed
+Xenium,LAM4,TOX,False,173579,,,,,,,not_assayed
+Xenium,LAM4,TRBC1,False,173579,,,,,,,not_assayed
+Xenium,LAM4,TRBC2,False,173579,,,,,,,not_assayed
+Xenium,LAM4,TREM2,True,173579,3060.0,0.9823711393659371,0.004401454092949032,0.004412976224082406,4.386579745578376,5.2453344628532985,nonzero transcript means detected; low/high are expression intervals
+Xenium,LAM4,TYROBP,False,173579,,,,,,,not_assayed
+Xenium,LAM4,TYRP1,False,173579,,,,,,,not_assayed
+Xenium,LAM4,ULBP1,False,173579,,,,,,,not_assayed
+Xenium,LAM4,ULBP2,False,173579,,,,,,,not_assayed
+Xenium,LAM4,ULBP3,False,173579,,,,,,,not_assayed
+Xenium,LAM4,ULBP4,False,173579,,,,,,,not_assayed
+Xenium,LAM4,ULBP5,False,173579,,,,,,,not_assayed
+Xenium,LAM4,ULBP6,False,173579,,,,,,,not_assayed
+Xenium,LAM4,VEGFD,False,173579,,,,,,,not_assayed

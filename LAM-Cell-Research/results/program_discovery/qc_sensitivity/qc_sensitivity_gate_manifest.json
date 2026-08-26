@@ -1,0 +1,37 @@
+{
+  "input": "data/processed/reproduction_core/GSE135851_core_reproduction.h5ad",
+  "programs": "results/program_discovery/pooled_program_genes.csv",
+  "donor_programs": "results/program_discovery/donor_wise_program_genes.csv",
+  "top_k": 50,
+  "baseline_definition": "all cells in the core reproduction AnnData",
+  "strict_qc_definition": "n_genes_by_counts >= 500 and total_counts >= 1000 and pct_counts_mt <= max(mt_pct_limit - 5, 5), matching scripts/run_targeted_robustness.py",
+  "fixed_gate": "Every Hypothesis Card must compare baseline and strict-QC candidate count, donor distribution, program direction and loading before upgrade.",
+  "score_columns_used": {
+    "contractile": "state_contractile",
+    "LAM_myogenic_contractile": "state_contractile",
+    "lineage_uterine_smooth_muscle": "state_contractile",
+    "CORE1": "state_contractile",
+    "ECM_remodeling": "state_ecm_remodeling",
+    "TGFbeta_fibroblast": "microenv_fibroblast",
+    "normal_lung_interstitial": "microenv_fibroblast",
+    "SLS_stem_like": "state_metabolic",
+    "IS_inflammatory": "state_inflammatory",
+    "MDK_dormancy_persistence": "state_stress_hypoxia",
+    "hypoxia_stress": "state_stress_hypoxia",
+    "cell_cycle": "state_proliferative",
+    "hormone_related": "state_hormone_related",
+    "mTOR_translation": "state_mTOR_related",
+    "LAF_niche": "microenv_fibroblast",
+    "macrophage_TREM2_TYROBP": "microenv_immune",
+    "IL6_AT2_repair": "microenv_immune",
+    "protease_ECM_niche": "state_ecm_remodeling",
+    "biomarker_VEGFD_PMEL_CCL14_MMP8": "known_marker_score",
+    "CORE2": "known_marker_score"
+  },
+  "score_outputs": [
+    "program_qc_gate_scores.csv",
+    "program_qc_gate_direction_by_donor.csv",
+    "program_qc_gate_direction_comparison.csv"
+  ],
+  "note": "State scores stored in the baseline AnnData are summarized under both masks; pooled NMF scores are reported as score-distribution sensitivity only, not a fresh QC-aware NMF run."
+}

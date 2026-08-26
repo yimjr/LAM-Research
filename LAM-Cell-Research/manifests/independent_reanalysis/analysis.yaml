@@ -1,0 +1,70 @@
+project: LAM-Cell-Research
+accession: GSE135851
+random_seed: 20260822
+
+paths:
+  raw: data/raw
+  interim: data/interim
+  processed: data/processed
+  results: results
+  manifests: manifests
+
+targets:
+  - sample_id: LAM1
+    gsm: GSM4035465
+    donor_id: LAM1
+    tissue: lung
+    condition: LAM
+    assay: scRNA
+  - sample_id: LAM2
+    gsm: GSM4035466
+    donor_id: LAM2
+    tissue: lung
+    condition: LAM
+    assay: snRNA
+  - sample_id: LAM3
+    gsm: GSM4035467
+    donor_id: LAM3
+    tissue: lung
+    condition: LAM
+    assay: scRNA
+  - sample_id: LAM4
+    gsm: GSM4035468
+    donor_id: LAM4
+    tissue: lung
+    condition: LAM
+    assay: snRNA
+  - sample_id: Donor1
+    gsm: GSM4035472
+    donor_id: Donor1
+    tissue: lung
+    condition: control
+    assay: scRNA
+
+qc:
+  min_genes: 200
+  min_counts: 500
+  mt_pct_by_assay:
+    scRNA: 20.0
+    snRNA: 10.0
+    unknown: 20.0
+  doublet:
+    enabled: true
+    expected_doublet_rate: 0.06
+
+preprocess:
+  target_sum: 10000
+  n_top_genes: 3000
+  n_pcs: 30
+  n_neighbors: 15
+  leiden_resolutions: [0.4, 0.8, 1.2]
+  stability_seeds: [0, 1, 2]
+  use_harmony: true
+  primary_leiden_resolution: 0.8
+
+analysis:
+  lamcore_cluster_quantile: 0.90
+  lamcore_cell_quantile_fallback: 0.90
+  min_formal_signature_genes_detected: 10
+  min_fallback_marker_genes_detected: 2
+  min_cells_per_donor_for_summary: 5

@@ -1,0 +1,37 @@
+{
+  "groups": [
+    "normal_uterus",
+    "LAM_uterus",
+    "normal_lung",
+    "pulmonary_LAM"
+  ],
+  "uterus_inputs": [
+    {
+      "group": "LAM_uterus",
+      "donor_id": "GSE135851_GSM4035470",
+      "matrix": "data/raw/GSE135851/extracted/GSM4035470_LAM_Uterus.mtx.tsv/Uterus_LAM/matrix.mtx",
+      "genes": "data/raw/GSE135851/extracted/GSM4035470_LAM_Uterus.mtx.tsv/Uterus_LAM/genes.tsv"
+    },
+    {
+      "group": "normal_uterus",
+      "donor_id": "GSE135851_GSM4035471",
+      "matrix": "data/raw/GSE135851/extracted/GSM4035471_Normal_Uterus.mtx.tsv/Normal_Uterus/matrix.mtx",
+      "genes": "data/raw/GSE135851/extracted/GSM4035471_Normal_Uterus.mtx.tsv/Normal_Uterus/genes.tsv"
+    }
+  ],
+  "lung_inputs": [
+    "results/adaptation/adaptation_cell_scores.csv"
+  ],
+  "min_total_counts_for_uterus_matrix_market": 500,
+  "contrasts": {
+    "LAM_transformation": "LAM_uterus - normal_uterus",
+    "pulmonary_disease_effect": "pulmonary_LAM - normal_lung",
+    "lung_acquired_interaction": "(pulmonary_LAM - normal_lung) - (LAM_uterus - normal_uterus)"
+  },
+  "limitations": [
+    "uterus references currently have one source specimen each",
+    "groups are not patient matched",
+    "mouse uterus remains a separate auxiliary lineage reference"
+  ],
+  "interpretation": "Do not call a tissue difference lung-acquired unless the four-group interaction supports it."
+}

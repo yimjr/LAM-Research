@@ -1,0 +1,3 @@
+# Large generated LINCS candidate-stage outputs.
+results/candidates/GSE70138_LINCS_signature_WTCS.parquet
+results/candidates/LINCS_cross_dataset_recurrence.csv

@@ -1,0 +1,16 @@
+{
+  "dataset": "GSE190260",
+  "source_matrix": "../LAM-Cell-Research/data/processed/external/GSE190260.h5ad",
+  "source_size_bytes": 329699482,
+  "source_mtime_ns": 1787414266423625648,
+  "shape": [
+    39979,
+    95
+  ],
+  "available_gene_count": 90,
+  "target_gene_count": 95,
+  "raw_counts_available": true,
+  "state_rule": "raw count > 0 means detected; low/high describe expression intervals among nonzero observations",
+  "output": "results/cell_scores/GSE190260_cell_visibility_scores.csv",
+  "intervals": "manifests/GSE190260_expression_intervals.csv"
+}

@@ -1,0 +1,16 @@
+modality,source_activity,target,n_units,spearman_same_unit,spearman_source_vs_neighbor_target,interpretation
+Xenium,source_LAMCORE_like,protease_activity,50000,0.6951343648805607,0.6358743085270303,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Xenium,source_LAMCORE_like,antiprotease_activity,50000,,,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Xenium,source_LAMCORE_like,proteolytic_balance_z,50000,,,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Xenium,source_LAF_fibroblast,protease_activity,50000,-0.10255836571018132,-0.04723262444292811,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Xenium,source_LAF_fibroblast,antiprotease_activity,50000,,,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Xenium,source_LAF_fibroblast,proteolytic_balance_z,50000,,,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Xenium,source_immune,protease_activity,50000,-0.20198318073598354,-0.1622447205160621,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Xenium,source_immune,antiprotease_activity,50000,,,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Xenium,source_immune,proteolytic_balance_z,50000,,,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Xenium,source_lymphatic_endothelial,protease_activity,50000,0.005214221790750148,0.11069926724885304,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Xenium,source_lymphatic_endothelial,antiprotease_activity,50000,,,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Xenium,source_lymphatic_endothelial,proteolytic_balance_z,50000,,,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Xenium,source_vascular_endothelial,protease_activity,50000,-0.237390847552982,-0.12310092155838452,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Xenium,source_vascular_endothelial,antiprotease_activity,50000,,,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Xenium,source_vascular_endothelial,proteolytic_balance_z,50000,,,source attribution and proteolytic-balance association; not proof of communication or lesion causality

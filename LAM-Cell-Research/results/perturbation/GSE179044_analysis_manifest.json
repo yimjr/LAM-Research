@@ -1,0 +1,7 @@
+{
+  "source": "GSE179044",
+  "matrix": "data/raw/perturbation/GSE179044/GSE179044_rlog_counts_matrix.csv.gz",
+  "matrix_type": "rlog",
+  "design": "TSC2ko/WT x hydrogel/plastic x vehicle/rapamycin x 2 replicates",
+  "interpretation": "Perturbation evidence for candidate persistence mechanisms; not patient-level treatment evidence."
+}

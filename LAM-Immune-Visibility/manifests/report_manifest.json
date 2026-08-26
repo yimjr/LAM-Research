@@ -1,0 +1,8 @@
+{
+  "reports": [
+    "reports/immune_visibility_report_zh.md",
+    "reports/immune_visibility_report_en.md"
+  ],
+  "strict_expression_language": "nonzero count is detected; detected_low is detected and in a low-expression interval",
+  "retention_rows": 30
+}

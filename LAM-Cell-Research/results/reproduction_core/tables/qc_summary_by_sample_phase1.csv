@@ -1,0 +1,6 @@
+sample_id,donor_id,tissue,assay,condition,cells_before,cells_qc_pass,cells_phase1_included,predicted_doublets
+Donor1,Donor1,lung,scRNA,control,737280,7480,7480,168
+LAM1,LAM1,lung,scRNA,LAM,737280,7827,7827,170
+LAM2,LAM2,lung,snRNA,LAM,737280,7126,7126,156
+LAM3,LAM3,lung,scRNA,LAM,737280,7016,7016,135
+LAM4,LAM4,lung,snRNA,LAM,737280,1259,1259,2

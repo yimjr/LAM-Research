@@ -1,0 +1,69 @@
+status: downloaded_and_extracted
+accession: GSE135851
+source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE135851
+download_url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE135nnn/GSE135851/suppl/GSE135851_RAW.tar
+downloaded_at: '2026-08-22T09:07:35.243881+00:00'
+archive:
+  path: data/raw/GSE135851/GSE135851_RAW.tar
+  size_bytes: 633251840
+  sha256: ecd01f0bce86a4d5560130bb67c99052c31fa1e62545f44d9412754d1bda7c5b
+target_samples:
+- GSM4035465
+- GSM4035466
+- GSM4035467
+- GSM4035468
+- GSM4035472
+archive_members:
+- GSM4035465_LAM1.mtx.tsv.tar.gz
+- GSM4035466_LAM2.mtx.tsv.tar.gz
+- GSM4035467_LAM3.mtx.tsv.tar.gz
+- GSM4035468_LAM4.mtx.tsv.tar.gz
+- GSM4035469_AML.mtx.tsv.tar.gz
+- GSM4035470_LAM_Uterus.mtx.tsv.tar.gz
+- GSM4035471_Normal_Uterus.mtx.tsv.tar.gz
+- GSM4035472_Donor1.mtx.tsv.tar.gz
+nested_members:
+- GSM4035465_LAM1.mtx.tsv.tar.gz:LAM1
+- GSM4035465_LAM1.mtx.tsv.tar.gz:LAM1/barcodes.tsv
+- GSM4035465_LAM1.mtx.tsv.tar.gz:LAM1/genes.tsv
+- GSM4035465_LAM1.mtx.tsv.tar.gz:LAM1/matrix.mtx
+- GSM4035466_LAM2.mtx.tsv.tar.gz:LAM2
+- GSM4035466_LAM2.mtx.tsv.tar.gz:LAM2/barcodes.tsv
+- GSM4035466_LAM2.mtx.tsv.tar.gz:LAM2/genes.tsv
+- GSM4035466_LAM2.mtx.tsv.tar.gz:LAM2/matrix.mtx
+- GSM4035467_LAM3.mtx.tsv.tar.gz:LAM3
+- GSM4035467_LAM3.mtx.tsv.tar.gz:LAM3/barcodes.tsv
+- GSM4035467_LAM3.mtx.tsv.tar.gz:LAM3/genes.tsv
+- GSM4035467_LAM3.mtx.tsv.tar.gz:LAM3/matrix.mtx
+- GSM4035468_LAM4.mtx.tsv.tar.gz:LAM4
+- GSM4035468_LAM4.mtx.tsv.tar.gz:LAM4/barcodes.tsv
+- GSM4035468_LAM4.mtx.tsv.tar.gz:LAM4/genes.tsv
+- GSM4035468_LAM4.mtx.tsv.tar.gz:LAM4/matrix.mtx
+- GSM4035469_AML.mtx.tsv.tar.gz:AML
+- GSM4035469_AML.mtx.tsv.tar.gz:AML/barcodes.tsv
+- GSM4035469_AML.mtx.tsv.tar.gz:AML/genes.tsv
+- GSM4035469_AML.mtx.tsv.tar.gz:AML/matrix.mtx
+- GSM4035470_LAM_Uterus.mtx.tsv.tar.gz:Uterus_LAM
+- GSM4035470_LAM_Uterus.mtx.tsv.tar.gz:Uterus_LAM/barcodes.tsv
+- GSM4035470_LAM_Uterus.mtx.tsv.tar.gz:Uterus_LAM/genes.tsv
+- GSM4035470_LAM_Uterus.mtx.tsv.tar.gz:Uterus_LAM/matrix.mtx
+- GSM4035471_Normal_Uterus.mtx.tsv.tar.gz:Normal_Uterus
+- GSM4035471_Normal_Uterus.mtx.tsv.tar.gz:Normal_Uterus/barcodes.tsv
+- GSM4035471_Normal_Uterus.mtx.tsv.tar.gz:Normal_Uterus/genes.tsv
+- GSM4035471_Normal_Uterus.mtx.tsv.tar.gz:Normal_Uterus/matrix.mtx
+- GSM4035472_Donor1.mtx.tsv.tar.gz:Donor1
+- GSM4035472_Donor1.mtx.tsv.tar.gz:Donor1/barcodes.tsv
+- GSM4035472_Donor1.mtx.tsv.tar.gz:Donor1/genes.tsv
+- GSM4035472_Donor1.mtx.tsv.tar.gz:Donor1/matrix.mtx
+extracted_dir: data/raw/GSE135851/extracted
+reference_files:
+  - name: LAM_core_signature_genes.csv
+    path: data/raw/reference/LAM_core_signature_genes.csv
+    source_url: https://research.cchmc.org/pbge/lunggens/lungDisease/lamcore_query.html
+    source_description: Official LAM Cell Atlas interactive LAMCORE signature download; 777 unique genes.
+    size_bytes: 25256
+    sha256: c96cf4c684e6aac0976775fc3ce4dc894e13d264007e035f29950bb95d7fe9d6
+related_manifests:
+  external_data: manifests/external_data_manifest.yaml
+  donor_registry: manifests/donor_registry.yaml
+  author_code_snapshot: references/xu-lab-LAM

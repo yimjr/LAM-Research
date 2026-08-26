@@ -1,0 +1,6 @@
+modality,patient_id,source,target,n_units,source_units,target_neighbor_high_rate,target_global_high_rate,interpretation
+Visium,LAM4,identity_protected_LAMCORE_like_top_decile,source_immune,2311,232,0.021551724137931036,0.10038944180008655,spatial candidate association; not proof of communication
+Visium,LAM4,identity_protected_LAMCORE_like_top_decile,t_cell_exhaustion,2311,232,0.034482758620689655,0.10038944180008655,spatial candidate association; not proof of communication
+Visium,LAM4,identity_protected_LAMCORE_like_top_decile,nk_state,2311,232,0.017241379310344827,0.10038944180008655,spatial candidate association; not proof of communication
+Visium,LAM4,identity_protected_LAMCORE_like_top_decile,macrophage_suppressive,2311,232,0.02586206896551724,0.10038944180008655,spatial candidate association; not proof of communication
+Visium,LAM4,identity_protected_LAMCORE_like_top_decile,immune_evasion,2311,232,0.07327586206896551,0.10038944180008655,spatial candidate association; not proof of communication

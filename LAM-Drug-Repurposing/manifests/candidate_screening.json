@@ -1,0 +1,16 @@
+{
+  "status": "awaiting_lincs_input",
+  "n_perturbations": 0,
+  "n_tier1": 0,
+  "direction_reversal": "not included in default signatures",
+  "required_filters": [
+    "cross-contrast recurrence",
+    "target perturbation concordance",
+    "state expression",
+    "generic cytotoxicity",
+    "unrelated-signature promiscuity",
+    "human exposure",
+    "sirolimus complementarity"
+  ],
+  "note": "No Tier 1 candidate is inferred without an actual perturbation table and the required filters."
+}

@@ -1,0 +1,25 @@
+project: LAM-Cell-Research
+accession: GSE135851
+random_seed: 20260822
+
+input: data/interim/GSE135851_combined_raw.h5ad
+output: data/processed/reproduction_core/GSE135851_core_baseline_qc.h5ad
+
+qc:
+  min_genes: 200
+  min_counts: 500
+  mt_pct_by_assay:
+    scRNA: 20.0
+    snRNA: 10.0
+    unknown: 20.0
+  doublet:
+    enabled: true
+    expected_doublet_rate: 0.06
+    remove_in_phase1: false
+
+preprocess:
+  target_sum: 10000
+  n_top_genes: 3000
+  n_pcs: 30
+  n_neighbors: 30
+  use_harmony: false

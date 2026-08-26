@@ -1,0 +1,15 @@
+dataset,identity_pool,patients,cells
+GSE122960_normal_lung,other,6,7516
+GSE135851,broad_lam_like,4,1310
+GSE135851,high_confidence,4,190
+GSE135851,other,1,7312
+GSE135851,unrestricted_lam,4,6926
+GSE190260,broad_lam_like,4,3592
+GSE190260,high_confidence,4,747
+GSE190260,unrestricted_lam,4,15898
+GSE217108,broad_lam_like,2,1610
+GSE217108,high_confidence,2,582
+GSE217108,unrestricted_lam,2,4613
+GSE302356,broad_lam_like,4,2296
+GSE302356,high_confidence,4,1492
+GSE302356,unrestricted_lam,4,5996

@@ -1,0 +1,113 @@
+{
+  "config": "config/spatial_analysis.yaml",
+  "programs": {
+    "LAMCORE": [
+      "PMEL",
+      "MLANA",
+      "ACTA2",
+      "FIGF",
+      "VEGFD",
+      "CTSK",
+      "MITF",
+      "ESR1"
+    ],
+    "LAF_fibroblast": [
+      "COL1A1",
+      "COL1A2",
+      "DCN",
+      "LUM",
+      "PDGFRA",
+      "CFD",
+      "C7",
+      "CXCL14",
+      "CCL2",
+      "TGFB1"
+    ],
+    "lymphatic_endothelial": [
+      "PDPN",
+      "LYVE1",
+      "FLT4",
+      "CCL21",
+      "PROX1",
+      "PECAM1",
+      "EMCN",
+      "KDR"
+    ],
+    "immune": [
+      "PTPRC",
+      "LST1",
+      "AIF1",
+      "TYROBP",
+      "FCER1G",
+      "CTSS",
+      "CD68",
+      "CD3D",
+      "CD3E",
+      "S100A8",
+      "S100A9"
+    ],
+    "protease": [
+      "MMP2",
+      "MMP8",
+      "MMP9",
+      "MMP12",
+      "CTSK",
+      "CTSB",
+      "ELANE",
+      "CTSS"
+    ],
+    "antiprotease": [
+      "TIMP1",
+      "TIMP2",
+      "SERPINA1",
+      "SERPINE1",
+      "SLPI",
+      "PI3"
+    ],
+    "ECM_remodeling": [
+      "COL1A1",
+      "COL1A2",
+      "COL3A1",
+      "COL6A1",
+      "COL6A2",
+      "FN1",
+      "VCAN",
+      "TNC"
+    ]
+  },
+  "modalities": [
+    {
+      "modality": "visium",
+      "units": 2311,
+      "matrix_units": 2311,
+      "co_localization_rows": 42
+    },
+    {
+      "modality": "visium_hd",
+      "units": 268206,
+      "matrix_units": 268206,
+      "co_localization_rows": 42
+    },
+    {
+      "modality": "xenium",
+      "units": 173579,
+      "matrix_units": 173579,
+      "co_localization_rows": 42
+    }
+  ],
+  "analysis_rule": {
+    "do_not_pool_units": true,
+    "missing_targeted_gene_interpretation": "panel_unobserved_not_biological_negative",
+    "evidence_integration": "Compare direction and niche support across modalities; do not pool raw scores or p-values.",
+    "required_programs": [
+      "LAMCORE",
+      "LAF_fibroblast",
+      "lymphatic_endothelial",
+      "immune",
+      "protease",
+      "antiprotease",
+      "ECM_remodeling"
+    ]
+  },
+  "interpretation": "The modalities support evidence-level triangulation, not pooled quantitative inference."
+}

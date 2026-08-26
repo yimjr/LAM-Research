@@ -1,0 +1,5 @@
+{
+  "module_summary": "results/patient_summaries/patient_module_summary.csv",
+  "antigen_summary": "results/patient_summaries/patient_antigen_summary.csv",
+  "denominator_rule": "not_assayed cells are excluded from detected/low/high fractions"
+}

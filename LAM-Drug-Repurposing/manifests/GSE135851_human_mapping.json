@@ -1,0 +1,11 @@
+{
+  "dataset": "GSE135851",
+  "input": "data/processed/GSE135851/GSE135851_lam_states_snapshot.h5ad",
+  "state_column": "lamcore_label",
+  "patient_column": "donor_id",
+  "n_patient_state_profiles": 10,
+  "n_patients": 5,
+  "n_states": 2,
+  "scoring": "patient-by-state pseudobulk followed by within-gene rank scoring; cells are not treated as independent replicates",
+  "limitation": "GSE135851 snapshot contains candidate/other labels, not the formal LAMCORE1/2/3 and LAF-seed/LAF-niche states; formal state mapping requires GSE302356 processed state tables."
+}

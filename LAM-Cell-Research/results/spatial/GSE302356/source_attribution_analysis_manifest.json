@@ -1,0 +1,75 @@
+{
+  "spatial_config": "config/spatial_analysis.yaml",
+  "reference": "data/processed/reproduction_core/GSE135851_core_reproduction.h5ad",
+  "reference_manifest": {
+    "reference": "data/processed/reproduction_core/GSE135851_core_reproduction.h5ad",
+    "n_cells": 30708,
+    "source_label_rule": "LAMCORE from existing candidate label; other broad source states from z-scored non-protease identity-marker expression in the actual single-cell matrix; protease genes were not used to assign labels.",
+    "protease_genes": [
+      "CTSK",
+      "MMP2",
+      "MMP8",
+      "MMP9",
+      "MMP12",
+      "ELANE",
+      "PRTN3",
+      "CTSS",
+      "CTSB"
+    ],
+    "antiprotease_genes": [
+      "TIMP1",
+      "TIMP2",
+      "SERPINA1",
+      "SERPINE1",
+      "SLPI",
+      "PI3"
+    ],
+    "external_datasets": "External h5ad objects are retained for later projection; current source labels are not silently inferred where cell-state metadata are absent."
+  },
+  "modalities": [
+    {
+      "modality": "visium",
+      "patient_id": "LAM4",
+      "units": 2311,
+      "source_output": "results/spatial/GSE302356/visium_source_attribution_and_balance.csv",
+      "lesion_edge_status": "unavailable_no_reproducible_lesion_mask"
+    },
+    {
+      "modality": "visium_hd",
+      "patient_id": "LAM3",
+      "units": 268206,
+      "source_output": "results/spatial/GSE302356/visium_hd_source_attribution_and_balance.csv",
+      "lesion_edge_status": "unavailable_no_reproducible_lesion_mask"
+    },
+    {
+      "modality": "xenium",
+      "patient_id": "LAM4",
+      "units": 173579,
+      "source_output": "results/spatial/GSE302356/xenium_source_attribution_and_balance.csv",
+      "lesion_edge_status": "unavailable_no_reproducible_lesion_mask"
+    }
+  ],
+  "protease_genes": [
+    "CTSK",
+    "MMP2",
+    "MMP8",
+    "MMP9",
+    "MMP12",
+    "ELANE",
+    "PRTN3",
+    "CTSS",
+    "CTSB"
+  ],
+  "antiprotease_genes": [
+    "TIMP1",
+    "TIMP2",
+    "SERPINA1",
+    "SERPINE1",
+    "SLPI",
+    "PI3"
+  ],
+  "balance_definition": "within-modality standardized protease activity minus standardized antiprotease activity; no score ratio",
+  "source_attribution_rule": "source identity is estimated from non-protease markers in actual single-cell data; protease genes are measured after labeling",
+  "lesion_rule": "No formal lesion-edge claim without a reproducible lesion/cyst mask.",
+  "modality_rule": "Visium, Visium HD and Xenium outputs remain separate; same PatientID is orthogonal evidence, not an independent donor."
+}

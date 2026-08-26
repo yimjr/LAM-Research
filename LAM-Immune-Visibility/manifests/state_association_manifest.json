@@ -1,0 +1,8 @@
+{
+  "patient_unit": "patient_id within dataset",
+  "minimum_patients_for_descriptive_association": 3,
+  "outputs": [
+    "results/immune_context/patient_state_visibility_associations.csv",
+    "results/immune_context/antigen_presentation_coexistence.csv"
+  ]
+}

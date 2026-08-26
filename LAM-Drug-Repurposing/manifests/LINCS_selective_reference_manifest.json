@@ -1,0 +1,27 @@
+{
+  "references": {
+    "ibrutinib": {
+      "axis": "BTK",
+      "selectivity_note": "BTK-directed pharmacology but known off-target kinases; not a clean BTK-only perturbation"
+    },
+    "crizotinib": {
+      "axis": "NTRK/ALK/MET",
+      "selectivity_note": "multi-target kinase inhibitor; NTRK3 relevance is indirect, not a clean NTRK3-only perturbation"
+    },
+    "cabozantinib": {
+      "axis": "RET/MET/VEGFR",
+      "selectivity_note": "multi-target RET/MET/VEGFR pharmacology; not a clean RET-only perturbation"
+    },
+    "vandetanib": {
+      "axis": "RET/EGFR/VEGFR",
+      "selectivity_note": "multi-target RET/EGFR/VEGFR pharmacology; not a clean RET-only perturbation"
+    }
+  },
+  "interpretation": "Local LINCS pharmacological references are multi-target and do not replace selective drug or independent CRISPR/shRNA validation.",
+  "priority_axes": [
+    "RET",
+    "BTK",
+    "NTRK3",
+    "MKNK1/2"
+  ]
+}

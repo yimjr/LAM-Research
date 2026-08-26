@@ -1,0 +1,3 @@
+environment,n_ratio_eligible,n_direction_reversal,n_reversal_with_baseline_q_le_0.1,n_reversal_with_residual_q_le_0.1,median_abs_baseline,median_abs_residual
+plastic,4441,1134,487,12,0.0335092127498923,0.012814610983472
+hydrogel,6510,1385,809,56,0.0160896653781689,0.0148565140125185

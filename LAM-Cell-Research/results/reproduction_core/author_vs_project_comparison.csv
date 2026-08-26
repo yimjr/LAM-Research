@@ -1,0 +1,7 @@
+result_item,original_paper,project,status
+LAMCORE positive donors,"LAM1, LAM3, LAM4; none reported in LAM2","LAM1, LAM2, LAM3, LAM4",compare
+LAMCORE candidate cells,"125 cells from LAM1, LAM3, LAM4",140,compare_quantity_not_identity
+Identification basis,unbiased clustering plus known markers; 777-gene signature derived later,known marker panel + author-style graph; 777 genes scored afterward,aligned_boundary
+Upstream QC,not reconstructable from processed matrix alone,downstream QC recoverable from processed matrix; no FASTQ/Cell Ranger reconstruction,not_reconstructable
+Doublet handling,not explicit in public scripts,score and prediction recorded; not removed in Phase 1,aligned_with_plan
+Software path,Seurat 2/3 R scripts,Python sparse-PCA/Jaccard-Louvain approximation; R environment prepared separately,approximate_reimplementation

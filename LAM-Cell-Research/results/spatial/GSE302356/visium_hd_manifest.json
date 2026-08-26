@@ -1,0 +1,89 @@
+{
+  "dataset": "GSE302356",
+  "modality": "visium_hd",
+  "sample_id": "LAM18",
+  "patient_id": "LAM3",
+  "assay": "Visium_HD",
+  "unit": "bin_or_segment",
+  "n_matrix_units": 268206,
+  "n_units_analyzed_after_position_filter": 268206,
+  "program_genes_present": {
+    "LAMCORE": [
+      "PMEL",
+      "MLANA",
+      "ACTA2",
+      "VEGFD",
+      "CTSK",
+      "MITF",
+      "ESR1"
+    ],
+    "LAF_fibroblast": [
+      "COL1A1",
+      "COL1A2",
+      "DCN",
+      "LUM",
+      "PDGFRA",
+      "CFD",
+      "C7",
+      "CXCL14",
+      "CCL2",
+      "TGFB1"
+    ],
+    "lymphatic_endothelial": [
+      "PDPN",
+      "LYVE1",
+      "FLT4",
+      "CCL21",
+      "PROX1",
+      "PECAM1",
+      "EMCN",
+      "KDR"
+    ],
+    "immune": [
+      "PTPRC",
+      "LST1",
+      "AIF1",
+      "TYROBP",
+      "FCER1G",
+      "CTSS",
+      "CD68",
+      "CD3D",
+      "CD3E",
+      "S100A8",
+      "S100A9"
+    ],
+    "protease": [
+      "MMP2",
+      "MMP8",
+      "MMP9",
+      "MMP12",
+      "CTSK",
+      "CTSB",
+      "ELANE",
+      "CTSS"
+    ],
+    "antiprotease": [
+      "TIMP1",
+      "TIMP2",
+      "SERPINA1",
+      "SERPINE1",
+      "SLPI",
+      "PI3"
+    ],
+    "ECM_remodeling": [
+      "COL1A1",
+      "COL1A2",
+      "COL3A1",
+      "COL6A1",
+      "COL6A2",
+      "FN1",
+      "VCAN",
+      "TNC"
+    ]
+  },
+  "panel_unobserved_rule": "A missing gene in Xenium is panel-unobserved, not a biological negative.",
+  "cross_modality_rule": "Do not pool raw units, scores, or p-values across Visium, Visium HD, and Xenium.",
+  "co_localization_note": "Nearest-neighbor enrichment and score correlation are candidate niche evidence only.",
+  "max_units_for_neighbor_summary": 50000,
+  "seed": 20260823
+}

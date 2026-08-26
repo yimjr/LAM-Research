@@ -1,0 +1,183 @@
+schema_version: "1.0"
+description: >-
+  Knowledge layer for evaluating candidate expression programs. These entries
+  are comparison references, not automatic exclusion rules. Evidence scope and
+  evidence level must be carried into every comparison table.
+
+evidence_levels:
+  established: "Directly defined or repeatedly supported in LAM-specific studies."
+  supported: "Supported in a LAM-related study but not a universal LAMCORE definition."
+  contextual: "Mechanistic or contextual concept that should not be treated as a fixed subtype."
+  biomarker: "Secreted, clinical, or marker association rather than a cell-state definition."
+  reference: "Lineage or disease-control reference program."
+
+programs:
+  - program_name: CORE1
+    evidence_scope: LAMCORE-specific
+    evidence_level: established
+    source_study: "LAMCORE CORE1/2/3 study"
+    type: gene_set
+    genes: [ACTA2, MYH11, TAGLN, CNN1, TPM2, DES, RGS5, COL4A1]
+    known_lamcore_relation: "LAMCORE state; gene set is an approximation until the official table is loaded."
+  - program_name: CORE2
+    evidence_scope: LAMCORE-specific
+    evidence_level: established
+    source_study: "LAMCORE CORE1/2/3 study"
+    type: gene_set
+    genes: [PMEL, MLANA, MITF, TYR, DCT, GPNMB, CTSK, FIGF]
+    known_lamcore_relation: "LAMCORE state; gene set is an approximation until the official table is loaded."
+  - program_name: CORE3_identity
+    evidence_scope: LAMCORE-specific
+    evidence_level: established
+    source_study: "LAMCORE CORE1/2/3 study"
+    type: structured_model_component
+    genes: [ACTA2, PMEL, MLANA, MITF, CTSK, FIGF, ESR1]
+    known_lamcore_relation: "CORE1-like identity component of the structured CORE3 model."
+  - program_name: LAMCORE_777
+    evidence_scope: LAMCORE-specific
+    evidence_level: established
+    source_study: "LAMCORE 777-gene signature"
+    type: external_signature
+    genes: []
+    known_lamcore_relation: "Use for post hoc consistency and external validation, not sole discovery in the source cohort."
+  - program_name: LAM_myogenic_contractile
+    evidence_scope: LAM-shared
+    evidence_level: supported
+    source_study: "LAM literature and core reanalysis"
+    type: gene_set
+    genes: [ACTA2, TAGLN, MYH11, CNN1, TPM2, DES, CALD1, MYL9]
+    known_lamcore_relation: "Lineage/contractile program shared across LAMCORE-like cells."
+  - program_name: ECM_remodeling
+    evidence_scope: LAM-shared
+    evidence_level: supported
+    source_study: "LAM and lung remodeling literature"
+    type: gene_set
+    genes: [COL1A1, COL1A2, COL3A1, COL6A1, COL6A2, FN1, VCAN, MMP2, MMP9, CTSK, TIMP1]
+    known_lamcore_relation: "ECM remodeling context; not a standalone LAMCORE identity."
+  - program_name: mTOR_translation
+    evidence_scope: TSC-tumor-shared
+    evidence_level: supported
+    source_study: "TSC/mTOR and LAM literature"
+    type: gene_set
+    genes: [RPLP0, RPL3, RPL5, RPS3, RPS6, RPS8, EIF4E, EIF4EBP1, MTOR, AKT1, HIF1A]
+    known_lamcore_relation: "TSC/mTOR activity and translation context; interpretation requires depth and assay adjustment."
+  - program_name: SLS_stem_like
+    evidence_scope: treatment-associated
+    evidence_level: supported
+    source_study: "GSE190260 / stem-like tumor-state study"
+    type: gene_set
+    genes: [MDK, SOX2, PROM1, NES, LGR5, EPCAM, KLF4, NANOG, DPPA4, HMGA2]
+    known_lamcore_relation: "Stem-like state in TSC-associated tumors; not automatically a LAMCORE subtype."
+    treatment_relation: "Reported in relation to rapamycin persistence; requires independent validation."
+  - program_name: IS_inflammatory
+    evidence_scope: treatment-associated
+    evidence_level: supported
+    source_study: "GSE190260 / stem-like tumor-state study"
+    type: gene_set
+    genes: [IL6, IL1B, CXCL8, CCL2, CCL7, NFKBIA, TNFAIP3, STAT1, ISG15, IFIT1]
+    known_lamcore_relation: "Inflammatory state or microenvironmental response; not automatically LAMCORE-specific."
+  - program_name: MDK_dormancy_persistence
+    evidence_scope: treatment-associated
+    evidence_level: supported
+    source_study: "GSE190260 and rapamycin-persistence literature"
+    type: gene_set
+    genes: [MDK, LGALS3, BCL2, BCL2L1, JUN, FOS, DDIT4, TXNIP, KLF6, NR4A1]
+    known_lamcore_relation: "Candidate persistence/dormancy context; may overlap with SLS and stress."
+  - program_name: HOX_PBX
+    evidence_scope: LAM-shared
+    evidence_level: supported
+    source_study: "HOX-PBX LAM studies"
+    type: gene_set
+    genes: [PBX1, HOXD11, HOXA9, HOXA10, HOXB7, MEIS1, MEIS2, SIX1]
+    known_lamcore_relation: "Transcriptional developmental program reported in LAM; compare rather than exclude."
+  - program_name: LAF_niche
+    evidence_scope: microenvironment
+    evidence_level: supported
+    source_study: "LAF-seed/LAF-niche studies"
+    type: gene_set
+    genes: [PDGFRA, COL1A1, COL1A2, DCN, LUM, C7, CFD, CXCL14, CCL2, TGFB1]
+    known_lamcore_relation: "Fibroblast-like microenvironmental program; not a LAMCORE identity."
+    microenvironment_relation: "LAF/fibroblast niche."
+  - program_name: macrophage_TREM2_TYROBP
+    evidence_scope: microenvironment
+    evidence_level: supported
+    source_study: "LAM immune microenvironment literature"
+    type: gene_set
+    genes: [TREM2, TYROBP, LST1, AIF1, CTSS, FCER1G, LGALS3, APOE, C1QA, C1QB]
+    known_lamcore_relation: "Immune context associated with LAM, not a LAMCORE state."
+    microenvironment_relation: "Macrophage-associated immune suppression."
+  - program_name: TGFbeta_fibroblast
+    evidence_scope: microenvironment
+    evidence_level: supported
+    source_study: "LAM fibroblast and lung-repair literature"
+    type: gene_set
+    genes: [TGFB1, TGFBR1, TGFBR2, SMAD2, SMAD3, SERPINE1, CTGF, COL1A1, COL3A1]
+    known_lamcore_relation: "Fibroblast and tissue-remodeling context."
+  - program_name: IL6_AT2_repair
+    evidence_scope: microenvironment
+    evidence_level: supported
+    source_study: "LAM lung-repair literature"
+    type: gene_set
+    genes: [IL6, IL6R, STAT3, SFTPC, SFTPA1, SFTPA2, KRT8, KRT18, CDKN1A, GDF15]
+    known_lamcore_relation: "AT2 senescence/repair context; not LAMCORE-specific."
+  - program_name: protease_ECM_niche
+    evidence_scope: microenvironment
+    evidence_level: supported
+    source_study: "LAM cystic destruction and ECM literature"
+    type: gene_set
+    genes: [MMP2, MMP8, MMP9, MMP12, CTSK, CTSB, ELANE, CTSS, SERPINA1, TIMP1, TIMP2]
+    known_lamcore_relation: "Protease-rich niche hypothesis; requires spatial/protein validation."
+  - program_name: hormone_related
+    evidence_scope: LAM-shared
+    evidence_level: supported
+    source_study: "LAM hormone biology"
+    type: gene_set
+    genes: [ESR1, ESR2, PGR, CYP19A1, GREB1, IGF1R, EGFR]
+    known_lamcore_relation: "Hormone-related context; not sufficient to define a state."
+  - program_name: hypoxia_stress
+    evidence_scope: LAM-shared
+    evidence_level: supported
+    source_study: "LAM stress and hypoxia literature"
+    type: gene_set
+    genes: [HIF1A, VEGFA, CA9, BNIP3, DDIT4, NDRG1, EGLN3, ATF3, HSPA1A, HSPA1B]
+    known_lamcore_relation: "Stress/hypoxia context."
+  - program_name: cell_cycle
+    evidence_scope: LAM-shared
+    evidence_level: contextual
+    source_study: "General single-cell cell-cycle reference"
+    type: gene_set
+    genes: [MKI67, TOP2A, PCNA, TYMS, STMN1, UBE2C, CDK1, CCNB1]
+    known_lamcore_relation: "Technical/biological confounder to control, not a LAMCORE state."
+  - program_name: biomarker_VEGFD_PMEL_CCL14_MMP8
+    evidence_scope: biomarker
+    evidence_level: biomarker
+    source_study: "LAM biomarker literature"
+    type: gene_set
+    genes: [VEGFD, PMEL, CCL14, MMP8]
+    known_lamcore_relation: "Biomarker/secreted factor context; do not use as a complete identity definition."
+  - program_name: lineage_uterine_smooth_muscle
+    evidence_scope: lineage/reference
+    evidence_level: reference
+    source_study: "Normal uterus and smooth-muscle reference"
+    type: gene_set
+    genes: [ACTA2, TAGLN, MYH11, CNN1, DES, CALD1, MYL9, TPM2]
+    known_lamcore_relation: "Lineage reference; signal does not automatically disqualify a LAM-associated program."
+  - program_name: normal_lung_interstitial
+    evidence_scope: lineage/reference
+    evidence_level: reference
+    source_study: "Normal lung interstitial reference"
+    type: gene_set
+    genes: [COL1A1, COL1A2, DCN, LUM, COL3A1, COL6A1, CFD, PI16]
+    known_lamcore_relation: "Disease-control reference; use to identify enhancement or reprogramming."
+
+core3_model:
+  identity_program: CORE3_identity
+  activity_covariates: [n_genes_by_counts, total_counts, assay]
+  translation_program: [RPLP0, RPL3, RPL5, RPS3, RPS6, RPS8, EIF4E, EEF1A1]
+  classification: "CORE1-like identity + depth-adjusted low transcriptional activity + translation enrichment"
+  warning: "Low UMI, low genes, or low complexity alone cannot define CORE3-like cells."
+
+comparison_policy:
+  primary_discovery: "Do not regress known biological programs before program discovery."
+  posthoc_comparison: [gene_overlap, score_correlation, donor_level_explained_variance, unique_genes, tf_or_regulon, orthogonal_support]
+  residualization: "Sensitivity analysis only; never the sole route to novel-program discovery."

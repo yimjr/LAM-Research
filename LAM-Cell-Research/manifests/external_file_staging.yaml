@@ -1,0 +1,39 @@
+status: file_staging_only
+generated_at: '2026-08-22'
+datasets:
+  - accession: GSE190260
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE190260
+    staged_samples:
+      - {gsm: GSM5718713, sample_id: LAM1110, donor_id: LAM1110, archive: data/raw/external/GSE190260/samples/GSM5718713_LAM1110.tar.gz, verified: true}
+      - {gsm: GSM5718714, sample_id: LAM1158, donor_id: LAM1158, archive: data/raw/external/GSE190260/samples/GSM5718714_LAM1158.tar.gz, verified: true}
+      - {gsm: GSM5718715, sample_id: LAM1163, donor_id: LAM1163, archive: data/raw/external/GSE190260/samples/GSM5718715_LAM1163.tar.gz, verified: true}
+      - {gsm: GSM5718716, sample_id: LAM1164-1, donor_id: LAM1164, archive: data/raw/external/GSE190260/samples/GSM5718716_LAM1164-1.tar.gz, verified: true}
+      - {gsm: GSM5718717, sample_id: LAM1164-2, donor_id: LAM1164, archive: data/raw/external/GSE190260/samples/GSM5718717_LAM1164-2.tar.gz, verified: true}
+      - {gsm: GSM5718718, sample_id: LAM1164-3, donor_id: LAM1164, archive: data/raw/external/GSE190260/samples/GSM5718718_LAM1164-3.tar.gz, verified: true}
+    note: LAM1164 replicates are retained as distinct samples but one provisional donor.
+  - accession: GSE217108
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE217108
+    archive: data/raw/external/GSE217108/GSE217108_RAW.tar
+    verified: true
+    staged_modalities:
+      - {gsm: GSM6705234, donor_id: LAM32, modality: snRNA, input: data/raw/external/GSE217108/extracted/GSM6705234_LAM32/LAM32/filtered_feature_bc_matrix.h5}
+      - {gsm: GSM6705235, donor_id: LAM44, modality: snRNA, input: data/raw/external/GSE217108/extracted/GSM6705235_LAM44/LAM44/filtered_feature_bc_matrix.h5}
+      - {gsm: GSM6705232, donor_id: LAM32, modality: snATAC, input: data/raw/external/GSE217108/extracted/GSM6705232_LAM32/LAM32/LAM32.mtx.gz}
+      - {gsm: GSM6705233, donor_id: LAM44, modality: snATAC, input: data/raw/external/GSE217108/extracted/GSM6705233_LAM44/LAM44/LAM44.mtx.gz}
+  - accession: GSE302356
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE302356
+    provenance_metadata: data/raw/external/GSE302356/GSE302356_family.xml.tgz
+    verified_archives:
+      - {sample_id: LAM3, modality: scRNA, archive: data/raw/external/GSE302356/GSM9102552_LAM3.tar.gz, input: data/raw/external/GSE302356/extracted/LAM3/LAM3_filtered_feature_bc_matrix.h5}
+      - {sample_id: LAM4, modality: scRNA, archive: data/raw/external/GSE302356/GSM9102553_LAM4.tar.gz, input: data/raw/external/GSE302356/extracted/LAM4/LAM4_filtered_feature_bc_matrix.h5}
+      - {sample_id: LAM18, modality: Visium_HD, archive: data/raw/external/GSE302356/GSM9226654_LAM18.tar.gz, input: data/raw/external/GSE302356/extracted/LAM18/LAM18_filtered_feature_bc_matrix.h5}
+      - {sample_id: LAM20, modality: Visium, archive: data/raw/external/GSE302356/GSM9226656_LAM20.tar.gz, input: data/raw/external/GSE302356/extracted/LAM20/LAM20_filtered_feature_bc_matrix.h5}
+      - {sample_id: LAM10, modality: Multiome_GEX_ATAC, archive: data/raw/external/GSE302356/GSE302356_LAM10.tar.gz, input: data/raw/external/GSE302356/extracted/LAM10/LAM10_filtered_feature_bc_matrix.h5, fragments: data/raw/external/GSE302356/extracted/LAM10/LAM10_atac_fragments.tsv.gz}
+      - {sample_id: LAM13, modality: Multiome_GEX_ATAC, archive: data/raw/external/GSE302356/GSE302356_LAM13.tar.gz, input: data/raw/external/GSE302356/extracted/LAM13/LAM13_filtered_feature_bc_matrix.h5, fragments: data/raw/external/GSE302356/extracted/LAM13/LAM13_atac_fragments.tsv.gz}
+      - {sample_id: LAM14, modality: snATAC, archive: data/raw/external/GSE302356/GSM9226651_LAM14.tar.gz, input: data/raw/external/GSE302356/extracted/LAM14/LAM14_filtered_peak_bc_matrix.h5}
+      - {sample_id: LAM15, modality: snATAC, archive: data/raw/external/GSE302356/GSM9226652_LAM15.tar.gz, input: data/raw/external/GSE302356/extracted/LAM15/LAM15_filtered_peak_bc_matrix.h5}
+      - {sample_id: LAM16, modality: snATAC, archive: data/raw/external/GSE302356/GSM9226653_LAM16.tar.gz, input: data/raw/external/GSE302356/extracted/LAM16/LAM16_filtered_peak_bc_matrix.h5}
+      - {sample_id: LAM19, modality: Xenium, archive: data/raw/external/GSE302356/GSM9226655_LAM19.tar.gz, cell_matrix: data/raw/external/GSE302356/extracted/LAM19/LAM19_cell_feature_matrix.h5, cells: data/raw/external/GSE302356/extracted/LAM19/LAM19_cells.parquet, transcripts: data/raw/external/GSE302356/extracted/LAM19/LAM19_transcripts.parquet}
+notes:
+  - No AnnData conversion, QC, normalization, integration, or state assignment was performed.
+  - All staged archives passed gzip and tar integrity checks before extraction.

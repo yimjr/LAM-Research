@@ -1,0 +1,37 @@
+schema_version: "1.0"
+dataset: GSE302356
+independence_rule: "PatientID is the independent unit; same-donor spatial modalities add orthogonal evidence only."
+modalities:
+  visium:
+    sample_id: LAM20
+    patient_id: LAM4
+    assay: Visium
+    unit: spot
+    matrix: data/interim/external/GSE302356/spatial/LAM20/LAM20_filtered_feature_bc_matrix.h5
+    positions: data/interim/external/GSE302356/spatial/LAM20/LAM20_tissue_positions.csv
+    scalefactors: data/interim/external/GSE302356/spatial/LAM20/LAM20_scalefactors_json.json
+    image: data/interim/external/GSE302356/spatial/LAM20/LAM20_tissue_hires_image.png
+  visium_hd:
+    sample_id: LAM18
+    patient_id: LAM3
+    assay: Visium_HD
+    unit: bin_or_segment
+    matrix: data/interim/external/GSE302356/spatial/LAM18/LAM18_filtered_feature_bc_matrix.h5
+    positions: data/interim/external/GSE302356/spatial/LAM18/LAM18_tissue_positions.parquet
+    scalefactors: data/interim/external/GSE302356/spatial/LAM18/LAM18_scalefactors_json.json
+    image: data/interim/external/GSE302356/spatial/LAM18/LAM18_tissue_hires_image.png
+  xenium:
+    sample_id: LAM19
+    patient_id: LAM4
+    assay: Xenium
+    unit: cell
+    matrix: data/interim/external/GSE302356/spatial/LAM19/LAM19_cell_feature_matrix.h5
+    cells: data/interim/external/GSE302356/spatial/LAM19/LAM19_cells.parquet
+    transcripts: data/interim/external/GSE302356/spatial/LAM19/LAM19_transcripts.parquet
+    cell_boundaries: data/interim/external/GSE302356/spatial/LAM19/LAM19_cell_boundaries.parquet
+    image: data/interim/external/GSE302356/spatial/LAM19/LAM19_morphology.ome.tif
+analysis_rules:
+  do_not_pool_units: true
+  missing_targeted_gene_interpretation: "panel_unobserved_not_biological_negative"
+  evidence_integration: "Compare direction and niche support across modalities; do not pool raw scores or p-values."
+  required_programs: [LAMCORE, LAF_fibroblast, lymphatic_endothelial, immune, protease, antiprotease, ECM_remodeling]

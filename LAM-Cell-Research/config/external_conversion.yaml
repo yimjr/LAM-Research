@@ -1,0 +1,33 @@
+schema_version: "1.0"
+output_dir: data/processed/external
+modalities_manifest: manifests/external_modalities.yaml
+datasets:
+  GSE190260:
+    output: GSE190260.h5ad
+    modality: scRNA
+    samples:
+      - {sample_id: LAM1110, source_sample: GSM5718713, patient_id: LAM1110, donor_id: LAM1110, specimen_id: LAM1110, assay: scRNA, path: data/raw/external/GSE190260/extracted/GSM5718713_LAM1110}
+      - {sample_id: LAM1158, source_sample: GSM5718714, patient_id: LAM1158, donor_id: LAM1158, specimen_id: LAM1158, assay: scRNA, path: data/raw/external/GSE190260/extracted/GSM5718714_LAM1158}
+      - {sample_id: LAM1163, source_sample: GSM5718715, patient_id: LAM1163, donor_id: LAM1163, specimen_id: LAM1163, assay: scRNA, path: data/raw/external/GSE190260/extracted/GSM5718715_LAM1163}
+      - {sample_id: LAM1164-1, source_sample: GSM5718716, patient_id: LAM1164, donor_id: LAM1164, specimen_id: LAM1164-1, assay: scRNA, path: data/raw/external/GSE190260/extracted/GSM5718716_LAM1164-1/LAM1164-1, identity_status: pending_metadata_confirmation}
+      - {sample_id: LAM1164-2, source_sample: GSM5718717, patient_id: LAM1164, donor_id: LAM1164, specimen_id: LAM1164-2, assay: scRNA, path: data/raw/external/GSE190260/extracted/GSM5718717_LAM1164-2/LAM1164-2, identity_status: pending_metadata_confirmation}
+      - {sample_id: LAM1164-3, source_sample: GSM5718718, patient_id: LAM1164, donor_id: LAM1164, specimen_id: LAM1164-3, assay: scRNA, path: data/raw/external/GSE190260/extracted/GSM5718718_LAM1164-3/LAM1164-3, identity_status: pending_metadata_confirmation}
+  GSE217108:
+    output: GSE217108.h5ad
+    modality: snRNA
+    samples:
+      - {sample_id: LAM32, source_sample: GSM6705234, patient_id: LAM32, donor_id: LAM32, specimen_id: LAM32, assay: snRNA, path: data/raw/external/GSE217108/extracted/GSM6705234_LAM32/LAM32/filtered_feature_bc_matrix.h5}
+      - {sample_id: LAM44, source_sample: GSM6705235, patient_id: LAM44, donor_id: LAM44, specimen_id: LAM44, assay: snRNA, path: data/raw/external/GSE217108/extracted/GSM6705235_LAM44/LAM44/filtered_feature_bc_matrix.h5}
+  GSE302356:
+    output: GSE302356.h5ad
+    modality: RNA
+    samples:
+      - {sample_id: LAM3, source_sample: LAM3, patient_id: LAM32, donor_id: LAM32, specimen_id: LAM3, assay: scRNA, path: data/raw/external/GSE302356/extracted/LAM3/LAM3_filtered_feature_bc_matrix.h5, evidence_type: same_donor_orthogonal}
+      - {sample_id: LAM4, source_sample: LAM4, patient_id: LAM18, donor_id: LAM18, specimen_id: LAM4, assay: scRNA, path: data/raw/external/GSE302356/extracted/LAM4/LAM4_filtered_feature_bc_matrix.h5, evidence_type: independent_donor}
+      - {sample_id: LAM10, source_sample: LAM10, patient_id: LAM3, donor_id: LAM3, specimen_id: LAM10, assay: multiome_GEX, path: data/raw/external/GSE302356/extracted/LAM10/LAM10_filtered_feature_bc_matrix.h5, evidence_type: same_donor_orthogonal}
+      - {sample_id: LAM13, source_sample: LAM13, patient_id: LAM50, donor_id: LAM50, specimen_id: LAM13, assay: multiome_GEX, path: data/raw/external/GSE302356/extracted/LAM13/LAM13_filtered_feature_bc_matrix.h5, evidence_type: independent_donor}
+
+marker_genes: [PMEL, MLANA, MITF, ACTA2, ESR1, FIGF, VEGFD, CTSK]
+technical_patterns:
+  mitochondrial: "^MT-"
+  ribosomal: "^(RPS|RPL)"

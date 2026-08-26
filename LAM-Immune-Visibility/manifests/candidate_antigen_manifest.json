@@ -1,0 +1,10 @@
+{
+  "positive_control": "PMEL/gp100 is retained as an expression and prior-evidence positive control, not as proof of current HLA peptide presentation.",
+  "normal_reference": "GSE122960 normal lung only; no whole-body normal tissue safety conclusion.",
+  "denominator_rule": "not_assayed cells are excluded from detected/low/high fractions",
+  "independence_rule": "LAM32 is deduplicated across GSE217108/GSE302356; core GSE135851 donor labels remain accession-scoped unless the donor registry confirms a match.",
+  "outputs": [
+    "results/candidate_antigens/candidate_antigen_ranking.csv",
+    "results/candidate_antigens/candidate_antigen_by_patient.csv"
+  ]
+}

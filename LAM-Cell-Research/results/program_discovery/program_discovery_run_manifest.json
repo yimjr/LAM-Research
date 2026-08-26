@@ -1,0 +1,55 @@
+{
+  "run_mode": "fast_smoke",
+  "input": "data/processed/reproduction_core/GSE135851_core_reproduction.h5ad",
+  "n_cells": 30708,
+  "n_genes": 63677,
+  "pool_counts": {
+    "high_confidence": 535,
+    "broad_lam_like": 3940,
+    "unrestricted_lam": 23228
+  },
+  "pool_donors": {
+    "high_confidence": 4,
+    "broad_lam_like": 4,
+    "unrestricted_lam": 4
+  },
+  "feature_genes": 800,
+  "pooled_models": {
+    "high_confidence": {
+      "selected_rank": 3,
+      "selected_seed": 0,
+      "n_cells": 535
+    },
+    "broad_lam_like": {
+      "selected_rank": 3,
+      "selected_seed": 1,
+      "n_cells": 1200
+    },
+    "unrestricted_lam": {
+      "selected_rank": 3,
+      "selected_seed": 0,
+      "n_cells": 1200
+    }
+  },
+  "external_data": [
+    {
+      "accession": "GSE190260",
+      "path": "data/processed/external/GSE190260.h5ad",
+      "available": true,
+      "status": "ready_for_external_validation"
+    },
+    {
+      "accession": "GSE217108",
+      "path": "data/processed/external/GSE217108.h5ad",
+      "available": true,
+      "status": "ready_for_external_validation"
+    },
+    {
+      "accession": "GSE302356",
+      "path": "data/processed/external/GSE302356.h5ad",
+      "available": true,
+      "status": "ready_for_external_validation"
+    }
+  ],
+  "interpretation": "Candidate programs are exploratory until independent PatientID and orthogonal evidence are available."
+}

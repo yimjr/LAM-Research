@@ -1,0 +1,21 @@
+dataset,axis,left_variable,right_variable,n_patients,spearman_rho,p_value_descriptive,interpretation
+GSE122960_normal_lung,candidate evasion-to-T-cell exhaustion axis,lamcore_mean_immune_evasion,T_cell_candidate_mean_t_cell_exhaustion,0,,,candidate association only; not direct communication or causality
+GSE122960_normal_lung,candidate NK-ligand-to-NK-state axis,lamcore_mean_nk_ligands,NK_candidate_mean_nk_state,0,,,candidate association only; not direct communication or causality
+GSE122960_normal_lung,candidate presentation-to-CD8 cytotoxicity axis,lamcore_mean_presentation_machinery,T_cell_candidate_mean_cd8_cytotoxicity,0,,,candidate association only; not direct communication or causality
+GSE122960_normal_lung,candidate antigen-to-macrophage context axis,lamcore_mean_antigen_associated,macrophage_candidate_mean_macrophage_suppressive,0,,,candidate association only; not direct communication or causality
+GSE135851,candidate evasion-to-T-cell exhaustion axis,lamcore_mean_immune_evasion,T_cell_candidate_mean_t_cell_exhaustion,4,-0.39999999999999997,0.6,candidate association only; not direct communication or causality
+GSE135851,candidate NK-ligand-to-NK-state axis,lamcore_mean_nk_ligands,NK_candidate_mean_nk_state,4,-0.7999999999999999,0.2000000000000001,candidate association only; not direct communication or causality
+GSE135851,candidate presentation-to-CD8 cytotoxicity axis,lamcore_mean_presentation_machinery,T_cell_candidate_mean_cd8_cytotoxicity,4,-0.7999999999999999,0.2000000000000001,candidate association only; not direct communication or causality
+GSE135851,candidate antigen-to-macrophage context axis,lamcore_mean_antigen_associated,macrophage_candidate_mean_macrophage_suppressive,4,0.39999999999999997,0.6,candidate association only; not direct communication or causality
+GSE190260,candidate evasion-to-T-cell exhaustion axis,lamcore_mean_immune_evasion,T_cell_candidate_mean_t_cell_exhaustion,4,-0.19999999999999998,0.8,candidate association only; not direct communication or causality
+GSE190260,candidate NK-ligand-to-NK-state axis,lamcore_mean_nk_ligands,NK_candidate_mean_nk_state,4,-0.19999999999999998,0.8,candidate association only; not direct communication or causality
+GSE190260,candidate presentation-to-CD8 cytotoxicity axis,lamcore_mean_presentation_machinery,T_cell_candidate_mean_cd8_cytotoxicity,4,-0.39999999999999997,0.6,candidate association only; not direct communication or causality
+GSE190260,candidate antigen-to-macrophage context axis,lamcore_mean_antigen_associated,macrophage_candidate_mean_macrophage_suppressive,4,-0.39999999999999997,0.6,candidate association only; not direct communication or causality
+GSE217108,candidate evasion-to-T-cell exhaustion axis,lamcore_mean_immune_evasion,T_cell_candidate_mean_t_cell_exhaustion,2,,,candidate association only; not direct communication or causality
+GSE217108,candidate NK-ligand-to-NK-state axis,lamcore_mean_nk_ligands,NK_candidate_mean_nk_state,2,,,candidate association only; not direct communication or causality
+GSE217108,candidate presentation-to-CD8 cytotoxicity axis,lamcore_mean_presentation_machinery,T_cell_candidate_mean_cd8_cytotoxicity,2,,,candidate association only; not direct communication or causality
+GSE217108,candidate antigen-to-macrophage context axis,lamcore_mean_antigen_associated,macrophage_candidate_mean_macrophage_suppressive,2,,,candidate association only; not direct communication or causality
+GSE302356,candidate evasion-to-T-cell exhaustion axis,lamcore_mean_immune_evasion,T_cell_candidate_mean_t_cell_exhaustion,4,-1.0,0.0,candidate association only; not direct communication or causality
+GSE302356,candidate NK-ligand-to-NK-state axis,lamcore_mean_nk_ligands,NK_candidate_mean_nk_state,4,0.7999999999999999,0.2000000000000001,candidate association only; not direct communication or causality
+GSE302356,candidate presentation-to-CD8 cytotoxicity axis,lamcore_mean_presentation_machinery,T_cell_candidate_mean_cd8_cytotoxicity,4,0.6000000000000001,0.4,candidate association only; not direct communication or causality
+GSE302356,candidate antigen-to-macrophage context axis,lamcore_mean_antigen_associated,macrophage_candidate_mean_macrophage_suppressive,4,0.0,1.0,candidate association only; not direct communication or causality

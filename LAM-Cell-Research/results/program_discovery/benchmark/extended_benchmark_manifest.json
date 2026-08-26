@@ -1,0 +1,18 @@
+{
+  "input": "data/processed/reproduction_core/GSE135851_core_reproduction.h5ad",
+  "methods": [
+    "donor_level_expression_enrichment",
+    "pooled_NMF_score_vs_known_expression_spearman",
+    "existing_top_gene_jaccard_benchmark"
+  ],
+  "required_programs_for_unknown_gate": [
+    "CORE1",
+    "CORE2",
+    "ECM_remodeling",
+    "SLS_stem_like",
+    "IS_inflammatory"
+  ],
+  "unknown_gate": "Unknown cross-PatientID matches remain gated unless the relevant known positive controls pass expression and loading benchmarks.",
+  "regulon_pathway_status": "not_run_current_runtime; requires curated regulon/pathway resource before final novelty claims.",
+  "CORE3_rule": "CORE3 remains a structured identity+depth-adjusted-low-activity+translation model, not an ordinary gene set."
+}

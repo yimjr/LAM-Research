@@ -1,0 +1,38 @@
+schema_version: "1.0"
+datasets:
+  GSE179044:
+    role: "TSC2-loss x ECM environment x rapamycin perturbation"
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE179044
+    processed_files:
+      - label: raw_counts
+        url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE179nnn/GSE179044/suppl/GSE179044_raw_counts_matrix.csv.gz
+        destination: data/raw/perturbation/GSE179044/GSE179044_raw_counts_matrix.csv.gz
+      - label: normalized_counts
+        url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE179nnn/GSE179044/suppl/GSE179044_normalized_counts_matrix.csv.gz
+        destination: data/raw/perturbation/GSE179044/GSE179044_normalized_counts_matrix.csv.gz
+      - label: rlog_counts
+        url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE179nnn/GSE179044/suppl/GSE179044_rlog_counts_matrix.csv.gz
+        destination: data/raw/perturbation/GSE179044/GSE179044_rlog_counts_matrix.csv.gz
+    design:
+      genotype: [WT, TSC2ko]
+      environment: [hydrogel, plastic]
+      treatment: [vehicle, rapamycin]
+      biological_replicates: 2
+  GSE84476:
+    role: "TSC2-null LAM-derived cells with rapamycin and STAT3 perturbation"
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE84476
+    processed_files:
+      - label: kallisto_abundance
+        url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE84nnn/GSE84476/suppl/GSE84476_VKMJ-STAT3_kallisto_abundance.txt.gz
+        destination: data/raw/perturbation/GSE84476/GSE84476_VKMJ-STAT3_kallisto_abundance.txt.gz
+      - label: fold_changes
+        url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE84nnn/GSE84476/suppl/GSE84476_VKMJ-STAT3_fold_changes.txt.gz
+        destination: data/raw/perturbation/GSE84476/GSE84476_VKMJ-STAT3_fold_changes.txt.gz
+    design:
+      genotype: [TSC2_null, TSC2_reexpressed]
+      treatment: [rapamycin, siSTAT3, control]
+      note: "Reconstruct condition labels from GEO sample metadata before modeling; do not infer genotype from expression alone."
+download_policy:
+  processed_matrices_only: true
+  fastq_allowed: false
+  hash_algorithm: SHA-256

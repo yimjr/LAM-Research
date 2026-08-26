@@ -1,0 +1,4 @@
+accession,path,available,status
+GSE190260,data/processed/external/GSE190260.h5ad,True,ready_for_external_validation
+GSE217108,data/processed/external/GSE217108.h5ad,True,ready_for_external_validation
+GSE302356,data/processed/external/GSE302356.h5ad,True,ready_for_external_validation

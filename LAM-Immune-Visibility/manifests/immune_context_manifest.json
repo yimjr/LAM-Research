@@ -1,0 +1,5 @@
+{
+  "cell_type_rule": "highest marker detected-count with at least 2 detected marker genes",
+  "unassigned_rule": "fewer than 2 detected markers or unresolved tie",
+  "interpretation": "All associations are candidate associations, not direct communication claims."
+}

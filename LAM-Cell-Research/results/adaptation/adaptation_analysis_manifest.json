@@ -1,0 +1,271 @@
+{
+  "programs": {
+    "lineage_origin_smooth_muscle": [
+      "ACTA2",
+      "TAGLN",
+      "MYH11",
+      "CNN1",
+      "DES",
+      "CALD1",
+      "MYL9",
+      "TPM2"
+    ],
+    "lung_adaptation": [
+      "VEGFD",
+      "FIGF",
+      "CCL21",
+      "PDPN",
+      "LYVE1",
+      "FLT4",
+      "CTSK",
+      "MMP2",
+      "MMP9",
+      "CXCL14"
+    ],
+    "ECM_interaction": [
+      "COL1A1",
+      "COL1A2",
+      "COL3A1",
+      "FN1",
+      "VCAN",
+      "MMP2",
+      "MMP9",
+      "TIMP1",
+      "TIMP2"
+    ],
+    "survival_stress": [
+      "BCL2",
+      "BCL2L1",
+      "LGALS3",
+      "HIF1A",
+      "VEGFA",
+      "BNIP3",
+      "DDIT4",
+      "NDRG1",
+      "TXNIP"
+    ],
+    "immune_evasion": [
+      "LGALS3",
+      "CTSS",
+      "TYROBP",
+      "CCL2",
+      "TGFB1",
+      "CD274",
+      "SERPINE1"
+    ],
+    "hormone_related": [
+      "ESR1",
+      "ESR2",
+      "PGR",
+      "IGF1R",
+      "EGFR",
+      "GREB1"
+    ]
+  },
+  "datasets": [
+    {
+      "path": "data/processed/GSE135851_lam_states.h5ad",
+      "cohort": "LAM_lung_core_reanalysis",
+      "n_cells": 30077,
+      "available_genes": {
+        "lineage_origin_smooth_muscle": [
+          "ACTA2",
+          "TAGLN",
+          "MYH11",
+          "CNN1",
+          "DES",
+          "CALD1",
+          "MYL9",
+          "TPM2"
+        ],
+        "lung_adaptation": [
+          "FIGF",
+          "CCL21",
+          "PDPN",
+          "LYVE1",
+          "FLT4",
+          "CTSK",
+          "MMP2",
+          "MMP9",
+          "CXCL14"
+        ],
+        "ECM_interaction": [
+          "COL1A1",
+          "COL1A2",
+          "COL3A1",
+          "FN1",
+          "VCAN",
+          "MMP2",
+          "MMP9",
+          "TIMP1",
+          "TIMP2"
+        ],
+        "survival_stress": [
+          "BCL2",
+          "BCL2L1",
+          "LGALS3",
+          "HIF1A",
+          "VEGFA",
+          "BNIP3",
+          "DDIT4",
+          "NDRG1",
+          "TXNIP"
+        ],
+        "immune_evasion": [
+          "LGALS3",
+          "CTSS",
+          "TYROBP",
+          "CCL2",
+          "TGFB1",
+          "CD274",
+          "SERPINE1"
+        ],
+        "hormone_related": [
+          "ESR1",
+          "ESR2",
+          "PGR",
+          "IGF1R",
+          "EGFR",
+          "GREB1"
+        ]
+      }
+    },
+    {
+      "path": "data/processed/external/GSE122960_normal_lung.h5ad",
+      "cohort": "normal_lung_reference",
+      "n_cells": 33020,
+      "available_genes": {
+        "lineage_origin_smooth_muscle": [
+          "ACTA2",
+          "TAGLN",
+          "MYH11",
+          "CNN1",
+          "DES",
+          "CALD1",
+          "MYL9",
+          "TPM2"
+        ],
+        "lung_adaptation": [
+          "FIGF",
+          "CCL21",
+          "PDPN",
+          "LYVE1",
+          "FLT4",
+          "CTSK",
+          "MMP2",
+          "MMP9",
+          "CXCL14"
+        ],
+        "ECM_interaction": [
+          "COL1A1",
+          "COL1A2",
+          "COL3A1",
+          "FN1",
+          "VCAN",
+          "MMP2",
+          "MMP9",
+          "TIMP1",
+          "TIMP2"
+        ],
+        "survival_stress": [
+          "BCL2",
+          "BCL2L1",
+          "LGALS3",
+          "HIF1A",
+          "VEGFA",
+          "BNIP3",
+          "DDIT4",
+          "NDRG1",
+          "TXNIP"
+        ],
+        "immune_evasion": [
+          "LGALS3",
+          "CTSS",
+          "TYROBP",
+          "CCL2",
+          "TGFB1",
+          "CD274",
+          "SERPINE1"
+        ],
+        "hormone_related": [
+          "ESR1",
+          "ESR2",
+          "PGR",
+          "IGF1R",
+          "EGFR",
+          "GREB1"
+        ]
+      }
+    },
+    {
+      "path": "data/processed/external/GSE118180_wildtype_uterus.h5ad",
+      "cohort": "mouse_uterus_lineage_reference",
+      "n_cells": 6487,
+      "available_genes": {
+        "lineage_origin_smooth_muscle": [
+          "ACTA2",
+          "TAGLN",
+          "MYH11",
+          "CNN1",
+          "DES",
+          "CALD1",
+          "MYL9",
+          "TPM2"
+        ],
+        "lung_adaptation": [
+          "FIGF",
+          "PDPN",
+          "LYVE1",
+          "FLT4",
+          "CTSK",
+          "MMP2",
+          "MMP9",
+          "CXCL14"
+        ],
+        "ECM_interaction": [
+          "COL1A1",
+          "COL1A2",
+          "COL3A1",
+          "FN1",
+          "VCAN",
+          "MMP2",
+          "MMP9",
+          "TIMP1",
+          "TIMP2"
+        ],
+        "survival_stress": [
+          "BCL2",
+          "BCL2L1",
+          "LGALS3",
+          "HIF1A",
+          "VEGFA",
+          "BNIP3",
+          "DDIT4",
+          "NDRG1",
+          "TXNIP"
+        ],
+        "immune_evasion": [
+          "LGALS3",
+          "CTSS",
+          "TYROBP",
+          "CCL2",
+          "TGFB1",
+          "CD274",
+          "SERPINE1"
+        ],
+        "hormone_related": [
+          "ESR1",
+          "ESR2",
+          "PGR",
+          "IGF1R",
+          "EGFR",
+          "GREB1"
+        ]
+      }
+    }
+  ],
+  "candidate_rule": "LAM1-LAM4 cells with lamcore_candidate_fallback=True; the broad formal candidate was not used as the conservative identity set.",
+  "reference_rule": "Normal lung is a disease-control reference; mouse uterus is a lineage reference; neither is a universal exclusion criterion.",
+  "species_rule": "Mouse uterus is reported as a symbol-overlap reference; formal ortholog mapping remains a follow-up if this line is upgraded.",
+  "interpretation": "Scores are evidence for comparative programs, not proof of cell origin or a lung-specific causal mechanism."
+}

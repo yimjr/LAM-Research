@@ -1,0 +1,9 @@
+state,donors_tested,donors_candidate_higher,median_difference,fraction_candidate_higher
+contractile,4,4,2.3196261219617496,1.0
+ecm_remodeling,4,3,0.42770940503212246,0.75
+hormone_related,4,3,0.03215008539961787,0.75
+inflammatory,4,1,-0.005114230460247282,0.25
+mTOR_related,4,1,-0.009227214334563243,0.25
+metabolic,4,0,-0.05943197172761274,0.0
+proliferative,4,2,-0.007136309428098907,0.5
+stress_hypoxia,4,3,0.017932056458294696,0.75

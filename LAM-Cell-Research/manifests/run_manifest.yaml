@@ -1,0 +1,253 @@
+status: revised_mechanism_chain_first_pass_completed; protein_matrix_and_regulon_pathway_layers_pending
+project: LAM-Cell-Research
+python: 3.12.13 (main, Aug  7 2026, 02:15:23) [Clang 22.1.3 ]
+steps:
+- name: qc_and_preprocess
+  completed_at: '2026-08-22T09:27:25.755758+00:00'
+  input: data/interim/GSE135851_combined_raw.h5ad
+  output: data/processed/GSE135851_preprocessed.h5ad
+  doublet_status: completed
+  harmony_status: completed
+- name: analyze_lam_states
+  completed_at: '2026-08-22T10:18:54.404200+00:00'
+  input: data/processed/GSE135851_preprocessed.h5ad
+  output: data/processed/GSE135851_lam_states.h5ad
+  formal_signature_file: data/raw/reference/LAM_core_signature_genes.csv
+  formal_signature_sha256: c96cf4c684e6aac0976775fc3ce4dc894e13d264007e035f29950bb95d7fe9d6
+  formal_candidate_method: cluster_mean_score
+  fallback_candidate_method: cell_score_fallback
+- name: robustness_tests
+  completed_at: '2026-08-22T10:23:27.664055+00:00'
+  input: data/processed/GSE135851_lam_states.h5ad
+  outputs:
+  - results/tables/robustness_threshold_sensitivity.csv
+  - results/tables/robustness_qc_sensitivity.csv
+  - results/tables/robustness_assay_summary.csv
+  - results/tables/robustness_summary.json
+- name: phase1_reproduction_baseline
+  completed_at: '2026-08-22T11:35:08.207949+00:00'
+  input: data/interim/GSE135851_combined_raw.h5ad
+  output: data/processed/reproduction_core/GSE135851_core_baseline_qc.h5ad
+  doublet_status: completed_record_only
+  doublet_exclusion_applied: false
+- name: phase1_core_reproduction
+  completed_at: '2026-08-22T11:55:25.458693+00:00'
+  input: data/processed/reproduction_core/GSE135851_core_baseline_qc.h5ad
+  output: data/processed/reproduction_core/GSE135851_core_reproduction.h5ad
+  formal_signature_used_for_identification: false
+  formal_signature_used_for_consistency: true
+  doublet_exclusion_applied: false
+  classification: independent_reimplementation_not_strict_replication
+- name: phase2_targeted_robustness
+  completed_at: '2026-08-22T11:58:30.402537+00:00'
+  input: data/processed/reproduction_core/GSE135851_core_reproduction.h5ad
+  outputs:
+  - results/robustness/tables/targeted_assay_sensitivity.csv
+  - results/robustness/tables/targeted_clustering_seed_resolution.csv
+  - results/robustness/tables/targeted_donor_level_summary.csv
+  - results/robustness/tables/targeted_leave_one_donor_out.csv
+  - results/robustness/tables/targeted_qc_doublet_sensitivity.csv
+  - results/robustness/tables/targeted_rank_based_score_comparison.csv
+  - results/robustness/tables/targeted_score_comparison.csv
+  - results/robustness/targeted_robustness_summary.json
+  doublet_comparison: included
+- name: phase3_biological_discovery
+  completed_at: '2026-08-22T11:59:12.132130+00:00'
+  input: data/processed/reproduction_core/GSE135851_core_reproduction.h5ad
+  outputs:
+  - results/discovery
+  - results/hypothesis_cards
+  external_validation: normal-lung specificity and auxiliary mouse-uterus processing;
+    independent LAM donor validation pending
+- name: r_environment
+  completed_at: '2026-08-22T20:10:00+08:00'
+  runtime: R 4.6.1
+  package_library: reproduction/r_environment/R_libs
+  key_packages:
+    Seurat: 5.5.1
+    RANN: 2.6.2
+    igraph: 2.3.3
+    Biobase: 2.72.0
+  unavailable_legacy_package:
+    sSeq: not installed
+  note: historical Seurat 2/3 objects and legacy functions are not byte-for-byte recoverable from the public processed matrices
+- name: unknown_program_discovery_scaffold
+  completed_at: '2026-08-22T13:25:29+00:00'
+  input: data/processed/reproduction_core/GSE135851_core_reproduction.h5ad
+  script: scripts/discover_lam_programs.py
+  configuration: config/program_discovery.yaml
+  known_program_catalog: config/known_lam_programs.yaml
+  pools:
+  - high_confidence
+  - broad_lam_like
+  - unrestricted_lam_guardrail
+  methods:
+  - pooled_consensus_nmf
+  - donor_wise_nmf
+  - meta_program_matching
+  - known_program_posthoc_comparison
+  - core3_structured_model
+  external_validation_status: pending_external_AnnData_preparation
+  interpretation: same_cohort_exploratory_candidates_only
+- name: external_rna_conversion
+  completed_at: '2026-08-22T15:58:49+00:00'
+  script: scripts/prepare_discovery_external.py
+  configuration: config/external_conversion.yaml
+  outputs:
+  - data/processed/external/GSE190260.h5ad
+  - data/processed/external/GSE217108.h5ad
+  - data/processed/external/GSE302356.h5ad
+  - manifests/external_modalities.yaml
+  source_status: staged_processed_matrices_verified
+  modality_boundary: ATAC_and_spatial_remain_separate_orthogonal_evidence
+- name: external_program_discovery
+  completed_at: '2026-08-22T15:56:20+00:00'
+  script: scripts/discover_lam_programs.py
+  run_mode: configured_full
+  datasets:
+  - GSE190260
+  - GSE217108
+  - GSE302356
+  outputs:
+  - results/program_discovery/external_GSE190260
+  - results/program_discovery/external_GSE217108
+  - results/program_discovery/external_GSE302356
+  interpretation: external_candidates_require_PatientID_aware_meta_program_and_orthogonal_validation
+- name: cross_dataset_program_matching
+  completed_at: '2026-08-22T15:56:20+00:00'
+  script: scripts/compare_program_discovery_outputs.py
+  threshold: top_gene_jaccard_0.15
+  outputs:
+  - results/program_discovery/cross_dataset/cross_dataset_program_matches.csv
+  - results/program_discovery/cross_dataset/cross_dataset_meta_programs.csv
+  - results/program_discovery/cross_dataset/cross_dataset_program_report_zh.md
+  - results/program_discovery/cross_dataset/cross_dataset_program_report_en.md
+  result: no_different_patient_strong_match_at_current_threshold
+- name: known_program_positive_control_benchmark
+  completed_at: '2026-08-23'
+  script: scripts/benchmark_program_matching.py
+  outputs:
+  - results/program_discovery/benchmark/known_program_matching_benchmark.csv
+  - results/program_discovery/benchmark/known_program_matching_summary.csv
+  - results/program_discovery/benchmark/benchmark_report_zh.md
+  - results/program_discovery/benchmark/benchmark_report_en.md
+  result: uneven_known_program_recovery; unknown_cross_patient_matching_not_yet_interpretable
+- name: baseline_strict_qc_program_gate
+  completed_at: '2026-08-23'
+  script: scripts/qc_program_sensitivity_gate.py
+  baseline_cells: 30708
+  strict_qc_cells: 25199
+  baseline_candidates: 140
+  strict_qc_candidates: 85
+  outputs:
+  - results/program_discovery/qc_sensitivity/baseline_strict_qc_cell_summary.csv
+  - results/program_discovery/qc_sensitivity/program_qc_gate_scores.csv
+  - results/program_discovery/qc_sensitivity/program_qc_gate_direction_comparison.csv
+  result: strict_qc_materially_changes_donor_distribution; mandatory_card_gate
+- name: perturbation_data_and_program_screen
+  completed_at: '2026-08-23'
+  scripts:
+  - scripts/download_perturbation_data.py
+  - scripts/analyze_perturbation_programs.py
+  datasets:
+  - GSE179044
+  - GSE84476
+  outputs:
+  - manifests/perturbation_downloads.yaml
+  - results/perturbation/GSE179044_program_contrasts.csv
+  - results/perturbation/GSE84476_program_contrasts.csv
+  result: exploratory_ecm_protease_persistence_candidate; not_patient_treatment_evidence
+- name: spatial_three_modality_niche_screen
+  completed_at: '2026-08-23'
+  script: scripts/analyze_spatial_niche.py
+  dataset: GSE302356
+  modalities:
+  - Visium_spot_LAM20_PatientID_LAM4
+  - Visium_HD_bin_or_segment_LAM18_PatientID_LAM3
+  - Xenium_cell_LAM19_PatientID_LAM4
+  outputs:
+  - results/spatial/GSE302356
+  rule: modality_specific_units_and_scores_not_pooled
+  result: concordant_lamcore_protease_neighborhood_candidate
+- name: lung_adaptation_reference_screen
+  completed_at: '2026-08-23'
+  script: scripts/analyze_lung_adaptation.py
+  datasets:
+  - GSE135851_LAM1_LAM4
+  - GSE122960_normal_lung
+  - GSE118180_mouse_uterus
+  outputs:
+  - results/adaptation/adaptation_cell_scores.csv
+  - results/adaptation/adaptation_donor_program_scores.csv
+  - results/adaptation/adaptation_contrasts.csv
+  result: exploratory_lung_adaptation_candidate; origin_not_proven
+- name: parallel_research_status_report
+  completed_at: '2026-08-23'
+  outputs:
+  - results/report/parallel_research_status_zh.md
+  - results/report/parallel_research_status_en.md
+  - results/hypothesis_cards/parallel_directions
+- name: spatial_source_attribution_and_proteolytic_balance
+  completed_at: '2026-08-23'
+  script: scripts/analyze_spatial_source_attribution.py
+  outputs:
+  - results/spatial/GSE302356/single_cell_protease_source_attribution.csv
+  - results/spatial/GSE302356/single_cell_protease_source_attribution_by_donor.csv
+  - results/spatial/GSE302356/*_source_attribution_and_balance.csv
+  - results/spatial/GSE302356/*_source_balance_associations.csv
+  source_rule: non-protease identity-marker expression from actual single-cell data; protease genes measured after source labeling
+  balance_rule: within-modality standardized protease activity minus standardized antiprotease activity; no ratio
+  lesion_edge_status: unavailable_no_reproducible_lesion_mask
+  result: source_attribution_first_pass_completed; unclassified_source_component_remains
+- name: gse179044_effect_size_retention
+  completed_at: '2026-08-23'
+  script: scripts/analyze_rapamycin_retention.py
+  outputs:
+  - results/perturbation/GSE179044_gene_retention_effects.csv
+  - results/perturbation/GSE179044_program_retention_effects.csv
+  - results/perturbation/GSE179044_cross_environment_retained_genes.csv
+  definition: effect-size suppression fraction, not p-value non-significance
+  result: ELANE_cross_environment_partial_retention_candidate; MMP2_hydrogel_only; human_spatial_validation_pending
+- name: four_group_lung_adaptation_interaction
+  completed_at: '2026-08-23'
+  script: scripts/analyze_lung_adaptation_four_group.py
+  groups:
+  - normal_uterus
+  - LAM_uterus
+  - normal_lung
+  - pulmonary_LAM
+  outputs:
+  - results/adaptation/four_group_donor_program_scores.csv
+  - results/adaptation/four_group_lung_acquired_interactions.csv
+  result: lung_adaptation_candidate_separated_from_ecm_lam_transformation_candidate
+- name: extended_known_program_benchmark
+  completed_at: '2026-08-23'
+  script: scripts/benchmark_known_programs_extended.py
+  outputs:
+  - results/program_discovery/benchmark/known_program_donor_expression_scores.csv
+  - results/program_discovery/benchmark/known_program_nmf_loading_similarity.csv
+  - results/program_discovery/benchmark/known_program_extended_benchmark_summary.csv
+  result: CORE1_CORE2_CORE3_ECM_expression_and_loading_recovered; SLS_IS_MDK_not_uniformly_recovered
+- name: mechanism_evidence_crosswalk
+  completed_at: '2026-08-23'
+  script: scripts/integrate_mechanism_evidence.py
+  outputs:
+  - results/mechanism_integration/mechanism_evidence_crosswalk.csv
+  - results/mechanism_integration/mechanism_evidence_manifest.json
+  protein_status: public_protein_abundance_matrix_pending
+  result: cross_modal_prioritization_scaffold_only
+- name: integrated_mechanism_reports
+  completed_at: '2026-08-23'
+  outputs:
+  - results/report/lam_mechanism_synthesis_zh.md
+  - results/report/lam_mechanism_synthesis_en.md
+  - results/hypothesis_cards/parallel_directions/*_v2_zh.md
+  - results/hypothesis_cards/parallel_directions/*_v2_en.md
+- name: consolidated_download_inventory
+  completed_at: '2026-08-26'
+  script: scripts/build_download_inventory.py
+  scope: data/raw; project metadata and .DS_Store excluded
+  outputs:
+  - manifests/download_inventory.csv
+  - manifests/download_inventory_summary.csv
+  result: 197_data_files_indexed; archive_and_source_manifest_provenance_preserved

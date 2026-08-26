@@ -1,0 +1,12 @@
+{
+  "project_root": ".",
+  "scope": "All actual files under data/ excluding README.md and .DS_Store; includes raw downloads, source documents, extracted archives, processed inputs, gene sets, and local derived data files.",
+  "n_file_rows": 138,
+  "n_dataset_rows": 20,
+  "total_size_bytes": 69294661804,
+  "total_size_gib": 64.535683,
+  "invalid_or_incomplete_files": [
+    "data/raw/GSE302356/lam_niche_preprint.pdf"
+  ],
+  "hash_policy": "Use existing manifest SHA256/SHA512 when available; compute SHA256 for files <=200 MiB; mark larger unrecorded files not_computed_large_file."
+}

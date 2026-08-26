@@ -1,0 +1,16 @@
+modality,source_activity,target,n_units,spearman_same_unit,spearman_source_vs_neighbor_target,interpretation
+Visium_HD,source_LAMCORE_like,protease_activity,50000,0.17602268353347816,0.16304683733463138,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Visium_HD,source_LAMCORE_like,antiprotease_activity,50000,0.05166408502338759,0.0417200733973597,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Visium_HD,source_LAMCORE_like,proteolytic_balance_z,50000,0.08942413113113935,0.09779543207491855,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Visium_HD,source_LAF_fibroblast,protease_activity,50000,0.16986894829588223,0.15661205380105783,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Visium_HD,source_LAF_fibroblast,antiprotease_activity,50000,0.08225638382279273,0.09041106835320736,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Visium_HD,source_LAF_fibroblast,proteolytic_balance_z,50000,0.06093784432665031,0.03373496902356339,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Visium_HD,source_immune,protease_activity,50000,0.16905837116530817,0.17737101248258835,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Visium_HD,source_immune,antiprotease_activity,50000,0.0797683614437827,0.09350022920642706,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Visium_HD,source_immune,proteolytic_balance_z,50000,0.05852384143700872,0.054597484468223094,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Visium_HD,source_lymphatic_endothelial,protease_activity,50000,0.008279909612428386,0.029772345882334485,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Visium_HD,source_lymphatic_endothelial,antiprotease_activity,50000,0.035053324297555165,0.04223593183533753,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Visium_HD,source_lymphatic_endothelial,proteolytic_balance_z,50000,-0.01917232065590711,-0.018143649836195565,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Visium_HD,source_vascular_endothelial,protease_activity,50000,0.02100711287897864,0.028892269234864026,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Visium_HD,source_vascular_endothelial,antiprotease_activity,50000,0.04996889973648134,0.06827183729087492,source attribution and proteolytic-balance association; not proof of communication or lesion causality
+Visium_HD,source_vascular_endothelial,proteolytic_balance_z,50000,-0.024198808754275783,-0.03964223179688146,source attribution and proteolytic-balance association; not proof of communication or lesion causality

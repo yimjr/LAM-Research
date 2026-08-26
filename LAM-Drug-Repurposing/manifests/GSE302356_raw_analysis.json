@@ -1,0 +1,276 @@
+{
+  "status": "preliminary_modality_level_mapping",
+  "samples": [
+    {
+      "sample_id": "LAM3",
+      "sample_accession": "GSM9102552",
+      "modality": "scRNA-seq",
+      "n_cells_or_spots": 8021,
+      "n_before_tissue_filter": 8021,
+      "n_genes": 33538,
+      "median_counts": 4303.0,
+      "median_genes": 1545.0,
+      "tissue_filter": "not_applicable",
+      "program_gene_availability": {
+        "environment_dependent_escape": {
+          "up": 4,
+          "down": 3
+        },
+        "escape_hydrogel": {
+          "up": 140,
+          "down": 143
+        },
+        "escape_plastic": {
+          "up": 134,
+          "down": 144
+        },
+        "hydrogel_specific_residual": {
+          "up": 48,
+          "down": 65
+        },
+        "residual_hydrogel": {
+          "up": 144,
+          "down": 135
+        },
+        "residual_plastic": {
+          "up": 142,
+          "down": 136
+        },
+        "tsc2_loss_hydrogel": {
+          "up": 144,
+          "down": 140
+        },
+        "tsc2_loss_plastic": {
+          "up": 145,
+          "down": 143
+        }
+      },
+      "state_marker_availability": {
+        "LAMCORE1": {
+          "n_panel_genes": 28,
+          "n_detected": 28
+        },
+        "LAMCORE2": {
+          "n_panel_genes": 15,
+          "n_detected": 15
+        },
+        "LAMCORE3": {
+          "n_panel_genes": 15,
+          "n_detected": 15
+        },
+        "LAF-seed": {
+          "n_panel_genes": 13,
+          "n_detected": 13
+        },
+        "LAF-niche": {
+          "n_panel_genes": 20,
+          "n_detected": 20
+        }
+      }
+    },
+    {
+      "sample_id": "LAM4",
+      "sample_accession": "GSM9102553",
+      "modality": "scRNA-seq",
+      "n_cells_or_spots": 4446,
+      "n_before_tissue_filter": 4446,
+      "n_genes": 33538,
+      "median_counts": 3941.5,
+      "median_genes": 1436.5,
+      "tissue_filter": "not_applicable",
+      "program_gene_availability": {
+        "environment_dependent_escape": {
+          "up": 4,
+          "down": 3
+        },
+        "escape_hydrogel": {
+          "up": 140,
+          "down": 143
+        },
+        "escape_plastic": {
+          "up": 134,
+          "down": 144
+        },
+        "hydrogel_specific_residual": {
+          "up": 48,
+          "down": 65
+        },
+        "residual_hydrogel": {
+          "up": 144,
+          "down": 135
+        },
+        "residual_plastic": {
+          "up": 142,
+          "down": 136
+        },
+        "tsc2_loss_hydrogel": {
+          "up": 144,
+          "down": 140
+        },
+        "tsc2_loss_plastic": {
+          "up": 145,
+          "down": 143
+        }
+      },
+      "state_marker_availability": {
+        "LAMCORE1": {
+          "n_panel_genes": 28,
+          "n_detected": 28
+        },
+        "LAMCORE2": {
+          "n_panel_genes": 15,
+          "n_detected": 15
+        },
+        "LAMCORE3": {
+          "n_panel_genes": 15,
+          "n_detected": 15
+        },
+        "LAF-seed": {
+          "n_panel_genes": 13,
+          "n_detected": 13
+        },
+        "LAF-niche": {
+          "n_panel_genes": 20,
+          "n_detected": 20
+        }
+      }
+    },
+    {
+      "sample_id": "LAM18",
+      "sample_accession": "GSM9226654",
+      "modality": "Visium HD",
+      "n_cells_or_spots": 267526,
+      "n_before_tissue_filter": 268206,
+      "n_genes": 18085,
+      "median_counts": 55.0,
+      "median_genes": 51.0,
+      "tissue_filter": "in_tissue==1 from LAM18_tissue_positions.parquet",
+      "program_gene_availability": {
+        "environment_dependent_escape": {
+          "up": 1,
+          "down": 2
+        },
+        "escape_hydrogel": {
+          "up": 128,
+          "down": 138
+        },
+        "escape_plastic": {
+          "up": 114,
+          "down": 134
+        },
+        "hydrogel_specific_residual": {
+          "up": 43,
+          "down": 49
+        },
+        "residual_hydrogel": {
+          "up": 130,
+          "down": 112
+        },
+        "residual_plastic": {
+          "up": 134,
+          "down": 120
+        },
+        "tsc2_loss_hydrogel": {
+          "up": 137,
+          "down": 131
+        },
+        "tsc2_loss_plastic": {
+          "up": 139,
+          "down": 134
+        }
+      },
+      "state_marker_availability": {
+        "LAMCORE1": {
+          "n_panel_genes": 28,
+          "n_detected": 28
+        },
+        "LAMCORE2": {
+          "n_panel_genes": 15,
+          "n_detected": 15
+        },
+        "LAMCORE3": {
+          "n_panel_genes": 15,
+          "n_detected": 8
+        },
+        "LAF-seed": {
+          "n_panel_genes": 13,
+          "n_detected": 13
+        },
+        "LAF-niche": {
+          "n_panel_genes": 20,
+          "n_detected": 20
+        }
+      }
+    },
+    {
+      "sample_id": "LAM20",
+      "sample_accession": "GSM9226656",
+      "modality": "Visium",
+      "n_cells_or_spots": 2311,
+      "n_before_tissue_filter": 2311,
+      "n_genes": 18085,
+      "median_counts": 10187.0,
+      "median_genes": 4651.0,
+      "tissue_filter": "in_tissue==1 from LAM20_tissue_positions.csv",
+      "program_gene_availability": {
+        "environment_dependent_escape": {
+          "up": 1,
+          "down": 2
+        },
+        "escape_hydrogel": {
+          "up": 128,
+          "down": 138
+        },
+        "escape_plastic": {
+          "up": 114,
+          "down": 134
+        },
+        "hydrogel_specific_residual": {
+          "up": 43,
+          "down": 49
+        },
+        "residual_hydrogel": {
+          "up": 130,
+          "down": 112
+        },
+        "residual_plastic": {
+          "up": 134,
+          "down": 120
+        },
+        "tsc2_loss_hydrogel": {
+          "up": 137,
+          "down": 131
+        },
+        "tsc2_loss_plastic": {
+          "up": 139,
+          "down": 134
+        }
+      },
+      "state_marker_availability": {
+        "LAMCORE1": {
+          "n_panel_genes": 28,
+          "n_detected": 28
+        },
+        "LAMCORE2": {
+          "n_panel_genes": 15,
+          "n_detected": 15
+        },
+        "LAMCORE3": {
+          "n_panel_genes": 15,
+          "n_detected": 8
+        },
+        "LAF-seed": {
+          "n_panel_genes": 13,
+          "n_detected": 13
+        },
+        "LAF-niche": {
+          "n_panel_genes": 20,
+          "n_detected": 20
+        }
+      }
+    }
+  ],
+  "state_labels": "Formal cell labels are not present in these raw archives; state_* columns use paper-derived operational marker panels.",
+  "state_panel_source": "data/processed/GSE302356/paper_state_marker_panels.csv; based on DOI 10.1183/13993003.02049-2025 and the accessible preprint text. LAMCORE3 has no unique marker panel in the paper and is represented only by a shared-core plus translation-enriched surrogate.",
+  "interpretation": "Raw scores are mean log1p-normalized expression of up genes minus down genes (or mean module/state expression); z scores are within-sample diagnostics. These test whether GSE179044 programs and paper-derived state programs are detectable in human LAM scRNA/spatial samples, not formal patient-level state assignments, and cross-modality results are not same-patient tri-modal validation."
+}

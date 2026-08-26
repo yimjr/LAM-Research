@@ -1,0 +1,25 @@
+{
+  "reference": "data/processed/reproduction_core/GSE135851_core_reproduction.h5ad",
+  "n_cells": 30708,
+  "source_label_rule": "LAMCORE from existing candidate label; other broad source states from z-scored non-protease identity-marker expression in the actual single-cell matrix; protease genes were not used to assign labels.",
+  "protease_genes": [
+    "CTSK",
+    "MMP2",
+    "MMP8",
+    "MMP9",
+    "MMP12",
+    "ELANE",
+    "PRTN3",
+    "CTSS",
+    "CTSB"
+  ],
+  "antiprotease_genes": [
+    "TIMP1",
+    "TIMP2",
+    "SERPINA1",
+    "SERPINE1",
+    "SLPI",
+    "PI3"
+  ],
+  "external_datasets": "External h5ad objects are retained for later projection; current source labels are not silently inferred where cell-state metadata are absent."
+}

@@ -1,0 +1,18 @@
+schema_version: "1.0"
+sources:
+  - source_id: MSV000099051
+    modality: plasma_EV_proteomics
+    source_url: https://massive.ucsd.edu/ProteoSAFe/dataset.jsp?task=1f7322442da240d4ac3858fb7b9b8c03
+    role: "Primary public LAM plasma extracellular-vesicle proteome candidate pool"
+    patient_matching: not_assumed
+    status: registered_download_pending
+  - source_id: LAM_SomaScan_2025
+    modality: plasma_proteomics
+    source_url: https://www.sciencedirect.com/science/article/pii/S0012369225059616
+    role: "Published cross-cohort plasma protein candidate list; reported 662 differential proteins"
+    patient_matching: not_assumed
+    status: published_candidate_list_pending_supplementary_matrix
+integration_rules:
+  nonpaired_evidence: "May support cross-cohort source mapping, not patient-level RNA-protein correlation."
+  protein_to_gene_mapping: "Retain UniProt and gene-symbol identifiers; record one-to-many mappings."
+  EV_and_plasma: "Analyze as separate biological matrices before evidence-level integration."

@@ -1,0 +1,15 @@
+project: LAM-Drug-Repurposing
+random_seed: 20260822
+min_baseline_effect: 0.5
+ratio_epsilon: 0.1
+fdr_cutoff: 0.10
+min_genes_for_module: 5
+module_sets:
+  ecM_invasion: [COL1A1, COL1A2, COL3A1, COL5A2, DCN, LUM, FN1, SPARC, MMP2, MMP11]
+  survival_stress: [HSPA1A, HSPA1B, DDIT3, ATF4, HIF1A, NFKBIA, JUN, FOS, FOSB]
+  autophagy_lysosome: [ATG5, ATG7, SQSTM1, TFEB, LAMP1, LAMP2, CTSB, CTSD]
+  metabolism_lipogenesis: [SREBF1, ACLY, ACSS2, FABP3, HSD11B1, MVD, FASN, SCD]
+  mTORC1: [RPS6KB1, EIF4EBP1, RPTOR, MTOR, RHEB, ULK1, HIF1A]
+  mapk_cdk: [MAPK1, MAPK3, MAP2K1, MAP2K2, CDK1, CDK2, CDK4, CDK6, CCND1]
+  myogenic: [ACTA2, MYH11, TAGLN, CNN1, MYL9, TPM2]
+  protein_translation: [RPLP0, RPLP1, RPS6, EIF4E, EEF1A1, EIF3A, EIF4G1]

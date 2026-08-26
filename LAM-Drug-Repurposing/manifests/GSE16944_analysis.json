@@ -1,0 +1,44 @@
+{
+  "dataset": "GSE16944",
+  "role": "historical rapamycin-insensitive LAM-like support",
+  "n_features": 18846,
+  "n_samples": 9,
+  "formal_limit": "No TSC2-restored + rapamycin group; no formal D(rapamycin) or complete GxR interaction.",
+  "key_genes": {
+    "MMP2": {
+      "KO_vehicle_minus_WT_vehicle": 35.124128924666664,
+      "KO_rapamycin_minus_KO_vehicle": 8.693697958333331,
+      "KO_rapamycin_vs_WT_vehicle_descriptive": 43.817826882999995
+    },
+    "MMP9": {
+      "KO_vehicle_minus_WT_vehicle": 0.5465486630000003,
+      "KO_rapamycin_minus_KO_vehicle": 0.33271755500000033,
+      "KO_rapamycin_vs_WT_vehicle_descriptive": 0.8792662180000006
+    },
+    "MMP11": {
+      "KO_vehicle_minus_WT_vehicle": -0.06510688233333328,
+      "KO_rapamycin_minus_KO_vehicle": 0.48135427899999994,
+      "KO_rapamycin_vs_WT_vehicle_descriptive": 0.41624739666666666
+    },
+    "COL1A1": {
+      "KO_vehicle_minus_WT_vehicle": 19.039602141000003,
+      "KO_rapamycin_minus_KO_vehicle": -8.515965341666668,
+      "KO_rapamycin_vs_WT_vehicle_descriptive": 10.523636799333334
+    },
+    "COL3A1": {
+      "KO_vehicle_minus_WT_vehicle": 2.7935558840000003,
+      "KO_rapamycin_minus_KO_vehicle": -1.6149486383333338,
+      "KO_rapamycin_vs_WT_vehicle_descriptive": 1.1786072456666665
+    },
+    "FN1": {
+      "KO_vehicle_minus_WT_vehicle": 306.84873287666665,
+      "KO_rapamycin_minus_KO_vehicle": 97.41115880000001,
+      "KO_rapamycin_vs_WT_vehicle_descriptive": 404.25989167666665
+    },
+    "SPARC": {
+      "KO_vehicle_minus_WT_vehicle": -4.6155065666666815,
+      "KO_rapamycin_minus_KO_vehicle": 18.07718369666668,
+      "KO_rapamycin_vs_WT_vehicle_descriptive": 13.461677129999998
+    }
+  }
+}

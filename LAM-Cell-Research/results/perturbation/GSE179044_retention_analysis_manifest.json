@@ -1,0 +1,17 @@
+{
+  "source": "GSE179044",
+  "matrix": "data/raw/perturbation/GSE179044/GSE179044_rlog_counts_matrix.csv.gz",
+  "definition": "Retention is based on TSC2-loss effect before versus after rapamycin, not p>0.05.",
+  "e_pre": "TSC2ko_vehicle - WT_vehicle within environment and replicate.",
+  "e_post": "TSC2ko_rapamycin - WT_rapamycin within environment and replicate.",
+  "suppression_fraction": "1 - e_post/e_pre when abs(e_pre) >= min_effect.",
+  "categories": {
+    "suppressed": ">=0.75",
+    "partially_retained": "0.25 to <0.75",
+    "fully_retained": "0 to <0.25",
+    "enhanced_or_reprogrammed": "<0"
+  },
+  "min_effect": 0.5,
+  "replicate_rule": "Both GSE179044 replicates must have concordant baseline TSC2-loss direction for a gene to be retention-eligible.",
+  "no_patient_claim": "This is perturbation-model evidence, not patient-level sirolimus persistence."
+}

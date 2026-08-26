@@ -1,0 +1,48 @@
+version: 1
+source_root: .
+read_only_contract: "All paths below are read-only inputs; outputs must stay under LAM-Immune-Visibility."
+
+datasets:
+  GSE135851:
+    role: core_lam_and_reference
+    matrix: ../LAM-Cell-Research/data/processed/GSE135851_lam_states.h5ad
+    pools: ../LAM-Cell-Research/results/program_discovery/candidate_pool_labels.csv
+    patient_column: donor_id
+    assay_column: assay
+    condition_column: condition
+  GSE190260:
+    role: external_lam
+    matrix: ../LAM-Cell-Research/data/processed/external/GSE190260.h5ad
+    pools: ../LAM-Cell-Research/results/program_discovery/external_GSE190260/candidate_pool_labels.csv
+    patient_column: patient_id
+    assay_column: assay
+    condition_column: condition
+  GSE217108:
+    role: external_lam
+    matrix: ../LAM-Cell-Research/data/processed/external/GSE217108.h5ad
+    pools: ../LAM-Cell-Research/results/program_discovery/external_GSE217108/candidate_pool_labels.csv
+    patient_column: patient_id
+    assay_column: assay
+    condition_column: condition
+  GSE302356:
+    role: external_lam
+    matrix: ../LAM-Cell-Research/data/processed/external/GSE302356.h5ad
+    pools: ../LAM-Cell-Research/results/program_discovery/external_GSE302356/candidate_pool_labels.csv
+    patient_column: patient_id
+    assay_column: assay
+    condition_column: condition
+  GSE122960_normal_lung:
+    role: normal_lung_reference
+    matrix: ../LAM-Cell-Research/data/processed/external/GSE122960_normal_lung.h5ad
+    patient_column: donor_id
+    assay_column: assay
+    condition_column: condition
+
+spatial:
+  config: ../LAM-Cell-Research/config/spatial_analysis.yaml
+
+sirolimus:
+  retention_gene: ../LAM-Cell-Research/results/perturbation/GSE179044_gene_retention_effects.csv
+  retention_cross_environment: ../LAM-Cell-Research/results/perturbation/GSE179044_cross_environment_retained_genes.csv
+  human_state_scores: ../LAM-Drug-Repurposing/results/human_mapping/GSE135851_patient_state_scores.csv
+  human_module_scores: ../LAM-Drug-Repurposing/results/human_mapping/GSE135851_stable_module_scores.csv

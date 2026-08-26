@@ -1,0 +1,95 @@
+schema_version: '1.0'
+generated_at: '2026-08-22T15:58:22.445050+00:00'
+independence_rule: PatientID counts donors; same-donor RNA/ATAC/spatial adds orthogonal
+  evidence only.
+datasets:
+  GSE190260:
+    rna_output: data/processed/external/GSE190260.h5ad
+    rna_samples:
+    - LAM1110
+    - LAM1158
+    - LAM1163
+    - LAM1164-1
+    - LAM1164-2
+    - LAM1164-3
+    patient_ids:
+    - LAM1110
+    - LAM1158
+    - LAM1163
+    - LAM1164
+    orthogonal_modalities: []
+  GSE217108:
+    rna_output: data/processed/external/GSE217108.h5ad
+    rna_samples:
+    - LAM32
+    - LAM44
+    patient_ids:
+    - LAM32
+    - LAM44
+    orthogonal_modalities:
+    - assay: snATAC
+      patients:
+      - LAM32
+      - LAM44
+  GSE302356:
+    rna_output: data/processed/external/GSE302356.h5ad
+    rna_samples:
+    - LAM3
+    - LAM4
+    - LAM10
+    - LAM13
+    patient_ids:
+    - LAM32
+    - LAM18
+    - LAM3
+    - LAM50
+    orthogonal_modalities:
+    - assay: snATAC
+      samples:
+      - LAM14
+      - LAM15
+      - LAM16
+    - assay: spatial
+      samples:
+      - LAM18
+      - LAM19
+      - LAM20
+    patient_id_pending:
+    - LAM16
+note: ATAC, spatial, and Xenium raw/staged files passed archive checks but remain
+  separate from RNA AnnData until modality-specific analysis.
+converted_outputs:
+- accession: GSE190260
+  output: data/processed/external/GSE190260.h5ad
+  shape:
+  - 39979
+  - 33694
+  patient_ids:
+  - LAM1110
+  - LAM1158
+  - LAM1163
+  - LAM1164
+  n_cells: 39979
+  n_genes: 33694
+- accession: GSE217108
+  output: data/processed/external/GSE217108.h5ad
+  shape:
+  - 12396
+  - 36601
+  patient_ids:
+  - LAM32
+  - LAM44
+  n_cells: 12396
+  n_genes: 36601
+- accession: GSE302356
+  output: data/processed/external/GSE302356.h5ad
+  shape:
+  - 23759
+  - 38224
+  patient_ids:
+  - LAM18
+  - LAM3
+  - LAM32
+  - LAM50
+  n_cells: 23759
+  n_genes: 38224

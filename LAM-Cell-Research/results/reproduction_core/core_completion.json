@@ -1,0 +1,33 @@
+{
+  "core_baseline_status": "ready_for_parallel_phase2_phase3",
+  "classification": "independent_reimplementation_not_strict_replication",
+  "candidate_cells_author_style": 140,
+  "candidate_cells_original_paper": 125,
+  "candidate_cells_by_donor": {
+    "LAM1": 31,
+    "LAM2": 4,
+    "LAM3": 84,
+    "LAM4": 21
+  },
+  "lam2_candidate_cells": 4,
+  "positive_lam_donors": [
+    "LAM1",
+    "LAM2",
+    "LAM3",
+    "LAM4"
+  ],
+  "known_marker_genes": [
+    "PMEL",
+    "ACTA2",
+    "ESR1",
+    "FIGF",
+    "VEGFD",
+    "CTSK",
+    "MLANA"
+  ],
+  "formal_signature_used_for_identification": false,
+  "formal_signature_used_for_consistency": true,
+  "doublet_exclusion_applied": false,
+  "qc_boundary": "downstream QC recoverable from processed matrices; upstream QC not reconstructed",
+  "created_at": "2026-08-22T11:55:02.380238+00:00"
+}
