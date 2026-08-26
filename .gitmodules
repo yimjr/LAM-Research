@@ -1,0 +1,3 @@
+[submodule "LAM-Cell-Research/references/xu-lab-LAM"]
+	path = LAM-Cell-Research/references/xu-lab-LAM
+	url = https://github.com/xu-lab/LAM.git
