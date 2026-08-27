@@ -251,3 +251,18 @@ steps:
   - manifests/download_inventory.csv
   - manifests/download_inventory_summary.csv
   result: 197_data_files_indexed; archive_and_source_manifest_provenance_preserved
+- name: hdbscan_state_heterogeneity_exploration
+  completed_at: '2026-08-27'
+  script: scripts/explore_lam_hypotheses_hdbscan.py
+  input: data/processed/reproduction_core/GSE135851_core_reproduction.h5ad
+  method: HDBSCAN replacement for the original KMeans state-space exploration; existing state scores reused
+  outputs:
+  - results/discovery_hdbscan/LAM_discovery_report_zh.md
+  - results/discovery_hdbscan/LAM_discovery_report_en.md
+  - results/discovery_hdbscan/hdbscan_analysis_manifest.json
+  - results/discovery_hdbscan/tables/lamcore_state_heterogeneity_hdbscan.csv
+  - results/discovery_hdbscan/tables/lamcore_state_hdbscan_cluster_summary.csv
+  - results/discovery_hdbscan/tables/lamcore_state_hdbscan_assignments.csv
+  - results/hypothesis_cards_hdbscan/card_01_continuous_states_zh.md
+  - results/hypothesis_cards_hdbscan/card_01_continuous_states_en.md
+  result: primary_setting_two_clusters_28_assigned_cells_112_noise_cells_two_donors; no_four_donor_discrete_state_supported

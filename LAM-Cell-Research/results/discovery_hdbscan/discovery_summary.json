@@ -1,0 +1,165 @@
+{
+  "state_program_status": {
+    "contractile": {
+      "status": "reused_precomputed_score",
+      "column": "state_contractile"
+    },
+    "ecm_remodeling": {
+      "status": "reused_precomputed_score",
+      "column": "state_ecm_remodeling"
+    },
+    "proliferative": {
+      "status": "reused_precomputed_score",
+      "column": "state_proliferative"
+    },
+    "stress_hypoxia": {
+      "status": "reused_precomputed_score",
+      "column": "state_stress_hypoxia"
+    },
+    "inflammatory": {
+      "status": "reused_precomputed_score",
+      "column": "state_inflammatory"
+    },
+    "hormone_related": {
+      "status": "reused_precomputed_score",
+      "column": "state_hormone_related"
+    },
+    "metabolic": {
+      "status": "reused_precomputed_score",
+      "column": "state_metabolic"
+    },
+    "mTOR_related": {
+      "status": "reused_precomputed_score",
+      "column": "state_mTOR_related"
+    }
+  },
+  "microenvironment_program_status": {
+    "lymphatic_endothelial": {
+      "status": "reused_precomputed_score",
+      "column": "microenv_lymphatic_endothelial"
+    },
+    "vascular_endothelial": {
+      "status": "reused_precomputed_score",
+      "column": "microenv_vascular_endothelial"
+    },
+    "fibroblast": {
+      "status": "reused_precomputed_score",
+      "column": "microenv_fibroblast"
+    },
+    "immune": {
+      "status": "reused_precomputed_score",
+      "column": "microenv_immune"
+    }
+  },
+  "candidate_cells": 140,
+  "candidate_donors": [
+    "LAM1",
+    "LAM2",
+    "LAM3",
+    "LAM4"
+  ],
+  "heterogeneity_models": [
+    {
+      "score_space": "zscore",
+      "min_cluster_size": 10,
+      "min_samples": 5,
+      "cluster_selection_method": "eom",
+      "cells": 140,
+      "n_clusters": 2,
+      "assigned_cells": 28,
+      "noise_cells": 112,
+      "noise_fraction": 0.8,
+      "assigned_donors": 2,
+      "silhouette_assigned": 0.45803466427562417,
+      "primary_setting": true
+    },
+    {
+      "score_space": "zscore",
+      "min_cluster_size": 10,
+      "min_samples": 10,
+      "cluster_selection_method": "eom",
+      "cells": 140,
+      "n_clusters": 2,
+      "assigned_cells": 24,
+      "noise_cells": 116,
+      "noise_fraction": 0.8285714285714286,
+      "assigned_donors": 2,
+      "silhouette_assigned": 0.5193242420990166,
+      "primary_setting": false
+    },
+    {
+      "score_space": "zscore",
+      "min_cluster_size": 8,
+      "min_samples": 5,
+      "cluster_selection_method": "eom",
+      "cells": 140,
+      "n_clusters": 2,
+      "assigned_cells": 28,
+      "noise_cells": 112,
+      "noise_fraction": 0.8,
+      "assigned_donors": 2,
+      "silhouette_assigned": 0.45803466427562417,
+      "primary_setting": false
+    },
+    {
+      "score_space": "zscore",
+      "min_cluster_size": 15,
+      "min_samples": 5,
+      "cluster_selection_method": "eom",
+      "cells": 140,
+      "n_clusters": 0,
+      "assigned_cells": 0,
+      "noise_cells": 140,
+      "noise_fraction": 1.0,
+      "assigned_donors": 0,
+      "silhouette_assigned": NaN,
+      "primary_setting": false
+    },
+    {
+      "score_space": "raw",
+      "min_cluster_size": 10,
+      "min_samples": 5,
+      "cluster_selection_method": "eom",
+      "cells": 140,
+      "n_clusters": 0,
+      "assigned_cells": 0,
+      "noise_cells": 140,
+      "noise_fraction": 1.0,
+      "assigned_donors": 0,
+      "silhouette_assigned": NaN,
+      "primary_setting": false
+    },
+    {
+      "score_space": "raw",
+      "min_cluster_size": 10,
+      "min_samples": null,
+      "cluster_selection_method": "eom",
+      "cells": 140,
+      "n_clusters": 2,
+      "assigned_cells": 97,
+      "noise_cells": 43,
+      "noise_fraction": 0.30714285714285716,
+      "assigned_donors": 3,
+      "silhouette_assigned": 0.6201870894048248,
+      "primary_setting": false
+    }
+  ],
+  "external_validation": [
+    {
+      "dataset": "GSE122960_normal_lung",
+      "status": "not_run_in_hdbscan_branch",
+      "reason": "This branch isolates the state-heterogeneity method and reuses precomputed core scores."
+    },
+    {
+      "dataset": "GSE118180_wildtype_uterus",
+      "status": "not_run_in_hdbscan_branch",
+      "reason": "This branch isolates the state-heterogeneity method and reuses precomputed core scores."
+    }
+  ],
+  "cards": [
+    "card_01_continuous_states",
+    "card_02_lam2_difference",
+    "card_03_microenvironment"
+  ],
+  "communication_interpretation": "candidate association only; not direct cell communication"
+}

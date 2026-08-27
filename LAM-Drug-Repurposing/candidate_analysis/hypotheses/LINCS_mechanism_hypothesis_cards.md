@@ -1,9 +1,11 @@
 # LINCS stable-module mechanism cards
 
 These are working hypotheses, not Tier 1 treatment recommendations. The
-modules were defined by cross-release gene clustering and Jaccard matching;
-the two LINCS releases are cross-phase/cross-release recurrence, not
-independent biological replication.
+modules were defined from direct TSC2-loss disease-panel drug responses by
+cross-release gene clustering and Jaccard matching; the two LINCS releases
+are cross-phase/cross-release recurrence, not independent biological
+replication. They should not be read as a requirement that a drug reverses a
+common plastic/hydrogel sirolimus-residual signature.
 
 ## H1 — mimic_only__stable_1
 
@@ -23,7 +25,7 @@ apoptosis/UPR/heat-shock/cell-cycle references.
 
 ## H2 — reversal_only__stable_2
 
-Working hypothesis: this is the strongest residual/reversal module and may
+Working hypothesis: this is the strongest TSC2-loss reversal module and may
 represent glycolytic/hypoxic adaptation coupled to ECM remodeling at a
 LAM-cell/LAF-niche interface, rather than a pure mTORC1 response.
 

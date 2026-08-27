@@ -1,10 +1,10 @@
 {
   "project_root": ".",
   "scope": "All actual files under data/ excluding README.md and .DS_Store; includes raw downloads, source documents, extracted archives, processed inputs, gene sets, and local derived data files.",
-  "n_file_rows": 138,
-  "n_dataset_rows": 20,
-  "total_size_bytes": 69294661804,
-  "total_size_gib": 64.535683,
+  "n_file_rows": 196,
+  "n_dataset_rows": 22,
+  "total_size_bytes": 69332189554,
+  "total_size_gib": 64.570633,
   "invalid_or_incomplete_files": [
     "data/raw/GSE302356/lam_niche_preprint.pdf"
   ],

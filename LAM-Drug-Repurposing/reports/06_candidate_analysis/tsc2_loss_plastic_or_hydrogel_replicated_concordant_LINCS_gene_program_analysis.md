@@ -1,46 +1,83 @@
-# LINCS drug × gene program analysis（历史 29 药物子集）
+# LINCS drug × gene program analysis
 
-本报告是早期仅使用 `tsc2_loss_plastic` 筛得的 29 个去重药物的历史分析，不是当前 66 药物主分析。当前主分析见 `tsc2_loss_plastic_or_hydrogel_replicated_concordant_LINCS_gene_program_analysis.md`。本报告基于 GSE92742 与 GSE70138 的 Level 5 GCTX，两个 release 先独立汇总，再进行共同基因比较。
-早期候选分析来自 TSC2-loss disease panel 的药物映射；它不应被解释为要求药物同时 reversal plastic/hydrogel sirolimus residual 的结果。
+本报告承接直接匹配 TSC2-loss disease signature 得到的 plastic/hydrogel 候选药物，不要求药物先同时 reversal 两种环境的 sirolimus residual。基于 GSE92742 与 GSE70138 的 Level 5 GCTX，两个 release 先独立汇总，再进行共同基因比较。
+共同 residual reversal 很少是候选生成阶段的转折背景；本报告中的 reversal/mimic 指药物相对于 TSC2-loss disease panel 的映射方向，不自动等同于逆转 sirolimus residual。
 方向判断与 drug effect 分开保存；weighted contribution 仅为辅助指标。
 
 - common analyzable genes used for cross-release comparison: 204
-- compound rows: 17,400
-- cross-release candidate module matches: 3
+- compound rows: 39,600
+- cross-release candidate module matches: 1
 - GO/Reactome/MSigDB: not run in this local-only pass because no local GMT was present; post-hoc predefined-module overlap was calculated separately.
 
 ## Per-drug stable gene counts
 
-        scope                           entity_id  n_reversal_genes  n_mimic_genes  n_neutral_genes  n_not_available_genes
-   mimic_only                compound::lacidipine               131            160              117                    192
-   mimic_only                compound::bortezomib               121            158              129                    192
-   mimic_only                  compound::ixazomib               108            185              115                    192
-   mimic_only                compound::colchicine               102            179              127                    192
-   mimic_only                    compound::mg-132               101            165              142                    192
-   mimic_only compound::phorbol-myristate-acetate                92            173              143                    192
-   mimic_only               compound::clofarabine                86            135              187                    192
-   mimic_only           compound::podophyllotoxin                82            173              153                    192
-   mimic_only              compound::pevonedistat                73            159              176                    192
-reversal_only               compound::gsk-2126458               182            122              104                    192
-reversal_only              compound::lestaurtinib               181            106              121                    192
-reversal_only                  compound::azd-8055               172             98              138                    192
-reversal_only                compound::nvp-bez235               171             96              141                    192
-reversal_only                    compound::pi-103               169             66              173                    192
-reversal_only                  compound::zstk-474               165             58              185                    192
-reversal_only                   compound::osi-027               162             56              190                    192
-reversal_only                  compound::gdc-0941               153             63              192                    192
-reversal_only               compound::gsk-1059615               145             73              190                    192
-reversal_only                  compound::ql-x-138               134             45              229                    192
-reversal_only                compound::buparlisib               132             57              219                    192
-reversal_only                 compound::sirolimus               131             56              221                    192
-reversal_only                 compound::ly-294002               127             72              209                    192
-reversal_only              compound::gatifloxacin               120             65              223                    192
-reversal_only             compound::roxithromycin               110             74              224                    192
-reversal_only               compound::milnacipran               108             73              227                    192
-reversal_only                 compound::letrozole               107             46              255                    192
-reversal_only                 compound::cgs-20625               101             82              225                    192
-reversal_only                    compound::niacin               100             56              252                    192
-reversal_only                 compound::dinoprost                99             83              226                    192
+        scope                             entity_id  n_reversal_genes  n_mimic_genes  n_neutral_genes  n_not_available_genes
+   mimic_only                compound::jnj-26481585               136            173               99                    192
+   mimic_only                  compound::lacidipine               131            160              117                    192
+   mimic_only                  compound::bortezomib               121            158              129                    192
+   mimic_only                       compound::sn-38               116            167              125                    192
+   mimic_only                    compound::ixazomib               108            185              115                    192
+   mimic_only                  compound::colchicine               102            179              127                    192
+   mimic_only                      compound::mg-132               101            165              142                    192
+   mimic_only   compound::phorbol-myristate-acetate                92            173              143                    192
+   mimic_only                 compound::clofarabine                86            135              187                    192
+   mimic_only                 compound::floxuridine                84            135              189                    192
+   mimic_only             compound::podophyllotoxin                82            173              153                    192
+   mimic_only                compound::pevonedistat                73            159              176                    192
+reversal_only                  compound::wye-125132               190             97              121                    192
+reversal_only           compound::homoharringtonine               185            126               97                    192
+reversal_only                 compound::gsk-2126458               182            122              104                    192
+reversal_only                compound::lestaurtinib               181            106              121                    192
+reversal_only                    compound::azd-8055               172             98              138                    192
+reversal_only                  compound::nvp-bez235               171             96              141                    192
+reversal_only                      compound::pi-103               169             66              173                    192
+reversal_only                    compound::zstk-474               165             58              185                    192
+reversal_only                     compound::osi-027               162             56              190                    192
+reversal_only                     compound::torin-1               158             94              156                    192
+reversal_only                   compound::fadrozole               155            113              140                    192
+reversal_only                    compound::gdc-0941               153             63              192                    192
+reversal_only                  compound::novobiocin               146            101              161                    192
+reversal_only                 compound::gsk-1059615               145             73              190                    192
+reversal_only                  compound::gossypetin               139            110              159                    192
+reversal_only                compound::levalbuterol               138             93              177                    192
+reversal_only                    compound::ql-x-138               134             45              229                    192
+reversal_only                  compound::buparlisib               132             57              219                    192
+reversal_only                compound::ellagic-acid               132             82              194                    192
+reversal_only                    compound::l-655240               132             69              207                    192
+reversal_only                   compound::sirolimus               131             56              221                    192
+reversal_only                   compound::ly-294002               127             72              209                    192
+reversal_only                compound::pazufloxacin               127             71              210                    192
+reversal_only                 compound::theobromine               127             83              198                    192
+reversal_only                   compound::bix-01338               126             99              183                    192
+reversal_only                     compound::nu-7026               126             75              207                    192
+reversal_only                  compound::moxisylyte               123             93              192                    192
+reversal_only                compound::gatifloxacin               120             65              223                    192
+reversal_only                 compound::leflunomide               120             75              213                    192
+reversal_only             compound::ikk-inhibitor-x               116            100              192                    192
+reversal_only                   compound::cyclizine               115             75              218                    192
+reversal_only compound::erythromycin-ethylsuccinate               114             86              208                    192
+reversal_only                   compound::ql-xii-47               111            105              192                    192
+reversal_only               compound::roxithromycin               110             74              224                    192
+reversal_only                 compound::milnacipran               108             73              227                    192
+reversal_only                   compound::letrozole               107             46              255                    192
+reversal_only                 compound::gsk-2334470               105             49              254                    192
+reversal_only                   compound::cgs-20625               101             82              225                    192
+reversal_only                  compound::amantadine               100             67              241                    192
+reversal_only                    compound::felbinac               100            100              208                    192
+reversal_only                      compound::niacin               100             56              252                    192
+reversal_only                   compound::dinoprost                99             83              226                    192
+reversal_only                   compound::glipizide                98             69              241                    192
+reversal_only                  compound::torasemide                98             51              259                    192
+reversal_only                 compound::nemonapride                93             42              273                    192
+reversal_only               compound::acenocoumarol                90             87              231                    192
+reversal_only                     compound::zd-7114                88             50              270                    192
+reversal_only                 compound::nateglinide                86             64              258                    192
+reversal_only              compound::phenylbutyrate                86             51              271                    192
+reversal_only                  compound::gabapentin                85             98              225                    192
+reversal_only                     compound::quinine                80             65              263                    192
+reversal_only                   compound::vincamine                79             47              282                    192
+reversal_only                    compound::rev-5901                77             43              288                    192
+reversal_only                 compound::risperidone                76             47              285                    192
 
 ## Lestaurtinib / QL-X-138 target-axis evidence
 

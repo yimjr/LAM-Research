@@ -1,0 +1,12 @@
+[
+  {
+    "dataset": "GSE122960_normal_lung",
+    "status": "not_run_in_hdbscan_branch",
+    "reason": "This branch isolates the state-heterogeneity method and reuses precomputed core scores."
+  },
+  {
+    "dataset": "GSE118180_wildtype_uterus",
+    "status": "not_run_in_hdbscan_branch",
+    "reason": "This branch isolates the state-heterogeneity method and reuses precomputed core scores."
+  }
+]

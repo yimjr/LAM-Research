@@ -2,7 +2,7 @@
 
 ## 研究问题
 
-候选药物所对应的 residual 或稳定模块，是否存在于人体 LAMCORE、LAF 或 ECM niche 状态？
+TSC2-loss 候选药物所对应的 disease-reversal/mimic 程序、sirolimus residual 或稳定模块，是否存在于人体 LAMCORE、LAF 或 ECM niche 状态？
 
 ## 数据与方法
 

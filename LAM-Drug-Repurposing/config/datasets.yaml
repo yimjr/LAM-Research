@@ -46,6 +46,15 @@ datasets:
       - {sample_id: GSM692438, genotype: KO, treatment: rapamycin, replicate: 1}
       - {sample_id: GSM692439, genotype: KO, treatment: rapamycin, replicate: 2}
 
+  GSE277844:
+    role: translation_residual_cross_model_analysis
+    organism: Homo sapiens
+    source_url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE277844
+    files:
+      - name: GSE277844_raw_counts.txt.gz
+        url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE277nnn/GSE277844/suppl/GSE277844_raw_counts.txt.gz
+        path: data/raw/GSE277844/GSE277844_raw_counts.txt.gz
+
   GSE16944:
     role: historical_rapamycin_insensitive_support
     organism: Homo sapiens

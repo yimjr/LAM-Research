@@ -1,0 +1,50 @@
+{
+  "plastic_summary": "data/processed/candidate_analysis/programs/tsc2_loss_plastic_or_hydrogel_replicated_concordant_LINCS_drug_gene_response_summary.csv.gz",
+  "hydrogel_summary": "data/processed/candidate_analysis/programs/tsc2_loss_plastic_or_hydrogel_replicated_concordant_hydrogel_panel_LINCS_drug_gene_response_summary.csv.gz",
+  "signature_file": "results/signatures/GSE179044_cmap_query_signatures.csv",
+  "n_unique_drugs": 66,
+  "n_gene_comparison_rows": 57420,
+  "panel_comparison": [
+    {
+      "direction": "up",
+      "plastic_genes": 150,
+      "hydrogel_genes": 150,
+      "same_direction_overlap": 91,
+      "opposite_direction_overlap": 0,
+      "jaccard_same_direction": 0.4354066985645933
+    },
+    {
+      "direction": "down",
+      "plastic_genes": 150,
+      "hydrogel_genes": 150,
+      "same_direction_overlap": 74,
+      "opposite_direction_overlap": 0,
+      "jaccard_same_direction": 0.3274336283185841
+    },
+    {
+      "direction": "all",
+      "plastic_genes": 300,
+      "hydrogel_genes": 300,
+      "same_direction_overlap": 165,
+      "opposite_direction_overlap": 0,
+      "jaccard_same_direction": 0.3793103448275862
+    }
+  ],
+  "comparison_definitions": {
+    "status_agreement": "same direction_status across the two panels",
+    "non_neutral_direction_concordance": "same reversal/mimic direction among genes non-neutral in both panels",
+    "reversal_jaccard": "Jaccard overlap of reversal gene sets",
+    "reversal_overlap_coefficient": "intersection divided by the size of the smaller reversal gene set",
+    "reversal_gene_frequency": "per-panel recurrence of reversal calls across drug × LINCS release rows",
+    "effect_spearman": "Spearman correlation of drug_effect_median on common genes"
+  },
+  "outputs": {
+    "gene_comparison": "data/processed/candidate_analysis/programs/tsc2_loss_plastic_or_hydrogel_replicated_concordant_plastic_vs_hydrogel_gene_comparison.csv.gz",
+    "drug_comparison": "data/processed/candidate_analysis/programs/tsc2_loss_plastic_or_hydrogel_replicated_concordant_plastic_vs_hydrogel_drug_program_comparison.csv",
+    "reversal_set_comparison": "data/processed/candidate_analysis/programs/tsc2_loss_plastic_or_hydrogel_replicated_concordant_plastic_vs_hydrogel_drug_reversal_set_comparison.csv",
+    "drug_reversal_summary": "data/processed/candidate_analysis/programs/tsc2_loss_plastic_or_hydrogel_replicated_concordant_plastic_vs_hydrogel_drug_reversal_summary.csv",
+    "reversal_gene_frequency": "data/processed/candidate_analysis/programs/tsc2_loss_plastic_or_hydrogel_replicated_concordant_plastic_vs_hydrogel_panel_reversal_gene_frequency.csv",
+    "panel_comparison": "data/processed/candidate_analysis/programs/tsc2_loss_plastic_or_hydrogel_replicated_concordant_plastic_vs_hydrogel_signature_panel_comparison.csv",
+    "report": "reports/06_candidate_analysis/tsc2_loss_plastic_or_hydrogel_replicated_concordant_plastic_vs_hydrogel_comparison.md"
+  }
+}

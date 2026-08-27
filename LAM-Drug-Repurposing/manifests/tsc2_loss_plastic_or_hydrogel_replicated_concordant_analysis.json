@@ -1,0 +1,36 @@
+{
+  "filter": {
+    "contrasts": [
+      "tsc2_loss_plastic",
+      "tsc2_loss_hydrogel"
+    ],
+    "perturbation_class": "compound",
+    "cross_phase_status": "replicated_concordant"
+  },
+  "filtered_rows": 258,
+  "unique_drugs": 66,
+  "direction_rows": {
+    "reversal_direction": 194,
+    "mimic_direction": 64
+  },
+  "direction_unique_drugs": {
+    "reversal_direction": 54,
+    "mimic_direction": 12
+  },
+  "target_records": 23906,
+  "pubchem_identity_records": 66,
+  "pubchem_assay_target_evidence_rows": 48667,
+  "bindingdb_affinity_evidence_rows": 26,
+  "drugs_with_annotated_mechanism_or_literature_fallback": 64,
+  "drugs_without_annotated_mechanism_or_literature_fallback": 2,
+  "interpretation_note": "replicated_concordant means cross-release direction category concordance; it does not imply every drug has positive reversal connectivity.",
+  "target_scope_note": "The current combined target file was refreshed through ChEMBL molecule/mechanism/target queries for all 66 compounds, with explicitly labeled literature fallbacks where no curated mechanism was returned. PubChem BioAssay and BindingDB outputs remain separate evidence layers; assay/panel associations are not automatically primary targets. If rebuilt from scratch during a ChEMBL outage, the default path defers ChEMBL for new compounds and can be retried with --query-chembl.",
+  "sources": {
+    "ranking": "results/candidates/LINCS_candidate_ranking.csv",
+    "chembl_api": "https://www.ebi.ac.uk/chembl/api/data",
+    "pubchem_pug_api": "https://pubchem.ncbi.nlm.nih.gov/rest/pug",
+    "bindingdb_rest_api": "https://bindingdb.org/rest/getTargetByCompound",
+    "lincs_pert_info_GSE92742": "data/raw/LINCS/GSE92742/GSE92742_Broad_LINCS_pert_info.txt.gz",
+    "lincs_pert_info_GSE70138": "data/raw/LINCS/GSE70138/GSE70138_Broad_LINCS_pert_info_2017-03-06.txt.gz"
+  }
+}

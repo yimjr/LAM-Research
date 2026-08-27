@@ -1,46 +1,84 @@
-# LINCS drug × gene program analysis（历史 29 药物子集）
+# LINCS drug × gene program analysis：hydrogel panel
 
-本报告是早期仅使用 `tsc2_loss_plastic` 筛得的 29 个去重药物的历史分析，不是当前 66 药物主分析。当前主分析见 `tsc2_loss_plastic_or_hydrogel_replicated_concordant_LINCS_gene_program_analysis.md`。本报告基于 GSE92742 与 GSE70138 的 Level 5 GCTX，两个 release 先独立汇总，再进行共同基因比较。
-早期候选分析来自 TSC2-loss disease panel 的药物映射；它不应被解释为要求药物同时 reversal plastic/hydrogel sirolimus residual 的结果。
+本报告是当前 66 个候选药物的 hydrogel panel 独立分析。候选药物来自 `tsc2_loss_plastic` 或 `tsc2_loss_hydrogel` 任一 TSC2-loss disease signature 的直接匹配，不要求共同 reversal plastic/hydrogel residual。基于 GSE92742 与 GSE70138 的 Level 5 GCTX，两个 release 先独立汇总，再进行共同基因比较。
+这里的 reversal/mimic 指相对于 hydrogel TSC2-loss disease panel 的映射方向，不自动等同于 sirolimus residual reversal。
 方向判断与 drug effect 分开保存；weighted contribution 仅为辅助指标。
 
-- common analyzable genes used for cross-release comparison: 204
-- compound rows: 17,400
-- cross-release candidate module matches: 3
+- primary disease contrast: tsc2_loss_hydrogel top150 up + top150 down
+- common analyzable genes used for cross-release comparison: 205
+- compound rows: 39,600
+- cross-release candidate module matches: 1
 - GO/Reactome/MSigDB: not run in this local-only pass because no local GMT was present; post-hoc predefined-module overlap was calculated separately.
 
 ## Per-drug stable gene counts
 
-        scope                           entity_id  n_reversal_genes  n_mimic_genes  n_neutral_genes  n_not_available_genes
-   mimic_only                compound::lacidipine               131            160              117                    192
-   mimic_only                compound::bortezomib               121            158              129                    192
-   mimic_only                  compound::ixazomib               108            185              115                    192
-   mimic_only                compound::colchicine               102            179              127                    192
-   mimic_only                    compound::mg-132               101            165              142                    192
-   mimic_only compound::phorbol-myristate-acetate                92            173              143                    192
-   mimic_only               compound::clofarabine                86            135              187                    192
-   mimic_only           compound::podophyllotoxin                82            173              153                    192
-   mimic_only              compound::pevonedistat                73            159              176                    192
-reversal_only               compound::gsk-2126458               182            122              104                    192
-reversal_only              compound::lestaurtinib               181            106              121                    192
-reversal_only                  compound::azd-8055               172             98              138                    192
-reversal_only                compound::nvp-bez235               171             96              141                    192
-reversal_only                    compound::pi-103               169             66              173                    192
-reversal_only                  compound::zstk-474               165             58              185                    192
-reversal_only                   compound::osi-027               162             56              190                    192
-reversal_only                  compound::gdc-0941               153             63              192                    192
-reversal_only               compound::gsk-1059615               145             73              190                    192
-reversal_only                  compound::ql-x-138               134             45              229                    192
-reversal_only                compound::buparlisib               132             57              219                    192
-reversal_only                 compound::sirolimus               131             56              221                    192
-reversal_only                 compound::ly-294002               127             72              209                    192
-reversal_only              compound::gatifloxacin               120             65              223                    192
-reversal_only             compound::roxithromycin               110             74              224                    192
-reversal_only               compound::milnacipran               108             73              227                    192
-reversal_only                 compound::letrozole               107             46              255                    192
-reversal_only                 compound::cgs-20625               101             82              225                    192
-reversal_only                    compound::niacin               100             56              252                    192
-reversal_only                 compound::dinoprost                99             83              226                    192
+        scope                             entity_id  n_reversal_genes  n_mimic_genes  n_neutral_genes  n_not_available_genes
+   mimic_only                  compound::lacidipine               147            154              109                    190
+   mimic_only                    compound::ixazomib               133            175              102                    190
+   mimic_only                compound::jnj-26481585               131            180               99                    190
+   mimic_only                  compound::bortezomib               130            156              124                    190
+   mimic_only                  compound::colchicine               121            151              138                    190
+   mimic_only                      compound::mg-132               115            151              144                    190
+   mimic_only                       compound::sn-38               110            166              134                    190
+   mimic_only   compound::phorbol-myristate-acetate               100            168              142                    190
+   mimic_only             compound::podophyllotoxin                99            152              159                    190
+   mimic_only                 compound::clofarabine                85            141              184                    190
+   mimic_only                compound::pevonedistat                85            147              178                    190
+   mimic_only                 compound::floxuridine                74            148              188                    190
+reversal_only           compound::homoharringtonine               221             97               92                    190
+reversal_only                 compound::gsk-2126458               180            135               95                    190
+reversal_only                  compound::wye-125132               179            107              124                    190
+reversal_only                   compound::fadrozole               170            112              128                    190
+reversal_only                compound::lestaurtinib               169            120              121                    190
+reversal_only                     compound::osi-027               166             68              176                    190
+reversal_only                    compound::ql-x-138               163             32              215                    190
+reversal_only                    compound::azd-8055               160            117              133                    190
+reversal_only                  compound::nvp-bez235               160            105              145                    190
+reversal_only                      compound::pi-103               158             68              184                    190
+reversal_only                     compound::torin-1               156            101              153                    190
+reversal_only                    compound::zstk-474               156             59              195                    190
+reversal_only                 compound::gsk-1059615               151             69              190                    190
+reversal_only                   compound::ql-xii-47               150             84              176                    190
+reversal_only                compound::ellagic-acid               149             78              183                    190
+reversal_only                compound::levalbuterol               145             96              169                    190
+reversal_only                    compound::gdc-0941               143             72              195                    190
+reversal_only                  compound::novobiocin               143             97              170                    190
+reversal_only                  compound::gossypetin               142             99              169                    190
+reversal_only                    compound::l-655240               139             70              201                    190
+reversal_only                  compound::buparlisib               138             61              211                    190
+reversal_only             compound::ikk-inhibitor-x               133             85              192                    190
+reversal_only compound::erythromycin-ethylsuccinate               130             73              207                    190
+reversal_only                 compound::theobromine               127             95              188                    190
+reversal_only                     compound::nu-7026               126             75              209                    190
+reversal_only                   compound::sirolimus               125             63              222                    190
+reversal_only                 compound::leflunomide               124             75              211                    190
+reversal_only                   compound::bix-01338               123             84              203                    190
+reversal_only                  compound::moxisylyte               123             85              202                    190
+reversal_only                compound::gatifloxacin               122             57              231                    190
+reversal_only                   compound::ly-294002               122             71              217                    190
+reversal_only                      compound::niacin               122             55              233                    190
+reversal_only                   compound::dinoprost               120             82              208                    190
+reversal_only                   compound::cyclizine               118             77              215                    190
+reversal_only                compound::pazufloxacin               116             73              221                    190
+reversal_only                   compound::letrozole               114             59              237                    190
+reversal_only                    compound::felbinac               112             84              214                    190
+reversal_only                  compound::torasemide               106             46              258                    190
+reversal_only                   compound::cgs-20625               105             76              229                    190
+reversal_only                 compound::nemonapride               105             33              272                    190
+reversal_only              compound::phenylbutyrate               104             40              266                    190
+reversal_only                   compound::glipizide               103             60              247                    190
+reversal_only                 compound::milnacipran               102             74              234                    190
+reversal_only               compound::roxithromycin               102             74              234                    190
+reversal_only                 compound::gsk-2334470               100             47              263                    190
+reversal_only                 compound::nateglinide                99             70              241                    190
+reversal_only               compound::acenocoumarol                97             80              233                    190
+reversal_only                     compound::quinine                95             60              255                    190
+reversal_only                  compound::amantadine                93             56              261                    190
+reversal_only                  compound::gabapentin                89             82              239                    190
+reversal_only                     compound::zd-7114                89             47              274                    190
+reversal_only                   compound::vincamine                87             51              272                    190
+reversal_only                    compound::rev-5901                81             52              277                    190
+reversal_only                 compound::risperidone                79             42              289                    190
 
 ## Lestaurtinib / QL-X-138 target-axis evidence
 
@@ -99,58 +137,58 @@ GSE70138     QL-X-138       MKNK2                   trt_sh not_available        
 GSE70138     QL-X-138       MKNK2               trt_sh.cgs not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE70138     QL-X-138       MKNK2               trt_sh.css not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE70138     QL-X-138       MKNK2                  trt_xpr not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
-GSE92742 lestaurtinib        FLT3                  trt_lig          weak                        15                        92.0                          43.0                 0.125000                    204.0               0.411765             -0.174742                       19.0                   trt_lig
+GSE92742 lestaurtinib        FLT3                  trt_lig          weak                        17                        91.0                          44.0                 0.144068                    205.0               0.400000             -0.183783                       19.0                   trt_lig
 GSE92742 lestaurtinib        FLT3                   trt_oe not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
-GSE92742 lestaurtinib        FLT3                   trt_sh    discordant                         2                        92.0                          18.0                 0.018519                    204.0               0.382353             -0.256368                      115.0                    trt_sh
-GSE92742 lestaurtinib        FLT3               trt_sh.cgs          weak                        15                        92.0                          72.0                 0.100671                    204.0               0.279412             -0.464261                       11.0                trt_sh.cgs
+GSE92742 lestaurtinib        FLT3                   trt_sh    discordant                         1                        91.0                          13.0                 0.009709                    205.0               0.351220             -0.281668                      115.0                    trt_sh
+GSE92742 lestaurtinib        FLT3               trt_sh.cgs          weak                        15                        91.0                          76.0                 0.098684                    205.0               0.268293             -0.436126                       11.0                trt_sh.cgs
 GSE92742 lestaurtinib        FLT3               trt_sh.css not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742 lestaurtinib        FLT3                  trt_xpr not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742 lestaurtinib        JAK2                  trt_lig not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
-GSE92742 lestaurtinib        JAK2                   trt_oe          weak                        20                        92.0                          78.0                 0.133333                    204.0               0.343137             -0.323582                       10.0                    trt_oe
-GSE92742 lestaurtinib        JAK2                   trt_sh          weak                         9                        92.0                          35.0                 0.076271                    204.0               0.406863             -0.257809                       50.0                    trt_sh
-GSE92742 lestaurtinib        JAK2               trt_sh.cgs          weak                        15                        92.0                          50.0                 0.118110                    204.0               0.362745             -0.323810                       12.0                trt_sh.cgs
+GSE92742 lestaurtinib        JAK2                   trt_oe          weak                        23                        91.0                          83.0                 0.152318                    205.0               0.419512             -0.271120                       10.0                    trt_oe
+GSE92742 lestaurtinib        JAK2                   trt_sh          weak                        11                        91.0                          38.0                 0.093220                    205.0               0.404878             -0.244942                       50.0                    trt_sh
+GSE92742 lestaurtinib        JAK2               trt_sh.cgs          weak                        17                        91.0                          55.0                 0.131783                    205.0               0.390244             -0.245499                       12.0                trt_sh.cgs
 GSE92742 lestaurtinib        JAK2               trt_sh.css not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742 lestaurtinib        JAK2                  trt_xpr not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742 lestaurtinib       NTRK1                  trt_lig not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742 lestaurtinib       NTRK1                   trt_oe not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
-GSE92742 lestaurtinib       NTRK1                   trt_sh          weak                        14                        92.0                          44.0                 0.114754                    204.0               0.362745             -0.264696                       38.0                    trt_sh
-GSE92742 lestaurtinib       NTRK1               trt_sh.cgs          weak                        26                        92.0                          86.0                 0.171053                    204.0               0.343137             -0.251802                       11.0                trt_sh.cgs
+GSE92742 lestaurtinib       NTRK1                   trt_sh          weak                        18                        91.0                          44.0                 0.153846                    205.0               0.443902             -0.096758                       38.0                    trt_sh
+GSE92742 lestaurtinib       NTRK1               trt_sh.cgs          weak                        29                        91.0                          78.0                 0.207143                    205.0               0.468293             -0.076567                       11.0                trt_sh.cgs
 GSE92742 lestaurtinib       NTRK1               trt_sh.css not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742 lestaurtinib       NTRK1                  trt_xpr not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742 lestaurtinib       NTRK2                  trt_lig not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742 lestaurtinib       NTRK2                   trt_oe not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
-GSE92742 lestaurtinib       NTRK2                   trt_sh          weak                        33                        92.0                          79.0                 0.239130                    204.0               0.446078             -0.174548                       10.0                    trt_sh
+GSE92742 lestaurtinib       NTRK2                   trt_sh          weak                        32                        91.0                          84.0                 0.223776                    205.0               0.453659             -0.104066                       10.0                    trt_sh
 GSE92742 lestaurtinib       NTRK2               trt_sh.cgs not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742 lestaurtinib       NTRK2               trt_sh.css not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742 lestaurtinib       NTRK2                  trt_xpr not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742 lestaurtinib       NTRK3                  trt_lig not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
-GSE92742 lestaurtinib       NTRK3                   trt_oe          weak                        43                        92.0                          94.0                 0.300699                    204.0               0.568627              0.117900                       10.0                    trt_oe
-GSE92742 lestaurtinib       NTRK3                   trt_sh          weak                        29                        92.0                          46.0                 0.266055                    204.0               0.534314              0.243696                       35.0                    trt_sh
-GSE92742 lestaurtinib       NTRK3               trt_sh.cgs          weak                        46                        92.0                          82.0                 0.359375                    204.0               0.583333              0.235619                       10.0                trt_sh.cgs
+GSE92742 lestaurtinib       NTRK3                   trt_oe          weak                        41                        91.0                          96.0                 0.280822                    205.0               0.521951              0.068670                       10.0                    trt_oe
+GSE92742 lestaurtinib       NTRK3                   trt_sh          weak                        25                        91.0                          48.0                 0.219298                    205.0               0.512195              0.156180                       35.0                    trt_sh
+GSE92742 lestaurtinib       NTRK3               trt_sh.cgs          weak                        46                        91.0                          92.0                 0.335766                    205.0               0.570732              0.233992                       10.0                trt_sh.cgs
 GSE92742 lestaurtinib       NTRK3               trt_sh.css not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742 lestaurtinib       NTRK3                  trt_xpr not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742 lestaurtinib         RET                  trt_lig not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
-GSE92742 lestaurtinib         RET                   trt_oe          weak                        43                        92.0                          84.0                 0.323308                    204.0               0.553922              0.189543                       11.0                    trt_oe
-GSE92742 lestaurtinib         RET                   trt_sh    supportive                        15                        92.0                          26.0                 0.145631                    204.0               0.602941              0.339967                      160.0                    trt_sh
-GSE92742 lestaurtinib         RET               trt_sh.cgs    supportive                        61                        92.0                          99.0                 0.469231                    204.0               0.666667              0.458292                       10.0                trt_sh.cgs
+GSE92742 lestaurtinib         RET                   trt_oe          weak                        44                        91.0                          82.0                 0.341085                    205.0               0.536585              0.174756                       11.0                    trt_oe
+GSE92742 lestaurtinib         RET                   trt_sh    supportive                        13                        91.0                          26.0                 0.125000                    205.0               0.634146              0.368439                      160.0                    trt_sh
+GSE92742 lestaurtinib         RET               trt_sh.cgs    supportive                        60                        91.0                         104.0                 0.444444                    205.0               0.639024              0.451169                       10.0                trt_sh.cgs
 GSE92742 lestaurtinib         RET               trt_sh.css not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742 lestaurtinib         RET                  trt_xpr not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742     QL-X-138         BTK                  trt_lig not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
-GSE92742     QL-X-138         BTK                   trt_oe          weak                        22                        71.0                          54.0                 0.213592                    204.0               0.480392              0.023026                       18.0                    trt_oe
-GSE92742     QL-X-138         BTK                   trt_sh          weak                        12                        71.0                          15.0                 0.162162                    204.0               0.529412              0.092097                      118.0                    trt_sh
-GSE92742     QL-X-138         BTK               trt_sh.cgs    supportive                        29                        71.0                          59.0                 0.287129                    204.0               0.612745              0.170681                       11.0                trt_sh.cgs
+GSE92742     QL-X-138         BTK                   trt_oe          weak                        20                        81.0                          55.0                 0.172414                    205.0               0.458537             -0.049974                       18.0                    trt_oe
+GSE92742     QL-X-138         BTK                   trt_sh          weak                        11                        81.0                          15.0                 0.129412                    205.0               0.502439              0.065680                      118.0                    trt_sh
+GSE92742     QL-X-138         BTK               trt_sh.cgs          weak                        30                        81.0                          66.0                 0.256410                    205.0               0.575610              0.151513                       11.0                trt_sh.cgs
 GSE92742     QL-X-138         BTK               trt_sh.css not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742     QL-X-138         BTK                  trt_xpr not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742     QL-X-138       MKNK1                  trt_lig not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742     QL-X-138       MKNK1                   trt_oe not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
-GSE92742     QL-X-138       MKNK1                   trt_sh          weak                         9                        71.0                          35.0                 0.092784                    204.0               0.450980             -0.072417                       44.0                    trt_sh
-GSE92742     QL-X-138       MKNK1               trt_sh.cgs          weak                        21                        71.0                          66.0                 0.181034                    204.0               0.426471             -0.079381                       11.0                trt_sh.cgs
+GSE92742     QL-X-138       MKNK1                   trt_sh          weak                         9                        81.0                          33.0                 0.085714                    205.0               0.458537             -0.076081                       44.0                    trt_sh
+GSE92742     QL-X-138       MKNK1               trt_sh.cgs          weak                        24                        81.0                          70.0                 0.188976                    205.0               0.478049             -0.063089                       11.0                trt_sh.cgs
 GSE92742     QL-X-138       MKNK1               trt_sh.css not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742     QL-X-138       MKNK1                  trt_xpr not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742     QL-X-138       MKNK2                  trt_lig not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
-GSE92742     QL-X-138       MKNK2                   trt_oe          weak                        19                        71.0                          73.0                 0.152000                    204.0               0.450980             -0.006958                        8.0                    trt_oe
-GSE92742     QL-X-138       MKNK2                   trt_sh          weak                         8                        71.0                          22.0                 0.094118                    204.0               0.500000              0.087670                       37.0                    trt_sh
-GSE92742     QL-X-138       MKNK2               trt_sh.cgs          weak                        27                        71.0                          75.0                 0.226891                    204.0               0.500000              0.067344                        6.0                trt_sh.cgs
+GSE92742     QL-X-138       MKNK2                   trt_oe          weak                        28                        81.0                          74.0                 0.220472                    205.0               0.487805              0.085546                        8.0                    trt_oe
+GSE92742     QL-X-138       MKNK2                   trt_sh          weak                         7                        81.0                          23.0                 0.072165                    205.0               0.478049              0.041911                       37.0                    trt_sh
+GSE92742     QL-X-138       MKNK2               trt_sh.cgs          weak                        36                        81.0                          77.0                 0.295082                    205.0               0.512195              0.158831                        6.0                trt_sh.cgs
 GSE92742     QL-X-138       MKNK2               trt_sh.css not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 GSE92742     QL-X-138       MKNK2                  trt_xpr not_available                         0                         NaN                           NaN                      NaN                      NaN                    NaN                   NaN                        NaN                       NaN
 

@@ -1,0 +1,7 @@
+score_space,min_cluster_size,min_samples,cluster_selection_method,cells,n_clusters,assigned_cells,noise_cells,noise_fraction,assigned_donors,silhouette_assigned,primary_setting
+zscore,10,5.0,eom,140,2,28,112,0.8,2,0.45803466427562417,True
+zscore,10,10.0,eom,140,2,24,116,0.8285714285714286,2,0.5193242420990166,False
+zscore,8,5.0,eom,140,2,28,112,0.8,2,0.45803466427562417,False
+zscore,15,5.0,eom,140,0,0,140,1.0,0,,False
+raw,10,5.0,eom,140,0,0,140,1.0,0,,False
+raw,10,,eom,140,2,97,43,0.30714285714285716,3,0.6201870894048248,False

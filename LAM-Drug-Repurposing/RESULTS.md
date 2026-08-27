@@ -2,6 +2,30 @@
 
 项目根目录：`.`
 
+## 研究路线与关键转折
+
+本项目最初从 sirolimus/rapamycin residual 出发：利用 GSE179044 的完整因子设计，区分 TSC2-loss、rapamycin 修复、persistent residual、hydrogel-specific residual 和 environment-dependent response，并希望找到能够同时 reversal plastic 与 hydrogel residual 的药物。
+
+实际比较发现，两个环境之间能够稳定、共同印证的 reversal 方向很少。这个结果不表示 plastic 与 hydrogel 没有共同生物学，而是说明“共同 residual reversal”不适合作为候选生成的硬门槛。因此后续候选生成保留 sirolimus 作为参照和机制背景，改为分别用 `tsc2_loss_plastic` 或 `tsc2_loss_hydrogel` 的整体 TSC2-loss disease signature 进行本地 LINCS 匹配。
+
+当前的研究链条是：
+
+```text
+GSE179044 residual / environment 机制发现
+        ↓
+TSC2-loss plastic 或 hydrogel signature → 本地 LINCS 候选生成
+        ↓
+258 条候选记录 → 去重为 66 个药物
+        ↓
+药物 gene program 与靶点聚合
+        ↓
+GSE277844 translation abnormality 与 residual 的分别比较
+        ↓
+generic stress、人体 LAM 状态、选择性扰动和药理可行性验证
+```
+
+因此，下面的 residual 分析、66 个候选药物及其靶点聚合、translation 验证分别回答不同问题，不能把它们合并成一项“已证明的 residual reversal”证据。
+
 ## 已完成的科学分析
 
 ### GSE179044
@@ -33,12 +57,30 @@
 - 已根据正式论文中报告的 LAMCORE1/2、LAMCORE3 的“无独特 marker”限制，以及 LAF-seed/LAF-niche 的 marker/program 描述，建立 `data/processed/GSE302356/paper_state_marker_panels.csv` 并加入评分。当前结果是 paper-derived operational enrichment，不是作者提供的正式 cell label；LAMCORE3 只作为 shared-core + translation/low-activity surrogate。
 - 加入状态面板后，LAM20 的 LAMCORE/LAF 原始分数整体较高，LAM3/LAM4 的单细胞中 LAF-seed/LAF-niche 的高分尾部更明显；但 LAM18/LAM20 与 LAM3/LAM4 跨平台、跨样本，不能把这种差异解释为状态比例或同一患者的配对验证。
 
+### 翻译程序与 residual 分开比较
+
+- 已下载并分析 GSE277844 的 total/polysome counts，使用 conditional polysome-vs-total model 提取 TSC2-null 相对 WT 的 translation-up/down 程序；当前选择结果为 89 个 translation-up 和 107 个 translation-down 基因，属于跨模型探索性结果。
+- GSE179044 的 ordinary/plastic persistent residual 与 hydrogel persistent residual 分别比较，没有要求两者先取交集；另外保留 rapamycin 条件下 hydrogel residual 和 hydrogel-specific residual 作为独立类别。
+- translation genes 与 plastic persistent residual 的重叠较少（up 2、down 3）；与 hydrogel residual 的重叠更明显，尤其在 effect/FDR 过滤后的 `hydrogel_residual_q10` 中为 up 7、down 13。`hydrogel_specific_residual_q10` 当前没有重叠成员，不能据此推断不存在环境特异的翻译机制。
+- 在重叠基因上，RMC-6272 与 eFT-508 都使 `hydrogel_residual_q10` 类别中 18 个 baseline-effect-eligible 基因里的 15 个 KO-vs-WT translation distance 变小；两者 median signed residual ratio 约为 0.52 和 0.50。这个结果只说明 translation distance 的探索性回缩，不能替代独立重复或证明恢复为正常。
+- 背景比较显示，全部 196 个 selected translation-abnormal genes 中，RMC-6272 恢复 133/196（67.9%），eFT-508 恢复 147/196（75.0%）；按 |baseline effect|≥0.5 的可比较子集则分别为 128/176（72.7%）和 137/176（77.8%）。因此 hydrogel residual 的 15/18（83.3%）高于两个药的可比较背景，但优势幅度有限且 overlap 样本较小；eFT-508 在不加效应量门槛时为 15/20（75.0%），与全部背景完全相同。plastic persistent residual 则不呈现统一优势：RMC-6272 为 4/5，eFT-508 为 2/5。
+- 逐基因结果显示，`hydrogel_residual_q10` 的 18 个可比较重叠基因中，13 个同时被两种药拉近 WT（CACFD1、CDC42EP3、FBN2、GPC4、GPR27、NFATC4、PNMA2、REEP2、RND3、SERPINE2、SPIN4、WWTR1、ZNF354C），2 个主要由 RMC-6272 支持（FIBIN、HOXC6），2 个主要由 eFT-508 支持（APOL1、TYMS），1 个两者都未支持（ZWINT）。两种药的恢复集合 Jaccard 为 0.765，提示主要作用于同一批基因，但并非完全相同。
+- plastic persistent residual 的 5 个可比较基因中，GPR27 和 RNF182 被两种药共同支持，HOXC6 与 NETO1 仅被 RMC-6272 支持，ALCAM 两者均未恢复；该类别数量过小，不能据此判断药物机制差异。
+- 当前分析明确使用 anota2seq-like conditional model，而非官方 anota2seq 完整流程；GSE277844 是人源 NPC 模型，不是 LAM 直接复现。
+
+### 固定 13 基因的功能注释
+
+- 已固定筛选对象：`residual_category=hydrogel_residual_q10`、两种药均 `baseline_effect_eligible=True`、且 `both_drugs_distance_reduced=True`，共 13 个基因：CDC42EP3、RND3、SERPINE2、GPR27、WWTR1、FBN2、REEP2、ZNF354C、PNMA2、CACFD1、NFATC4、SPIN4、GPC4。
+- 已分别查询 GO Biological Process、GO Cellular Component、Reactome 和 MSigDB Hallmark，并输出每个基因的完整功能条目，而不是只报告一个 GO 富集表。
+- 多基因重复出现的解释性主题包括 ECM（SERPINE2/FBN2）、cell adhesion（RND3/SERPINE2/GPC4）、Rho GTPase（CDC42EP3/RND3）、TGF-β（WWTR1/FBN2）和 migration（CDC42EP3/SERPINE2）。actin cytoskeleton、focal adhesion、Hippo/YAP/TAZ 和 mechanotransduction 目前主要由单个基因支持，暂不作为多基因模块结论。
+- 13 个基因较小，term-level FDR 仅作描述性参考；当前更重要的是多个基因是否指向同一主题，不能因单个主题 FDR 不显著而直接否定。
+
 ### 候选药物
 
 - 已生成 8 类默认 CMap 查询 signature；direction reversal 只进入诊断表，不进入默认查询。
 - generic cytotoxicity、target KD/KO concordance、相关状态表达、无关疾病 promiscuity、人体暴露和 sirolimus 互补性均已纳入候选过滤接口。
-- 曾加入 CLUE/CMap API 连接器 `scripts/clue_api.py` 和本地查询计划 `results/cmap/clue_query_plan.json`；随着 CLUE 退役，它们仅作为历史记录保留，不再执行在线提交。
-- CLUE 已于 2026-01-31 退役；GSE92742/GSE70138 的 Level 5 GCTX 与配套 metadata 已从 GEO 下载、SHA512 校验并移入 `data/raw/LINCS/`。下一步改为本地 connectivity 计算，不再依赖在线 CLUE API。
+- GSE92742/GSE70138 的 Level 5 GCTX 与配套 metadata 已从 GEO 下载、SHA512 校验并移入 `data/raw/LINCS/`；本项目的 connectivity、WTCS/NCS 和候选分析均由 `scripts/analyze_lincs_local.py` 在本地完成。
+- 两套 LINCS release 只用于 `cross-phase/cross-release recurrence`，不作为在线提交结果或独立生物学复现；本阶段不依赖在线查询服务。
 - 本地 LINCS/CMap 计算已完成：两套 release 共构建 21 个去重 query；GSE92742 输出 9,483,222 条 signature-query 结果，GSE70138 输出 2,337,006 条结果。评分使用完整 10,174-gene BING space、weighted KS/WTCS、published NCS 和 weighted-correlation sensitivity analysis。
 - 已生成 context-level、normalized perturbation-level、cross-phase/cross-release recurrence 和 positive-control sanity 表。recurrence 分类为：`replicated_concordant` 283、`replicated_discordant` 29、`replication_available_but_weak` 22,410、`replication_not_available` 599,970。未测到不被当作复现失败；两边都测到但方向冲突才标记 discordant。
 - mTOR/rapamycin panel 已作为 biological sanity check 保留；它没有被设为算法硬验收条件。当前仍不生成 Tier 1 候选，所有候选只保留为后续人体状态、generic cytotoxicity、target concordance、暴露和外部模型过滤的输入。
@@ -52,15 +94,15 @@
 - 在同时满足 GSE104335 rapamycin response 与 GSE179044 hydrogel-specific residual 的 FDR<0.05 条件下，共有 19 个重叠基因，其中 11 个方向一致、8 个方向相反。NNMT 和 COL8A1 是最清楚的同向组合；FAP、SLC40A1 等相反方向的例子说明该轴不是普遍 ECM resistance，而是状态选择性重塑。
 - `GSE104335_cross_dataset_summary.csv` 和 `GSE104335_hydrogel_specific_overlap.csv` 已把这些机制对比与 GSE179044 的 hydrogel residual、hydrogel-specific residual 和 escape contrast 对齐，便于后续筛选真正跨模型的候选。
 
-### `tsc2_loss_plastic` concordant compound 子集
+### TSC2-loss signature 直接匹配得到的候选药物
 
-- 按 `contrast=tsc2_loss_plastic`、`perturbation_class=compound`、`cross_phase_status=replicated_concordant` 精确筛得 92 行；去除 dataset/query-size 重复后为 29 个唯一药物。
-- 92 行中 60 行为正向 `reversal_direction`，32 行为方向一致但属于 `mimic_direction`。因此 `replicated_concordant` 表示两个 LINCS release 的方向类别一致，不表示全部是候选治疗药。
-- 29 个唯一药物中，20 个只呈 reversal 方向，9 个只呈 mimic 方向；当前不据此生成 Tier 1。
-- 靶点主表覆盖全部 29 个药物、188 条记录：161 条来自 ChEMBL curated mechanism，27 条来自明确标记的 primary-literature fallback。ChEMBL 缺失机制不再被误读为“无靶点”。
-- 主要聚集轴是 PI3K/AKT（7 个药物）与 mTOR（7 个药物），其次是 proteasome（3 个）、microtubule（2 个）、受体/转运体/通道（6 个）和其他机制。PI3K/mTOR 轴的集中出现更像 TSC2-loss 相关状态的生物学 sanity signal，但不能排除共同的强转录扰动或 cytotoxicity。
-- PubChem 已完成 29/29 化合物身份解析，并保留 21,292 条带 target accession/GeneID 的 BioAssay evidence；这些记录单独保存，不直接当作主要靶点。
-- BindingDB 高相似度检索保留 1,177 条 ligand-target affinity evidence。由于其中包含弱结合、面板筛选和物种混杂，BindingDB 只用于直接结合/脱靶背景，不直接改变主靶点等级。
+- 按 `contrast ∈ {tsc2_loss_plastic, tsc2_loss_hydrogel}`、`perturbation_class=compound`、`cross_phase_status=replicated_concordant` 筛得 258 行；去除 dataset/query-size 重复后为 66 个唯一药物。
+- 258 行中 194 行为 `reversal_direction`，64 行为 `mimic_direction`。因此 `replicated_concordant` 表示两个 LINCS release 的方向类别一致，不表示全部是候选治疗药。
+- 66 个唯一药物中，54 个只呈 reversal 方向，12 个只呈 mimic 方向；当前不据此生成 Tier 1。
+- 原有 92 行/29 个药物及其靶点表保留为 `tsc2_loss_plastic` 单环境历史结果；合并 plastic/hydrogel 后的 66 个药物已用新脚本完成 ChEMBL、PubChem BioAssay 和 BindingDB 靶点/外部证据整理。当前新表包含 30 个药物的 ChEMBL curated mechanism、12 个药物的文献 fallback，以及其余无 curated mechanism 的明确记录；不同证据层级不混同。
+- 66 个药物的 LINCS 基因程序分析也已完成：两个 release 分别汇总，跨 release 只比较 204 个共同可分析基因；这是候选范围扩展后的机制线索，不是 Tier 1 结论。
+- 同一批 66 个药物已进一步用 `tsc2_loss_hydrogel` 签名独立分析，并与 plastic 结果比较：两套 top150+top150 面板同方向重叠 165/300，无 top-panel 方向相反重叠；主要比较改为逐药物、逐 LINCS release 的 reversal gene set：median 交集为 33.5 个基因、median Jaccard 为 0.374，且每个 panel 都有约 135 个面板特异基因。共同基因上的 LINCS drug effect 本来来自同一 perturbation，不作为独立生物学证据。
+- 槲皮素仍未进入合并候选表，因为它在两个 release 中仍属于 `replication_available_but_weak`，而不是 `replicated_concordant`。
 
 ## 关键输出
 
@@ -82,6 +124,9 @@
 - [候选过滤表](results/candidates/candidate_filtering_table.csv)
 - [LINCS perturbation-level 汇总](results/candidates/LINCS_perturbation_summary.csv.gz)
 - [LINCS positive-control sanity check](results/candidates/LINCS_positive_control_validation.csv)
+- [plastic/hydrogel concordant compound 候选表](results/candidates/tsc2_loss_plastic_or_hydrogel_replicated_concordant_compounds.csv)
+- [plastic/hydrogel concordant compound 去重表](results/candidates/tsc2_loss_plastic_or_hydrogel_replicated_concordant_compounds_unique.csv)
+- [plastic/hydrogel 候选筛选 manifest](manifests/tsc2_loss_plastic_or_hydrogel_replicated_concordant_analysis.json)
 - [TSC2-loss plastic concordant compound 原始 92 行](results/candidates/tsc2_loss_plastic_replicated_concordant_compounds_92_rows.csv)
 - [TSC2-loss plastic concordant compound 去重 29 药物](results/candidates/tsc2_loss_plastic_replicated_concordant_compounds_29_unique.csv)
 - [候选生成结果说明](results/candidates/README.md)
@@ -91,10 +136,23 @@
 - [人体 LAM 映射报告](reports/04_human_mapping/GSE135851_GSE302356_mapping.md)
 - [LINCS 候选生成报告](reports/05_candidate_generation/LINCS_candidate_generation.md)
 - [LINCS 候选后续分析报告](reports/06_candidate_analysis/LINCS_candidate_analysis.md)
+- [合并 plastic/hydrogel 候选后续分析报告](reports/06_candidate_analysis/tsc2_loss_plastic_or_hydrogel_replicated_concordant_LINCS_gene_program_analysis.md)
+- [合并候选 hydrogel panel 分析报告](reports/06_candidate_analysis/tsc2_loss_plastic_or_hydrogel_replicated_concordant_hydrogel_panel_LINCS_gene_program_analysis.md)
+- [plastic 与 hydrogel 签名比较报告](reports/06_candidate_analysis/tsc2_loss_plastic_or_hydrogel_replicated_concordant_plastic_vs_hydrogel_comparison.md)
 - [阶段报告总览](reports/README.md)
 - [候选后续分析说明](candidate_analysis/README.md)
 - [候选后续分析报告](reports/06_candidate_analysis/LINCS_candidate_analysis.md)
 - [LINCS 分析 manifest](manifests/lincs_analysis.json)
+- [GSE277844 翻译程序分析说明](translation_analysis/README.md)
+- [GSE277844 翻译程序阶段报告](reports/07_translation_analysis/GSE277844_translation_residual_analysis.md)
+- GSE277844 translation effects（`data/processed/translation_analysis/GSE277844_tsc2_loss_translation_effects.csv`）
+- GSE277844 与 residual 重叠汇总（`data/processed/translation_analysis/GSE277844_translation_residual_overlap_summary.csv`）
+- GSE277844 translation-targeting drug summary（`data/processed/translation_analysis/GSE277844_translation_residual_overlap_drug_summary.csv`）
+- [GSE277844 分析 manifest](manifests/GSE277844_translation_residual_analysis.json)
+- [GSE277844 背景恢复率与药物一致性研究日志](research_log/2026-08-27_translation_background_and_drug_concordance.md)
+- [GSE277844 固定 13 基因功能注释报告](reports/07_translation_analysis/GSE277844_hydrogel_translation_core_functional_annotation.md)
+- [GSE277844 固定 13 基因功能注释 manifest](manifests/GSE277844_hydrogel_translation_core_functional_annotation.json)
+- [GSE277844 固定 13 基因功能注释研究日志](research_log/2026-08-27_hydrogel_translation_core_functional_annotation.md)
 - [研究灵感记录](research_log/2026-08-22_initial_findings.md)
 
 ### 运行后生成的未版本化结果
@@ -114,6 +172,17 @@
 - PubChem BioAssay target evidence（`data/processed/candidate_analysis/drug_targets/tsc2_loss_plastic_replicated_concordant_pubchem_assay_target_evidence.csv.gz`）
 - BindingDB affinity evidence（`data/processed/candidate_analysis/drug_targets/tsc2_loss_plastic_replicated_concordant_bindingdb_affinity_evidence.csv.gz`）
 - BindingDB target summary（`data/processed/candidate_analysis/drug_targets/tsc2_loss_plastic_replicated_concordant_bindingdb_target_summary.csv`）
+- 合并 plastic/hydrogel 的 66 药物靶点与外部证据表（`data/processed/candidate_analysis/drug_targets/tsc2_loss_plastic_or_hydrogel_replicated_concordant_*`）
+- 合并候选的 LINCS drug×gene、跨 release、聚类和模块结果（`data/processed/candidate_analysis/programs/tsc2_loss_plastic_or_hydrogel_replicated_concordant_*`）
+- 合并候选 hydrogel panel 的 LINCS drug×gene、跨 release、聚类和模块结果（`data/processed/candidate_analysis/programs/tsc2_loss_plastic_or_hydrogel_replicated_concordant_hydrogel_panel_*`）
+- plastic/hydrogel 逐基因、逐药物和签名面板比较结果（`data/processed/candidate_analysis/programs/tsc2_loss_plastic_or_hydrogel_replicated_concordant_plastic_vs_hydrogel_*`）
+- plastic/hydrogel reversal gene set 明细及按药物跨 release 汇总（`data/processed/candidate_analysis/programs/tsc2_loss_plastic_or_hydrogel_replicated_concordant_plastic_vs_hydrogel_drug_reversal_*`）
+- 合并候选的 gene-panel/signature audit 与 target-axis validation（`data/processed/candidate_analysis/audit/tsc2_loss_plastic_or_hydrogel_replicated_concordant_*`、`data/processed/candidate_analysis/validation/tsc2_loss_plastic_or_hydrogel_replicated_concordant_*`）
+- 合并候选分析 manifest（`manifests/tsc2_loss_plastic_or_hydrogel_replicated_concordant_LINCS_gene_program_analysis_manifest.json`）
+- GSE277844 translation analysis 的运行后结构化输出（`data/processed/translation_analysis/`）和报告中的结果表；远端重新获取项目后，需要重新运行 `scripts/analyze_gse277844_translation_residuals.py` 生成。
+- GSE277844 residual 恢复率背景比较（`data/processed/translation_analysis/GSE277844_translation_residual_recovery_background_comparison.csv`）
+- GSE277844 逐基因药物一致性（`data/processed/translation_analysis/GSE277844_translation_residual_drug_gene_concordance.csv`、`data/processed/translation_analysis/GSE277844_translation_residual_drug_concordance_summary.csv`）
+- GSE277844 固定 13 基因的逐基因功能注释、主题汇总和功能富集（`data/processed/translation_analysis/GSE277844_hydrogel_translation_core_*`）；远端重新获取项目后，需要重新运行 `scripts/annotate_gse277844_hydrogel_translation_core.py` 生成。
 
 ## 当前主要限制
 

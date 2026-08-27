@@ -31,6 +31,12 @@ DATASET_META = {
         "source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE27982",
         "notes": "Low-serum mouse MEF external genotype-dependent rapamycin-response validation; not automatic escape proof.",
     },
+    "GSE277844": {
+        "role": "translation_residual_cross_model_analysis",
+        "organism": "Homo sapiens",
+        "source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE277844",
+        "notes": "Human isogenic TSC2 WT/null neural progenitor-cell total and polysome counts; used for translation-program comparison with GSE179044 residuals, not direct LAM replication.",
+    },
     "GSE16944": {
         "role": "historical_rapamycin_insensitive_support",
         "organism": "Homo sapiens",
@@ -114,6 +120,12 @@ DATASET_META = {
         "organism": "Homo sapiens",
         "source_url": "https://maayanlab.cloud/Enrichr/geneSetLibrary?mode=text&libraryName=GO_Biological_Process_2023",
         "notes": "Downloaded GMT; used with 204-gene common analyzable background.",
+    },
+    "GO_Cellular_Component_2023": {
+        "role": "interpretive_enrichment_gene_sets",
+        "organism": "Homo sapiens",
+        "source_url": "https://maayanlab.cloud/Enrichr/geneSetLibrary?mode=text&libraryName=GO_Cellular_Component_2023",
+        "notes": "Downloaded GMT; used for gene-level annotation of the fixed 13-gene hydrogel translation-residual core.",
     },
     "Reactome_2022": {
         "role": "interpretive_enrichment_gene_sets",
@@ -261,6 +273,8 @@ def file_source_url_for(dataset_id: str, relative_path: str) -> str:
         return "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE179nnn/GSE179044/suppl/GSE179044_raw_counts_matrix.csv.gz"
     if dataset_id == "GSE27982" and filename == "GSE27982_series_matrix.txt.gz":
         return "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE27nnn/GSE27982/matrix/GSE27982_series_matrix.txt.gz"
+    if dataset_id == "GSE277844" and filename == "GSE277844_raw_counts.txt.gz":
+        return "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE277nnn/GSE277844/suppl/GSE277844_raw_counts.txt.gz"
     if dataset_id == "GSE16944" and filename == "GSE16944_series_matrix.txt.gz":
         return "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE16nnn/GSE16944/matrix/GSE16944_series_matrix.txt.gz"
     if dataset_id == "GSE84476":
@@ -380,7 +394,7 @@ def main() -> None:
     files.to_csv(out / "data_inventory.csv", index=False)
     datasets.to_csv(out / "dataset_inventory.csv", index=False)
     (out / "data_inventory_scope.json").write_text(json.dumps({
-        "project_root": str(ROOT),
+        "project_root": ".",
         "scope": "All actual files under data/ excluding README.md and .DS_Store; includes raw downloads, source documents, extracted archives, processed inputs, gene sets, and local derived data files.",
         "n_file_rows": int(len(files)),
         "n_dataset_rows": int(len(datasets)),
