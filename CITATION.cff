@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "If you use LAM Research in your work, please cite this repository."
+title: "LAM Research"
+authors:
+  - family-names: "Zhong"
+    given-names: "Yiming"
+repository-code: "https://github.com/yimjr/LAM-Research"
+license: Apache-2.0
