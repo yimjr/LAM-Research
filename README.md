@@ -759,3 +759,13 @@ The project will continue to evolve as new public LAM datasets become available 
 The results in this repository are primarily derived from computational analysis of public datasets and are intended to generate **research hypotheses** and **candidate mechanisms**.
 
 They are best interpreted as starting points for further experimental and mechanistic research and are not intended as clinical treatment recommendations.
+
+---
+
+## License
+
+The source code in this repository is licensed under the [Apache License 2.0](LICENSE).
+
+Copyright and attribution notices are provided in [NOTICE](NOTICE).
+
+Third-party datasets, software, publications, and other materials included or referenced by this project remain subject to their respective original licenses and terms.
