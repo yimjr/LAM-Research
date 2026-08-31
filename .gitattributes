@@ -3,4 +3,5 @@
 *.bat text eol=crlf
 *.cmd text eol=crlf
 
-*.html linguist-detectable=false
+**/results/** linguist-generated=true
+**/reports/** linguist-generated=true
