@@ -1,17 +1,22 @@
 # LAM-State-Modeling
 
-本项目实现 LAM latent-state 研究的阶段 1–6 和 Step 7–13。它与 `LAM-Cell-Research` 并行，优先继承原项目的已转换 AnnData、patient/donor mapping、candidate pool、LAMCORE、program 和既有状态结果，不重新执行 GEO 转换或 program discovery。
+本项目实现 LAM latent-state 研究的 Stage 1–24。它与 `LAM-Cell-Research` 并行，优先继承原项目的已转换 AnnData、patient/donor mapping、candidate pool、LAMCORE、program 和既有状态结果，不重新执行 GEO 转换或 program discovery。
 
 ## 运行顺序
 
+下面是完整的推荐顺序。脚本彼此独立，不设置统一入口；顺序编号表示依赖和建议执行顺序。
+
 ```bash
 PY=/mnt/py-env/venvs/LAM-State-Modeling/bin/python
+# Stage 1–6：准备数据、baseline、scVI 和 Stage 6 checkpoint
 $PY 01_inventory_inputs.py --config config/state_modeling.yaml
 $PY 02_inherit_and_prepare.py --config config/state_modeling.yaml
 $PY 03_qc_and_harmonize.py --config config/state_modeling.yaml
 $PY 04_baseline_pca_nmf.py --config config/state_modeling.yaml
 $PY 05_train_scvi.py --config config/state_modeling.yaml
 $PY 06_stage6_checkpoint.py --config config/state_modeling.yaml
+
+# Step 7–13：consensus、稳健性、层级、逐 state 生物学和 atlas
 $PY 07_consensus_stability.py --config config/state_modeling.yaml
 $PY 08_loo_robustness.py --config config/state_modeling.yaml
 $PY 09_state_hierarchy.py --config config/state_modeling.yaml
@@ -19,16 +24,32 @@ $PY 10_biology_annotation.py --config config/state_modeling.yaml
 $PY 11_patient_reproducibility.py --config config/state_modeling.yaml
 $PY 12_boundary_normal_validation.py --config config/state_modeling.yaml
 $PY 13_state_atlas.py --config config/state_modeling.yaml
+
+# Stage 14–17：合并上游注释及 candidate identity 审计
 $PY 14_merge_consensus_upstream.py --config config/state_modeling.yaml
+$PY 15_candidate_identity_audit.py --config config/state_modeling.yaml
 $PY 16_rebuild_lam_identity_gate.py --config config/state_modeling.yaml
 $PY 17_identity_calibration_audit.py --config config/state_modeling.yaml
+
+# Stage 18–22：冻结 State 15 后的 anchor、几何和局部分支分析
 $PY 18_validate_state15_anchor.py --config config/state_modeling.yaml --block-size 8192
 $PY 19_state15_cross_patient_audit.py --config config/state_modeling.yaml --block-size 8192
 $PY 20_state15_centered_manifold.py --config config/state_modeling.yaml --block-size 4096
 $PY 21_validate_state15_manifold.py --config config/state_modeling.yaml --block-size 4096
 $PY 22_state15_local_branch_analysis.py --config config/state_modeling.yaml --block-size 4096
+
+# Stage 23–24：可视化和最终只读整理
 $PY 23_visualize_state15_latent_space.py
+$PY 24_finalize_project.py
 ```
+
+### 阶段依赖与分支
+
+- Stage 1–6 是主分析链；Stage 5 只训练一次 scVI，后续阶段复用冻结的 `X_scVI`。
+- Step 7–13 依赖 Stage 6 的 LAM-only clustering 和 scVI artifact；Stage 14 合并 consensus 与 upstream annotation，Stage 15 对 candidate identity 做只读审计。
+- Stage 16–17 是独立的 identity-gate/calibration 审计分支，不会修改正式 candidate gate；完整项目按上面的顺序运行，便于把审计结果和既有 consensus 对照。
+- Stage 18–22 只使用冻结的 State 15、既有 `X_scVI` 和前面结果，不重训 scVI、不重新聚类；Stage 22 的 branch 修正会影响后续可视化和最终整理。
+- Stage 23 只生成图形和交互文件；Stage 24 最后只读汇总 Stage 1–23，不改写既有核心 artifact。
 
 虚拟环境位置固定为仓库外的 `/mnt/py-env/venvs/LAM-State-Modeling`，以减少 WSL 跨文件系统磁盘开销；仓库内不再使用 `.venv`。依赖安装建议使用清华镜像，PyTorch CUDA wheel 单独从官方 CUDA 12.8 源安装：
 
@@ -60,25 +81,19 @@ Step 7 使用 9 个 grid configuration 等权；其中 `n_neighbors=30` 的三�
 
 Step 10 对每个 consensus state 单独执行 patient × group pseudobulk：`State_k vs Rest_of_LAM`，设计为 `~ patient_id + group`；低患者支持的 state 只输出描述性结果。Step 12 的 boundary/normal 只作辅助验证。Step 13 不设置硬性的 high/medium/low confidence 门槛。
 
-Stage 16 是独立的 candidate identity gate 重构，不要求先运行或重跑 Step 7–13。它读取 `state_model_prepared.h5ad` 的全部 `condition=LAM` 细胞，使用 PMEL/MLANA/MITF、LAMCORE/CORE2/CORE3 连续证据作为 identity anchors，ACTA2/ESR1/VEGFD/CTSK 作为 supportive evidence，并加入 ciliated、AT2、myeloid、endothelial、fibroblast、mesothelial 和 conditional pericyte/VSMC competing-lineage scores。`FIGF` 在证据计算中统一为 `VEGFD`；不使用“任意两个 marker > 0”作为 gate，也不使用旧 consensus state 调参。Stage 16 仅生成 `results/stage16/`，不重训 scVI、不重新聚类、不覆盖 Stage 1–13 或 scVI artifact。正式运行命令为：
+## 阶段输出索引
 
-```bash
-$PY 16_rebuild_lam_identity_gate.py --config config/state_modeling.yaml
-```
-
-Stage 18 (`18_validate_state15_anchor.py`) 将现有 consensus 的 State 15 精确冻结为 200 个细胞，只做 LAM-core reference anchor 的独立验证，不修改 candidate gate、不重新聚类、不重训 scVI。它使用可用的 777-gene formal LAMCORE，汇总 State 15、全部其他 consensus states、boundary 和 normal/control 的 profile；计算 author-style enrichment、State 15 与 State 18/20/12/7/5 的 marker/program 对照、patient × group pseudobulk、跨患者一致性、已有 `X_scVI` 的邻域以及距离—identity 梯度。结果只写入 `results/stage18/`，其中 `state15_anchor_summary.json` 保存冻结细胞 ID 的 SHA-256 和输入清单，`state15_anchor_report.md` 保存审计摘要。该阶段的结论是诊断性的，不会自动把 State 15 写回 candidate gate 或 atlas。
-
-## Step 7–13 输出
-
-- `results/stage7/`：co-assignment、完整距离层次、consensus assignments 和 stability
+- `results/stage1_6/`：输入清单、继承/映射/QC/counts 校验和 Stage 6 checkpoint
+- `results/stage7/`：co-assignment、完整距离层次、consensus assignments、stability 及 upstream annotation 合并结果
 - `results/stage8/`：full reference baseline、patient/dataset LOO matching 和 additional loss
 - `results/stage9/`：state distance、PAGA/connectivity、split/merge 和 boundary transitions
 - `results/stage10/`：逐 state pseudobulk、独立 DE、markers 和 upstream program scores
 - `results/stage11/`：patient×state 与连续复现指标
 - `results/stage12/`：boundary/normal 辅助邻域结果
 - `results/stage13/`：state atlas、hypothesis candidates 和 atlas AnnData
-- `results/stage7/state_consensus_with_upstream_annotations.csv`：逐细胞 consensus + upstream annotation
-- `results/stage7/state_consensus_state_summary.csv`：按 consensus state 的汇总
+- `results/stage7/state_consensus_with_upstream_annotations.csv`：Stage 14 生成的逐细胞 consensus + upstream annotation
+- `results/stage7/state_consensus_state_summary.csv`：Stage 14 生成的按 consensus state 汇总
+- `results/stage15/`：candidate identity 逐细胞审计、alias/marker 复核、marker pattern、UMI 分布和根因证据
 - `results/stage16/`：逐细胞 identity evidence、四数据集校准、leave-one-dataset-out 验证、新 candidate assignment 和旧 state 诊断汇总
 - `results/stage17/`：GSE190260 upstream positive-reference 漏检的 component、raw-count dropout、competing lineage、反事实标准化和 LODO 审计；不生成新的 candidate assignment
 - `results/stage18/`：冻结 State 15 的 777-gene LAMCORE、author-label、marker/program、patient-level pseudobulk、一致性和 scVI latent-neighborhood anchor 验证；不改变任何既有 artifact
@@ -86,6 +101,60 @@ Stage 18 (`18_validate_state15_anchor.py`) 将现有 consensus 的 State 15 精�
 - `results/stage20/`：以冻结 State 15 为 reference 的 candidate/boundary latent distance、距离分箱、identity/lineage gradient、State 16 LAM/immune 共表达、patient/dataset consistency、boundary 投射和 normal 远端对照；不重训 scVI、不重新聚类、不修改 candidate gate
 - `results/stage21/`：将 State 15 仅作为 anchor，在其余 22,061 个细胞上审计 777-gene LAMCORE 与 scVI HVG/旧 gate 的重叠，计算 independent LAMCORE gradient、dataset/patient 一致性、500 次 patient×dataset matched-anchor null、State16/ boundary 梯度和 connectivity；不重训 scVI、不重新聚类、不修改 candidate gate
 - `results/stage22/`：在固定 State15-centered k=30 局部图上分解 1–3 hop 方向，自动筛选主要 branches，分析 State16/其他 branch 的 near/mid/far gradient、patient consistency、boundary 投射和每条 branch 的 500 次 matched null；不重训 scVI、不重新聚类、不修改 candidate gate
+- `results/stage23_visualization/`：二维静态图、三维 UMAP/PCA 交互图和 visualization manifest
+- `results/stage24_final/`：最终 artifact index、stage summary、state 解释、其他发现、文字审计和最终报告原材料
+
+## Stage 14：合并 consensus 与 upstream annotation
+
+Stage 14 (`14_merge_consensus_upstream.py`) 将 Step 7 的 consensus assignments 与四个数据集各自的 upstream candidate/state/program annotation 按 cell ID 或原项目样本键合并。三个 candidate pool 层级分别保留；只有 `pool_high_confidence` 进入既定 `lam_candidate`，broad 仅作为 boundary，unrestricted 仅作为审计标签。该阶段不重新生成 candidate、program 或 state。
+
+主要结果写入 `results/stage7/state_consensus_with_upstream_annotations.csv` 和 `results/stage7/state_consensus_state_summary.csv`，并保存 `consensus_upstream_merge_manifest.json`。
+
+## Stage 15：candidate identity audit
+
+Stage 15 (`15_candidate_identity_audit.py`) 是只读的 candidate identity 追溯审计。它将原始 upstream `candidate_pool_labels.csv` 与合并后的逐细胞 annotation 按 cell ID 一对一比较，重新计算原 marker-combo 规则，单独审计 `FIGF/VEGFD` 重复计数、marker 组合、raw-count 检出量和各 consensus state 的 candidate 来源。该阶段不修改 candidate gate、consensus、scVI 或任何既有 artifact。
+
+结果写入 `results/stage15/`，包括 `annotation_merge_audit.csv`、`rule_recalculation_audit.csv`、`alias_audit_by_dataset.csv`、`marker_patterns.csv`、`marker_umi_distribution.csv`、`state_identity_summary.csv`、`root_cause_evidence.csv` 和 `candidate_identity_audit.md`。
+
+## Stage 16：LAM candidate identity gate 重构
+
+Stage 16 是独立的 candidate identity gate 重构，不要求先运行或重跑 Step 7–13。它读取 `state_model_prepared.h5ad` 的全部 `condition=LAM` 细胞，使用 PMEL/MLANA/MITF、LAMCORE/CORE2/CORE3 连续证据作为 identity anchors，ACTA2/ESR1/VEGFD/CTSK 作为 supportive evidence，并加入 ciliated、AT2、myeloid、endothelial、fibroblast、mesothelial 和 conditional pericyte/VSMC competing-lineage scores。`FIGF` 在证据计算中统一为 `VEGFD`；不使用“任意两个 marker > 0”作为 gate，也不使用旧 consensus state 调参。Stage 16 仅生成 `results/stage16/`，不重训 scVI、不重新聚类、不覆盖 Stage 1–13 或 scVI artifact。正式运行命令为：
+
+```bash
+$PY 16_rebuild_lam_identity_gate.py --config config/state_modeling.yaml
+```
+
+## Stage 17：跨数据集 identity calibration 审计
+
+Stage 17 (`17_identity_calibration_audit.py`) 只定位 GSE190260 upstream CORE3-positive 漏检的来源，不修改正式 candidate gate。它读取 Stage 16 的 evidence、reference calibration 和 leave-one-dataset-out 结果，拆分 positive identity/support/CORE3 与 competing-lineage penalty，比较 raw、dataset-wise z-score、percentile 和 LODO recovery，同时统计 raw-count dropout、测序深度和 failure reason。结果写入 `results/stage17/`，不生成新的 candidate assignment。
+
+## Stage 18：State 15 LAM-core reference anchor 验证
+
+Stage 18 (`18_validate_state15_anchor.py`) 将现有 consensus 的 State 15 精确冻结为 200 个细胞，只做 LAM-core reference anchor 的独立验证，不修改 candidate gate、不重新聚类、不重训 scVI。它使用可用的 777-gene formal LAMCORE，汇总 State 15、全部其他 consensus states、boundary 和 normal/control 的 profile；计算 author-style enrichment、State 15 与 State 18/20/12/7/5 的 marker/program 对照、patient × group pseudobulk、跨患者一致性、已有 `X_scVI` 的邻域以及距离—identity 梯度。结果只写入 `results/stage18/`，其中 `state15_anchor_summary.json` 保存冻结细胞 ID 的 SHA-256 和输入清单，`state15_anchor_report.md` 保存审计摘要。该阶段的结论是诊断性的，不会自动把 State 15 写回 candidate gate 或 atlas。
+
+## Stage 19：State 15 跨患者审计
+
+Stage 19 (`19_state15_cross_patient_audit.py`) 检查 State 15 的患者组成是否超过 candidate-pool 基线，并进行 patient-matched comparison、7 患者 LOPO、去除 LAM1163 的 sensitivity analysis 以及 author annotation availability 审计。它不重新聚类、不重训 scVI、不修改 gate；结果写入 `results/stage19/`，用于区分采样组成、患者富集和可复现的 State 15 生物学证据。
+
+## Stage 20：State 15-centered manifold
+
+Stage 20 固定使用当前 consensus State 15 的 200 个细胞和既有 `state_model_scvi.h5ad` 的 `X_scVI`。主几何 cohort 为 5,378 个 high-confidence candidates 加 16,883 个 inherited boundary cells；normal 只产生远端摘要，不进入 State 15 邻域图。距离、centroid、30-NN State15 neighbor fraction 完全由 latent geometry 计算，State 1–20 只用于描述邻域组成；LAMCORE、program 和 competing-lineage score 在几何轴建立后映射。
+
+该阶段不重训 scVI、不重新 Leiden/consensus clustering、不修改 candidate gate。`results/stage20/stage20_manifest.json` 保存冻结 State 15 cell ID 哈希、latent artifact 和 cohort scope；`state15_centered_manifold.csv` 是后续 State15-centered 分析的逐细胞主表，`stage20_manifold_report.md` 保存 checkpoint 与解释。
+
+## Stage 21：State 15-centered manifold 独立验证
+
+Stage 21 将冻结的 State 15 200 个细胞与验证对象严格分开：State 15 只作 reference anchor，所有主要 gradient 检验在 Stage 20 的 22,061 个非-State15细胞上完成，并直接复用 Stage 20 的 `distance_to_state15`。对 777-gene formal LAMCORE 逐基因标记其是否属于 scVI 4000 HVG、旧 candidate gate marker 及当前表达矩阵，构造 `LAMCORE_full`、`LAMCORE_no_gate`、`LAMCORE_outside_scVI` 和最严格的 `LAMCORE_independent`。
+
+Stage 21 同时输出 anchor-excluded distance bins、dataset/patient adjusted gradient、continuous smooth table、State 16 near/mid/far profile、boundary evidence ranking 和同一 `X_scVI` candidate+boundary scope 的 k=30 connectivity。500 次 null 从非-State15 candidate 中按 State15 的 patient×dataset 组成抽取假 anchor，真实 candidate-only independent slope 与 null 分布比较。结果为：554 个 LAMCORE 基因同时位于 scVI 4000 HVG 外且不属于旧 gate marker；真实 candidate-only independent patient-adjusted slope 为 -0.01547，matched-anchor null empirical two-sided p=0.001996，但 pooled non-State15 rank gradient 的 Spearman rho 为 +0.0757、最近/最远分箱不呈单调下降，患者方向存在异质性。因此 checkpoint 为 `state15_lam_rich_gradient_but_not_robust_manifold`：存在独立 LAM-rich gradient，但暂不足以升级为稳健统一 manifold。
+
+## Stage 22：State 15 局部分支分解
+
+Stage 22 不再判断全局 manifold，而是用既有 `X_scVI` 在 22,261 个 candidate+boundary cells 上建立固定 k=30 局部图。图采用无向化 kNN 的 1–3 hop，State 15 的 200 个细胞始终只作中心 anchor；保留 State 1–20 标签，不重新聚类。branch 自动选择规则为：外部已有 state 与 State15 直接相连的细胞数至少 10，且至少来自 2 个患者；boundary 不被提升为 branch。
+
+本次仍选出 4 个局部方向：State16（1/2/3-hop 为 96/234/65，1-hop 覆盖 8 个患者、全 state 覆盖 10 个患者）、State12（22/165/327）、State20（22/320/384）和 State7（11/87/308）。State18 直接连接不足，因此未强行定义为 branch。修正后的 State16 local independent LAMCORE slope=-0.023931，直接经验双侧 p=0.878244、BH q=0.878244；虽然 7/7 个有足够细胞的患者 slope 为负、LOPO 为 10/10 负，但未超出距离结构匹配的 local null。State12/20/7 的 raw p/q 分别为 0.027944/0.055888、0.003992/0.015968、0.211577/0.282102；它们的正向 competing-lineage 方向仍按 ordinary lineage adjacency 描述。
+
+Boundary 只在 1–3 hop 范围内按直接 branch-neighbor 优势进行方向投射；本次实际投射 11,648 个 local boundary cells，其中 6,736 个保持 unresolved，远端 boundary 不参与本地投射，不生成新的 LAM 标签。修正后的 Stage 22 checkpoint 为 `ordinary_lineage_adjacency_dominates`：State16 的旧 LAM-preserving/lineage-transition candidate 标签已撤回，当前仅保留为 State15 邻接/混合状态的探索性描述。
 
 ## Stage 23：State 15 latent-space visualization
 
@@ -108,26 +177,6 @@ results/stage23_visualization/
 ├── 3d_global_pca.html
 └── visualization_manifest.json
 ```
-
-## Stage 22：State 15 局部分支分解
-
-Stage 22 不再判断全局 manifold，而是用既有 `X_scVI` 在 22,261 个 candidate+boundary cells 上建立固定 k=30 局部图。图采用无向化 kNN 的 1–3 hop，State 15 的 200 个细胞始终只作中心 anchor；保留 State 1–20 标签，不重新聚类。branch 自动选择规则为：外部已有 state 与 State15 直接相连的细胞数至少 10，且至少来自 2 个患者；boundary 不被提升为 branch。
-
-本次仍选出 4 个局部方向：State16（1/2/3-hop 为 96/234/65，1-hop 覆盖 8 个患者、全 state 覆盖 10 个患者）、State12（22/165/327）、State20（22/320/384）和 State7（11/87/308）。State18 直接连接不足，因此未强行定义为 branch。修正后的 State16 local independent LAMCORE slope=-0.023931，直接经验双侧 p=0.878244、BH q=0.878244；虽然 7/7 个有足够细胞的患者 slope 为负、LOPO 为 10/10 负，但未超出距离结构匹配的 local null。State12/20/7 的 raw p/q 分别为 0.027944/0.055888、0.003992/0.015968、0.211577/0.282102；它们的正向 competing-lineage 方向仍按 ordinary lineage adjacency 描述。
-
-Boundary 只在 1–3 hop 范围内按直接 branch-neighbor 优势进行方向投射；本次实际投射 11,648 个 local boundary cells，其中 6,736 个保持 unresolved，远端 boundary 不参与本地投射，不生成新的 LAM 标签。修正后的 Stage 22 checkpoint 为 `ordinary_lineage_adjacency_dominates`：State16 的旧 LAM-preserving/lineage-transition candidate 标签已撤回，当前仅保留为 State15 邻接/混合状态的探索性描述。
-
-## Stage 21：State 15-centered manifold 独立验证
-
-Stage 21 将冻结的 State 15 200 个细胞与验证对象严格分开：State 15 只作 reference anchor，所有主要 gradient 检验在 Stage 20 的 22,061 个非-State15细胞上完成，并直接复用 Stage 20 的 `distance_to_state15`。对 777-gene formal LAMCORE 逐基因标记其是否属于 scVI 4000 HVG、旧 candidate gate marker 及当前表达矩阵，构造 `LAMCORE_full`、`LAMCORE_no_gate`、`LAMCORE_outside_scVI` 和最严格的 `LAMCORE_independent`。
-
-Stage 21 同时输出 anchor-excluded distance bins、dataset/patient adjusted gradient、continuous smooth table、State 16 near/mid/far profile、boundary evidence ranking 和同一 `X_scVI` candidate+boundary scope 的 k=30 connectivity。500 次 null 从非-State15 candidate 中按 State15 的 patient×dataset 组成抽取假 anchor，真实 candidate-only independent slope 与 null 分布比较。结果为：554 个 LAMCORE 基因同时位于 scVI 4000 HVG 外且不属于旧 gate marker；真实 candidate-only independent patient-adjusted slope 为 -0.01547，matched-anchor null empirical two-sided p=0.001996，但 pooled non-State15 rank gradient 的 Spearman rho 为 +0.0757、最近/最远分箱不呈单调下降，患者方向存在异质性。因此 checkpoint 为 `state15_lam_rich_gradient_but_not_robust_manifold`：存在独立 LAM-rich gradient，但暂不足以升级为稳健统一 manifold。
-
-## Stage 20：State 15-centered manifold
-
-Stage 20 固定使用当前 consensus State 15 的 200 个细胞和既有 `state_model_scvi.h5ad` 的 `X_scVI`。主几何 cohort 为 5,378 个 high-confidence candidates 加 16,883 个 inherited boundary cells；normal 只产生远端摘要，不进入 State 15 邻域图。距离、centroid、30-NN State15 neighbor fraction 完全由 latent geometry 计算，State 1–20 只用于描述邻域组成；LAMCORE、program 和 competing-lineage score 在几何轴建立后映射。
-
-该阶段不重训 scVI、不重新 Leiden/consensus clustering、不修改 candidate gate。`results/stage20/stage20_manifest.json` 保存冻结 State 15 cell ID 哈希、latent artifact 和 cohort scope；`state15_centered_manifold.csv` 是后续 State 15-centered 分析的逐细胞主表，`stage20_manifold_report.md` 保存 checkpoint 与解释。
 
 ## Stage 24：最终项目材料包
 
