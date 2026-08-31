@@ -1,0 +1,21 @@
+consensus_state,cells,author_style_cells,formal_signature_cells,author_or_formal_fraction,marker_combo_candidate_cells,marker_combo_fraction,dominant_marker_combinations,FIGF_VEGFD_duplicate_pass_cells,FIGF_VEGFD_duplicate_pass_fraction,FIGF_VEGFD_duplicate_pass_fraction_among_marker_combo,median_detected_marker_count,fraction_supported_only_by_1_UMI_detections,only_1_UMI_marker_combo_cells,original_ge2_but_alias_corrected_lt2_cells,datasets,patients
+1,703,0,0,0.0,703,1.0,"{""ACTA2 + ESR1"": 40, ""MITF + ACTA2"": 36, ""MITF + ACTA2 + ESR1"": 63, ""MITF + ESR1"": 285, ""MITF + ESR1 + CTSK"": 36}",0,0.0,0.0,2.0,0.16927453769559034,119,0,4,10
+2,1,0,0,0.0,1,1.0,"{""MITF + CTSK"": 1}",0,0.0,0.0,2.0,1.0,1,0,1,1
+3,4,0,0,0.0,4,1.0,"{""ACTA2 + CTSK"": 1, ""MITF + ACTA2 + ESR1"": 1, ""MITF + ESR1"": 2}",0,0.0,0.0,2.0,0.0,0,0,2,2
+4,550,0,0,0.0,550,1.0,"{""ACTA2 + CTSK"": 36, ""MITF + ACTA2"": 50, ""MITF + CTSK"": 92, ""MITF + ESR1"": 210, ""MITF + ESR1 + CTSK"": 28}",0,0.0,0.0,2.0,0.21272727272727274,117,0,4,10
+5,864,5,0,0.005787037037037037,859,0.9942129629629629,"{""ACTA2 + CTSK"": 157, ""ACTA2 + ESR1"": 63, ""MITF + ACTA2"": 243, ""MITF + CTSK"": 156, ""MITF + ESR1"": 100}",0,0.0,0.0,2.0,0.5203725261932479,447,0,4,10
+6,3,0,0,0.0,3,1.0,"{""ACTA2 + ESR1"": 1, ""MITF + ACTA2"": 1, ""PMEL + CTSK"": 1}",0,0.0,0.0,2.0,0.6666666666666666,2,0,2,2
+7,576,0,0,0.0,576,1.0,"{""ACTA2 + CTSK"": 30, ""MITF + ACTA2"": 66, ""MITF + CTSK"": 100, ""MITF + ESR1"": 155, ""MITF + ESR1 + CTSK"": 25}",0,0.0,0.0,2.0,0.4461805555555556,257,0,4,11
+8,1,0,0,0.0,1,1.0,"{""MITF + ESR1"": 1}",0,0.0,0.0,2.0,1.0,1,0,1,1
+9,406,0,0,0.0,406,1.0,"{""ACTA2 + ESR1"": 28, ""MITF + ACTA2"": 38, ""MITF + CTSK"": 25, ""MITF + ESR1"": 103, ""MITF + ESR1 + CTSK"": 22}",0,0.0,0.0,2.0,0.16995073891625614,69,0,4,5
+10,4,0,0,0.0,4,1.0,"{""MITF + ACTA2 + ESR1 + CTSK"": 1, ""MITF + VEGFD"": 1, ""MLANA + MITF + ACTA2 + ESR1 + CTSK"": 1, ""PMEL + MITF + ESR1"": 1}",0,0.0,0.0,3.5,0.0,0,0,1,1
+11,3,0,0,0.0,3,1.0,"{""ESR1 + CTSK"": 1, ""MITF + ACTA2 + ESR1"": 1, ""PMEL + MITF + ESR1"": 1}",0,0.0,0.0,3.0,0.0,0,0,1,1
+12,605,0,0,0.0,605,1.0,"{""MITF + ACTA2"": 49, ""MITF + ACTA2 + ESR1"": 26, ""MITF + CTSK"": 89, ""MITF + ESR1"": 143, ""MITF + ESR1 + CTSK"": 47}",0,0.0,0.0,2.0,0.2644628099173554,160,0,4,9
+13,6,0,0,0.0,6,1.0,"{""MITF + ACTA2"": 1, ""MITF + ACTA2 + ESR1 + VEGFD + CTSK"": 1, ""MITF + ESR1 + CTSK"": 1, ""PMEL + MLANA + MITF + ACTA2 + ESR1 + CTSK"": 1, ""VEGFD + CTSK"": 1}",0,0.0,0.0,3.5,0.3333333333333333,2,0,3,3
+14,3,0,0,0.0,3,1.0,"{""PMEL + MITF + ACTA2 + CTSK"": 1, ""PMEL + MITF + ACTA2 + ESR1 + CTSK"": 1, ""PMEL + MITF + ACTA2 + FIGF + CTSK"": 1}",0,0.0,0.0,5.0,0.0,0,0,1,1
+15,200,49,0,0.245,151,0.755,"{""PMEL + ACTA2 + ESR1 + CTSK"": 20, ""PMEL + ACTA2 + FIGF + CTSK"": 16, ""PMEL + MITF + ACTA2 + CTSK"": 32, ""PMEL + MITF + ACTA2 + ESR1 + CTSK"": 41, ""PMEL + MITF + ACTA2 + ESR1 + FIGF + CTSK"": 16}",0,0.0,0.0,4.0,0.0,0,0,4,7
+16,396,74,0,0.18686868686868688,322,0.8131313131313131,"{""ACTA2 + CTSK"": 97, ""MITF + ACTA2"": 21, ""MITF + ACTA2 + ESR1"": 20, ""PMEL + ACTA2"": 23, ""PMEL + ACTA2 + CTSK"": 55}",0,0.0,0.0,2.5,0.12111801242236025,39,0,4,10
+17,121,0,0,0.0,121,1.0,"{""ACTA2 + CTSK"": 80, ""ACTA2 + ESR1 + CTSK"": 4, ""MITF + ACTA2"": 6, ""MITF + ACTA2 + CTSK"": 10, ""MITF + CTSK"": 11}",0,0.0,0.0,2.0,0.2809917355371901,34,0,3,5
+18,174,0,0,0.0,174,1.0,"{""ACTA2 + CTSK"": 89, ""ACTA2 + ESR1"": 6, ""ACTA2 + VEGFD"": 4, ""MITF + ACTA2"": 50, ""MITF + ACTA2 + CTSK"": 12}",0,0.0,0.0,2.0,0.04597701149425287,8,0,4,9
+19,2,0,0,0.0,2,1.0,"{""MITF + ACTA2 + ESR1"": 1, ""MITF + ESR1"": 1}",0,0.0,0.0,2.5,0.0,0,0,2,2
+20,756,12,0,0.015873015873015872,744,0.9841269841269841,"{""ACTA2 + CTSK"": 149, ""ESR1 + CTSK"": 60, ""MITF + ACTA2 + CTSK"": 56, ""MITF + CTSK"": 87, ""MITF + ESR1"": 63}",0,0.0,0.0,2.0,0.2513440860215054,187,0,4,10

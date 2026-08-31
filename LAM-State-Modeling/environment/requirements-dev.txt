@@ -1,0 +1,4 @@
+# Static type checking for the Python analysis scripts.
+pyright>=1.1,<2
+# Required by the PyPI pyright wrapper for a self-contained Linux runtime.
+nodejs-wheel-binaries>=24,<25

@@ -1,0 +1,249 @@
+{
+  "script": "/mnt/e/lam-research/LAM-State-Modeling/15_candidate_identity_audit.py",
+  "read_only_existing_artifacts": true,
+  "n_cells": 5378,
+  "n_states": 20,
+  "state_consensus_input": "/mnt/e/lam-research/LAM-State-Modeling/results/stage7/state_consensus_with_upstream_annotations.csv",
+  "prepared_h5ad": "/mnt/e/lam-research/LAM-State-Modeling/data/processed/state_model_prepared.h5ad",
+  "candidate_files": [
+    {
+      "dataset": "GSE135851",
+      "path": "/mnt/e/lam-research/LAM-State-Modeling/../LAM-Cell-Research/results/program_discovery/candidate_pool_labels.csv",
+      "status": "available",
+      "n_rows": 30708,
+      "duplicate_id_rows": 0,
+      "n_consensus_cells": 535,
+      "n_consensus_ids_missing": 0
+    },
+    {
+      "dataset": "GSE190260",
+      "path": "/mnt/e/lam-research/LAM-State-Modeling/../LAM-Cell-Research/results/program_discovery/external_GSE190260/candidate_pool_labels.csv",
+      "status": "available",
+      "n_rows": 39979,
+      "duplicate_id_rows": 0,
+      "n_consensus_cells": 1552,
+      "n_consensus_ids_missing": 0
+    },
+    {
+      "dataset": "GSE217108",
+      "path": "/mnt/e/lam-research/LAM-State-Modeling/../LAM-Cell-Research/results/program_discovery/external_GSE217108/candidate_pool_labels.csv",
+      "status": "available",
+      "n_rows": 12396,
+      "duplicate_id_rows": 0,
+      "n_consensus_cells": 638,
+      "n_consensus_ids_missing": 0
+    },
+    {
+      "dataset": "GSE302356",
+      "path": "/mnt/e/lam-research/LAM-State-Modeling/../LAM-Cell-Research/results/program_discovery/external_GSE302356/candidate_pool_labels.csv",
+      "status": "available",
+      "n_rows": 23759,
+      "duplicate_id_rows": 0,
+      "n_consensus_cells": 2653,
+      "n_consensus_ids_missing": 0
+    }
+  ],
+  "marker_genes": [
+    "PMEL",
+    "MLANA",
+    "MITF",
+    "ACTA2",
+    "ESR1",
+    "FIGF",
+    "VEGFD",
+    "CTSK"
+  ],
+  "marker_columns_present_by_dataset": {
+    "GSE135851": [
+      "PMEL",
+      "MLANA",
+      "ACTA2",
+      "ESR1",
+      "FIGF",
+      "VEGFD",
+      "CTSK"
+    ],
+    "GSE190260": [
+      "PMEL",
+      "MLANA",
+      "MITF",
+      "ACTA2",
+      "ESR1",
+      "FIGF",
+      "VEGFD",
+      "CTSK"
+    ],
+    "GSE217108": [
+      "PMEL",
+      "MLANA",
+      "MITF",
+      "ACTA2",
+      "ESR1",
+      "FIGF",
+      "VEGFD",
+      "CTSK"
+    ],
+    "GSE302356": [
+      "PMEL",
+      "MLANA",
+      "MITF",
+      "ACTA2",
+      "ESR1",
+      "FIGF",
+      "VEGFD",
+      "CTSK"
+    ]
+  },
+  "counts_audit": {
+    "status": "ok",
+    "available_genes": [
+      "PMEL",
+      "MLANA",
+      "MITF",
+      "ACTA2",
+      "ESR1",
+      "VEGFD",
+      "CTSK"
+    ]
+  },
+  "original_counts_audit": {
+    "GSE135851": {
+      "status": "ok",
+      "path": "/mnt/e/lam-research/LAM-State-Modeling/../data-temp/GSE135851_core_reproduction.h5ad",
+      "n_cells": 535,
+      "marker_panel": [
+        "ACTA2",
+        "CTSK",
+        "ESR1",
+        "FIGF",
+        "MLANA",
+        "PMEL",
+        "VEGFD"
+      ],
+      "genes_present_in_source_counts": [
+        "PMEL",
+        "MLANA",
+        "MITF",
+        "ACTA2",
+        "ESR1",
+        "FIGF",
+        "CTSK"
+      ],
+      "genes_absent_in_source_counts_treated_as_zero": [
+        "VEGFD"
+      ]
+    },
+    "GSE190260": {
+      "status": "ok",
+      "path": "/mnt/e/lam-research/LAM-State-Modeling/../data-temp/GSE190260.h5ad",
+      "n_cells": 1552,
+      "marker_panel": [
+        "ACTA2",
+        "CTSK",
+        "ESR1",
+        "FIGF",
+        "MITF",
+        "MLANA",
+        "PMEL",
+        "VEGFD"
+      ],
+      "genes_present_in_source_counts": [
+        "PMEL",
+        "MLANA",
+        "MITF",
+        "ACTA2",
+        "ESR1",
+        "FIGF",
+        "CTSK"
+      ],
+      "genes_absent_in_source_counts_treated_as_zero": [
+        "VEGFD"
+      ]
+    },
+    "GSE217108": {
+      "status": "ok",
+      "path": "/mnt/e/lam-research/LAM-State-Modeling/../data-temp/GSE217108.h5ad",
+      "n_cells": 638,
+      "marker_panel": [
+        "ACTA2",
+        "CTSK",
+        "ESR1",
+        "FIGF",
+        "MITF",
+        "MLANA",
+        "PMEL",
+        "VEGFD"
+      ],
+      "genes_present_in_source_counts": [
+        "PMEL",
+        "MLANA",
+        "MITF",
+        "ACTA2",
+        "ESR1",
+        "VEGFD",
+        "CTSK"
+      ],
+      "genes_absent_in_source_counts_treated_as_zero": [
+        "FIGF"
+      ]
+    },
+    "GSE302356": {
+      "status": "ok",
+      "path": "/mnt/e/lam-research/LAM-State-Modeling/../data-temp/GSE302356.h5ad",
+      "n_cells": 2653,
+      "marker_panel": [
+        "ACTA2",
+        "CTSK",
+        "ESR1",
+        "FIGF",
+        "MITF",
+        "MLANA",
+        "PMEL",
+        "VEGFD"
+      ],
+      "genes_present_in_source_counts": [
+        "PMEL",
+        "MLANA",
+        "MITF",
+        "ACTA2",
+        "ESR1",
+        "VEGFD",
+        "CTSK"
+      ],
+      "genes_absent_in_source_counts_treated_as_zero": [
+        "FIGF"
+      ]
+    }
+  },
+  "original_raw_marker_count_validity": {
+    "n_marker_values": 42489,
+    "finite": true,
+    "nonnegative": true,
+    "integer_valued": true,
+    "n_non_integer": 0,
+    "n_negative": 0
+  },
+  "counts_layer_provenance": "current canonicalized prepared AnnData; FIGF is absent and VEGFD is alias-merged",
+  "marker_expr_provenance": "upstream marker_expr columns retained in prepared AnnData; used only for exact >0 rule reproduction",
+  "raw_marker_count_provenance": "original per-dataset AnnData layers[counts] from resolved source/data-temp files",
+  "annotation_merge_pass": true,
+  "n_marker_combo_candidates": 5238,
+  "n_author_or_formal_supported": 140,
+  "n_alias_duplicate_pass": 0,
+  "n_original_ge2_but_alias_corrected_lt2": 0,
+  "n_marker_combo_only_1_umi": 1443,
+  "outputs": [
+    "alias_audit_by_dataset.csv",
+    "alias_audit_by_state.csv",
+    "annotation_merge_audit.csv",
+    "candidate_identity_audit.json",
+    "candidate_identity_audit.md",
+    "candidate_identity_cell_audit.csv",
+    "marker_patterns.csv",
+    "marker_umi_distribution.csv",
+    "root_cause_evidence.csv",
+    "rule_recalculation_audit.csv",
+    "state_identity_summary.csv",
+    "state_marker_umi_distribution.csv"
+  ]
+}

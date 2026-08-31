@@ -39,3 +39,4 @@
 .env.*
 !.env.example
 
+data-temp/

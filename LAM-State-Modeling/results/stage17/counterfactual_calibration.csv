@@ -1,0 +1,13 @@
+method,calibration_mode,dataset,n_positive_reference,core_threshold,boundary_threshold,core_recovered,core_or_boundary_recovered,missed,core_recovery_rate,core_or_boundary_recovery_rate,n_negative_reference_lam_competing,non_LAM_like_retention
+raw_stage16_score,"Stage16 full threshold, score-only counterfactual",GSE135851,140,3.0961594581604004,-1.721476435661316,123,140,0,0.8785714285714286,1.0,9710,0.1548918640576725
+raw_stage16_score,"Stage16 full threshold, score-only counterfactual",GSE190260,2117,3.0961594581604004,-1.721476435661316,0,1891,226,0.0,0.8932451582427964,19593,0.07441433164905834
+raw_stage16_score,"Stage16 full threshold, score-only counterfactual",GSE217108,0,3.0961594581604004,-1.721476435661316,0,0,0,,,3528,0.09410430839002268
+raw_stage16_score,"Stage16 full threshold, score-only counterfactual",GSE302356,0,3.0961594581604004,-1.721476435661316,0,0,0,,,12172,0.15256325994084785
+dataset_z_score,audit score-specific full-reference threshold,GSE135851,140,-1.1263000949774116,-1.6914961357737035,140,140,0,1.0,1.0,9710,0.14994850669412976
+dataset_z_score,audit score-specific full-reference threshold,GSE190260,2117,-1.1263000949774116,-1.6914961357737035,1776,1891,226,0.838923004251299,0.8932451582427964,19593,0.07441433164905834
+dataset_z_score,audit score-specific full-reference threshold,GSE217108,0,-1.1263000949774116,-1.6914961357737035,0,0,0,,,3528,0.15022675736961452
+dataset_z_score,audit score-specific full-reference threshold,GSE302356,0,-1.1263000949774116,-1.6914961357737035,0,0,0,,,12172,0.16201117318435754
+dataset_percentile_score,audit score-specific full-reference threshold,GSE135851,140,0.15177902379783467,0.04352342316736002,139,140,0,0.9928571428571429,1.0,9710,0.10401647785787847
+dataset_percentile_score,audit score-specific full-reference threshold,GSE190260,2117,0.15177902379783467,0.04352342316736002,1612,1891,226,0.7614548889938593,0.8932451582427964,19593,0.07441433164905834
+dataset_percentile_score,audit score-specific full-reference threshold,GSE217108,0,0.15177902379783467,0.04352342316736002,0,0,0,,,3528,0.08560090702947845
+dataset_percentile_score,audit score-specific full-reference threshold,GSE302356,0,0.15177902379783467,0.04352342316736002,0,0,0,,,12172,0.07780151166611896

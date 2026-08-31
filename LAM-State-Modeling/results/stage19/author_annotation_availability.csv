@@ -1,0 +1,5 @@
+dataset,candidate_file,author_style_field_present,author_style_annotation_status,availability_basis,author_style_positive_total,state15_cells,state15_author_style_positive_observed
+GSE135851,/mnt/e/lam-research/LAM-State-Modeling/../LAM-Cell-Research/results/program_discovery/candidate_pool_labels.csv,True,available,positive_author_labels_present,140.0,50,49.0
+GSE190260,/mnt/e/lam-research/LAM-State-Modeling/../LAM-Cell-Research/results/program_discovery/external_GSE190260/candidate_pool_labels.csv,True,not_assayed,external_field_initialized_false_or_file_missing,,138,
+GSE217108,/mnt/e/lam-research/LAM-State-Modeling/../LAM-Cell-Research/results/program_discovery/external_GSE217108/candidate_pool_labels.csv,True,not_assayed,external_field_initialized_false_or_file_missing,,1,
+GSE302356,/mnt/e/lam-research/LAM-State-Modeling/../LAM-Cell-Research/results/program_discovery/external_GSE302356/candidate_pool_labels.csv,True,not_assayed,external_field_initialized_false_or_file_missing,,11,

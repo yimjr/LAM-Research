@@ -1,0 +1,24 @@
+{
+  "include": ["."],
+  "exclude": [
+    "**/__pycache__",
+    ".pytest_cache",
+    "data",
+    "results",
+    "reports",
+    ".venv"
+  ],
+  "venvPath": "/mnt/py-env/venvs",
+  "venv": "LAM-State-Modeling",
+  "pythonVersion": "3.12",
+  "typeCheckingMode": "basic",
+  "reportMissingImports": "warning",
+  "reportMissingTypeStubs": "none",
+  "useLibraryCodeForTypes": true,
+  "executionEnvironments": [
+    {
+      "root": ".",
+      "extraPaths": ["."]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+check,value,status
+consensus_cell_count,5378,ok
+consensus_duplicate_analysis_cell_id,0,ok
+consensus_duplicate_source_cell_id_within_dataset,0,ok
+missing_prepared_annotation_rows,0,ok
+missing_source_candidate_ids,0,ok
+field_inconsistency_cells,0,ok
+mismatch_pool_high_confidence_source_vs_prepared,0,ok
+mismatch_candidate_reason_source_vs_merged,0,ok
+mismatch_author_source_vs_merged,0,ok
+mismatch_formal_source_vs_merged,0,ok
+mismatch_combo_merged_vs_prepared,0,ok
+mismatch_combo_merged_vs_recomputed,0,ok
+mismatch_marker_count_source_vs_recomputed,0,ok
+mismatch_known_detected_source_vs_recomputed,0,ok
+mismatch_source_vs_recomputed_reason,0,ok

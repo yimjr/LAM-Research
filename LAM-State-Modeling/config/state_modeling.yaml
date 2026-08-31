@@ -1,0 +1,200 @@
+schema_version: "1.0"
+project: LAM-State-Modeling
+random_seed: 20260829
+
+# Paths are resolved relative to this project directory.  The first existing
+# root wins, so the project can consume the sibling project or data-temp
+# without copying large artifacts into Git.
+input_roots:
+  - ../LAM-Cell-Research
+  - ../data-temp
+  - data/upstream
+
+datasets:
+  GSE135851:
+    kind: core
+    h5ad_candidates:
+      - data/processed/reproduction_core/GSE135851_core_reproduction.h5ad
+      - GSE135851_core_reproduction.h5ad
+    annotation_dir: results/program_discovery
+  GSE190260:
+    kind: external
+    h5ad_candidates:
+      - data/processed/external/GSE190260.h5ad
+      - GSE190260.h5ad
+    annotation_dir: results/program_discovery/external_GSE190260
+  GSE217108:
+    kind: external
+    h5ad_candidates:
+      - data/processed/external/GSE217108.h5ad
+      - GSE217108.h5ad
+    annotation_dir: results/program_discovery/external_GSE217108
+  GSE302356:
+    kind: external
+    h5ad_candidates:
+      - data/processed/external/GSE302356.h5ad
+      - GSE302356.h5ad
+    annotation_dir: results/program_discovery/external_GSE302356
+
+annotation_files:
+  required_per_dataset:
+    - candidate_pool_labels.csv
+  optional_per_dataset:
+    - core3_structured_scores.csv
+    - pooled_program_scores.csv
+    - donor_level_program_scores.csv
+    - donor_meta_program_matches.csv
+    - donor_wise_program_genes.csv
+    - meta_program_summary.csv
+  shared:
+    donor_registry: manifests/donor_registry.yaml
+    external_modalities: manifests/external_modalities.yaml
+    signatures: config/signatures.yaml
+    known_programs: config/known_lam_programs.yaml
+    lamcore_reference: data/raw/reference/LAM_core_signature_genes.csv
+
+normal_reference:
+  enabled: true
+  h5ad_candidates:
+    - data/processed/external/GSE122960_normal_lung.h5ad
+    - GSE122960_normal_lung.h5ad
+  optional: true
+
+selection:
+  lam_candidate_source: pool_high_confidence
+  boundary_definition: pool_broad_lam_like AND NOT pool_high_confidence
+  unrestricted_is_audit_only: true
+  model_roles: [primary_candidate, boundary]
+  normal_role: normal_reference
+  no_pool_fallback: true
+
+qc:
+  min_genes: 200
+  min_counts: 500
+  mt_pct_by_assay:
+    scrna: 20.0
+    snrna: 10.0
+    default: 20.0
+  core_qc_field: qc_pass
+  preserve_doublets: true
+  remove_doublets: false
+
+preprocess:
+  target_sum: 10000
+  n_hvg: 4000
+  n_pcs: 30
+  n_neighbors: 15
+  leiden_resolution: 0.8
+
+nmf:
+  n_components: 5
+  max_cells: 12000
+  max_features: 2000
+  max_iter: 400
+  top_genes: 50
+
+scvi:
+  batch_key: dataset
+  categorical_covariate_keys: []
+  n_latent: 20
+  n_layers: 2
+  n_hidden: 128
+  max_epochs: 200
+  early_stopping: true
+  # auto selects CUDA when torch.cuda.is_available(), otherwise CPU.
+  accelerator: auto
+
+stage6:
+  min_latent_clusters: 2
+  min_shared_patients: 2
+  max_driver_ari: 0.5
+  normal_k: 15
+  normal_query_batch_size: 512
+  # Stage 6 owns these clustering parameters; it must not inherit the
+  # PCA/NMF baseline graph settings above.
+  lam_n_neighbors: 30
+  lam_leiden_resolution: 0.4
+  lam_parameter_grid:
+    - {n_neighbors: 15, resolution: 0.2}
+    - {n_neighbors: 15, resolution: 0.4}
+    - {n_neighbors: 15, resolution: 0.6}
+    - {n_neighbors: 30, resolution: 0.2}
+    - {n_neighbors: 30, resolution: 0.4}
+    - {n_neighbors: 30, resolution: 0.6}
+    - {n_neighbors: 50, resolution: 0.2}
+    - {n_neighbors: 50, resolution: 0.4}
+    - {n_neighbors: 50, resolution: 0.6}
+
+step7:
+  seed_values: [20260829, 20260830, 20260831, 20260832, 20260833]
+  equal_weight_unit: grid_configuration
+  n_grid_configurations: 9
+  coassignment_dtype: float32
+  consensus_min_clusters: 2
+  consensus_max_clusters: 100
+  consensus_score_tolerance: 0.05
+  stability_pair_sample_size: 1000000
+
+step8:
+  reference_n_neighbors: 30
+  reference_resolution: 0.4
+  overlap_scope: retained_cells_only
+  min_state_cells_per_patient: 5
+  min_de_patients: 3
+
+step9:
+  max_hierarchy_levels: 12
+  min_state_cells: 5
+
+step10:
+  min_state_cells_per_patient: 20
+
+stage21:
+  matched_anchor_null_reps: 500
+  matched_anchor_null_seed: 20260831
+  graph_k: 30
+
+stage22:
+  matched_branch_null_reps: 500
+  matched_branch_null_seed: 20260831
+  graph_k: 30
+  min_rest_cells_per_patient: 20
+  min_de_patients: 3
+  min_gene_count: 10
+  min_gene_samples: 3
+  fdr_alpha: 0.05
+  min_abs_log2fc: 1.0
+
+step11:
+  min_patient_cells: 5
+
+step12:
+  boundary_k: 15
+  normal_k: 15
+  query_batch_size: 512
+
+step13:
+  hypothesis_top_n: 10
+
+outputs:
+  inventory_json: results/stage1_6/input_inventory.json
+  inventory_csv: results/stage1_6/input_inventory.csv
+  upstream_manifest: results/stage1_6/upstream_annotation_manifest.csv
+  prepared_h5ad: data/processed/state_model_prepared.h5ad
+  baseline_h5ad: data/processed/state_model_baseline.h5ad
+  scvi_h5ad: data/processed/state_model_scvi.h5ad
+  scvi_model_dir: data/processed/scvi_model
+  stage6_json: results/stage1_6/stage6_checkpoint.json
+  stage6_report: reports/stage6_checkpoint.md
+  step7_dir: results/stage7
+  step8_dir: results/stage8
+  step9_dir: results/stage9
+  step10_dir: results/stage10
+  step11_dir: results/stage11
+  step12_dir: results/stage12
+  step13_dir: results/stage13
+  consensus_h5ad: data/processed/consensus_state.h5ad
+  hierarchy_h5ad: data/processed/state_hierarchy.h5ad
+  atlas_h5ad: data/processed/state_atlas.h5ad
+  consensus_upstream_annotations: results/stage7/state_consensus_with_upstream_annotations.csv
+  consensus_state_summary: results/stage7/state_consensus_state_summary.csv

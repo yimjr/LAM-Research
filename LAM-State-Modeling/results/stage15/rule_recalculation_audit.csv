@@ -1,0 +1,6 @@
+check,n_cells,n_mismatch,fraction_mismatch,status
+source_classical_marker_count_vs_recomputed,5378,0,0.0,ok
+source_known_marker_genes_detected_vs_recomputed,5378,0,0.0,ok
+source_pool_high_confidence_vs_recomputed,5378,0,0.0,ok
+source_candidate_reason_vs_recomputed,5378,0,0.0,ok
+prepared_adata_combo_vs_recomputed,5378,0,0.0,ok

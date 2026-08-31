@@ -1,0 +1,22 @@
+# PyTorch is installed separately for this WSL host from the CUDA 12.8 wheel
+# index.  The version range below lets pip verify that installation without
+# replacing it.  On a CPU-only host, install the matching CPU wheel instead.
+torch>=2.8,<2.9
+anndata>=0.10,<0.13
+scanpy>=1.10,<1.12
+numpy>=1.26,<2.1
+pandas>=2.1,<3
+scipy>=1.11,<2
+scikit-learn>=1.4,<2
+scvi-tools>=1.2,<2
+matplotlib>=3.8,<4
+seaborn>=0.13,<1
+plotly>=5.24,<7
+umap-learn>=0.5,<1
+python-igraph>=0.11,<1
+leidenalg>=0.10,<1
+PyYAML>=6,<7
+pytest>=8,<9
+h5py>=3.10,<4
+rich>=13,<15
+PyDESeq2>=0.5,<1

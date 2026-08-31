@@ -1,0 +1,2 @@
+cohort,n_cells,n_datasets,n_patients,nearest_state15_distance_median,nearest_state15_distance_q25,nearest_state15_distance_q75,nearest_state15_distance_mean,state15_centroid_distance_median
+normal_remote,32977,1,6,4.821810722351074,4.484745502471924,5.198002815246582,4.86975729190389,5.9400224685668945

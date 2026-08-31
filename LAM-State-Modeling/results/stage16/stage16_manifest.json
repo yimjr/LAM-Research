@@ -1,0 +1,750 @@
+{
+  "script": "/mnt/e/lam-research/LAM-State-Modeling/16_rebuild_lam_identity_gate.py",
+  "read_only_existing_artifacts": true,
+  "prepared_h5ad": "/mnt/e/lam-research/LAM-State-Modeling/data/processed/state_model_prepared.h5ad",
+  "n_prepared_cells": 131098,
+  "n_lam_cells": 90641,
+  "n_normal_or_control_cells": 40457,
+  "n_datasets_lam": 4,
+  "n_old_states_used_only_posthoc": 20,
+  "no_scvi_training": true,
+  "no_reclustering": true,
+  "gene_aliases": {
+    "FIGF": "VEGFD"
+  },
+  "identity_anchor_genes": [
+    "PMEL",
+    "MLANA",
+    "MITF"
+  ],
+  "support_genes": [
+    "ACTA2",
+    "ESR1",
+    "VEGFD",
+    "CTSK"
+  ],
+  "competing_gene_sets": {
+    "ciliated": [
+      "FOXJ1",
+      "PIFO",
+      "TPPP3",
+      "CFAP43",
+      "CFAP44",
+      "CFAP54",
+      "CFAP57",
+      "DNAH5",
+      "DNAH9",
+      "DNAH11",
+      "DNAI1",
+      "DNAI2",
+      "HYDIN",
+      "RSPH1",
+      "RSPH4A",
+      "RSPH9",
+      "CCDC39",
+      "CCDC40",
+      "C20orf85"
+    ],
+    "AT2": [
+      "SFTPC",
+      "SFTPA1",
+      "SFTPA2",
+      "NAPSA"
+    ],
+    "macrophage": [
+      "LST1",
+      "TYROBP",
+      "FCER1G",
+      "C1QA",
+      "C1QB",
+      "C1QC",
+      "FABP4",
+      "AIF1",
+      "CTSS",
+      "APOE",
+      "TREM2"
+    ],
+    "endothelial": [
+      "PECAM1",
+      "EMCN",
+      "VWF",
+      "CCL21",
+      "FLT1",
+      "KDR",
+      "FLT4",
+      "RAMP2",
+      "CA4",
+      "ENG"
+    ],
+    "fibroblast": [
+      "COL1A1",
+      "COL1A2",
+      "DCN",
+      "LUM",
+      "PI16",
+      "COL3A1",
+      "COL6A1",
+      "COL6A2",
+      "PDGFRA",
+      "CFD",
+      "C7"
+    ],
+    "mesothelial": [
+      "ITLN1",
+      "MSLN",
+      "WT1",
+      "PDPN",
+      "MUC16",
+      "UPK3B",
+      "CALB2"
+    ],
+    "pericyte_VSMC": [
+      "RGS5",
+      "PDGFRB",
+      "CSPG4",
+      "COX4I2",
+      "MYH11",
+      "ACTA2",
+      "TAGLN",
+      "CNN1",
+      "DES",
+      "CALD1",
+      "MYL9",
+      "TPM2"
+    ]
+  },
+  "lamcore_program_manifest": {
+    "status": "available",
+    "path": "/mnt/e/lam-research/LAM-State-Modeling/../LAM-Cell-Research/config/known_lam_programs.yaml",
+    "programs": {
+      "CORE2": [
+        "PMEL",
+        "MLANA",
+        "MITF",
+        "TYR",
+        "DCT",
+        "GPNMB",
+        "CTSK",
+        "VEGFD"
+      ],
+      "CORE3_identity": [
+        "ACTA2",
+        "PMEL",
+        "MLANA",
+        "MITF",
+        "CTSK",
+        "VEGFD",
+        "ESR1"
+      ]
+    }
+  },
+  "formal_signature_manifest": {
+    "status": "not_available",
+    "path": ""
+  },
+  "module_manifest": {
+    "status": "ok",
+    "resolved_genes": {
+      "melanocytic": [
+        "PMEL",
+        "MLANA",
+        "MITF"
+      ],
+      "support": [
+        "ACTA2",
+        "ESR1",
+        "VEGFD",
+        "CTSK"
+      ],
+      "lamcore_CORE2": [
+        "PMEL",
+        "MLANA",
+        "MITF",
+        "TYR",
+        "DCT",
+        "GPNMB",
+        "CTSK",
+        "VEGFD"
+      ],
+      "CORE3_identity": [
+        "ACTA2",
+        "PMEL",
+        "MLANA",
+        "MITF",
+        "CTSK",
+        "VEGFD",
+        "ESR1"
+      ],
+      "ciliated": [
+        "FOXJ1",
+        "PIFO",
+        "TPPP3",
+        "DNAH5",
+        "DNAH9",
+        "DNAH11",
+        "DNAI1",
+        "DNAI2",
+        "HYDIN",
+        "RSPH1",
+        "RSPH4A",
+        "RSPH9",
+        "CCDC39",
+        "CCDC40",
+        "C20orf85"
+      ],
+      "AT2": [
+        "SFTPC",
+        "SFTPA1",
+        "SFTPA2",
+        "NAPSA"
+      ],
+      "macrophage": [
+        "LST1",
+        "TYROBP",
+        "FCER1G",
+        "C1QA",
+        "C1QB",
+        "C1QC",
+        "FABP4",
+        "AIF1",
+        "CTSS",
+        "APOE",
+        "TREM2"
+      ],
+      "endothelial": [
+        "PECAM1",
+        "EMCN",
+        "VWF",
+        "CCL21",
+        "FLT1",
+        "KDR",
+        "FLT4",
+        "RAMP2",
+        "CA4",
+        "ENG"
+      ],
+      "fibroblast": [
+        "COL1A1",
+        "COL1A2",
+        "DCN",
+        "LUM",
+        "PI16",
+        "COL3A1",
+        "COL6A1",
+        "COL6A2",
+        "PDGFRA",
+        "CFD",
+        "C7"
+      ],
+      "mesothelial": [
+        "ITLN1",
+        "MSLN",
+        "WT1",
+        "PDPN",
+        "MUC16",
+        "UPK3B",
+        "CALB2"
+      ],
+      "pericyte_VSMC": [
+        "RGS5",
+        "PDGFRB",
+        "CSPG4",
+        "COX4I2",
+        "MYH11",
+        "ACTA2",
+        "TAGLN",
+        "CNN1",
+        "DES",
+        "CALD1",
+        "MYL9",
+        "TPM2"
+      ]
+    },
+    "n_union_genes": 79,
+    "expression_source": "prepared AnnData X (library-size normalized log1p)",
+    "block_size": 10000
+  },
+  "robust_z_parameters": {
+    "melanocytic": {
+      "GSE122960": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "scale": 0.12628949558142347,
+        "n": 32977
+      },
+      "GSE135851": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "scale": 0.12951414767345373,
+        "n": 30708
+      },
+      "GSE190260": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "scale": 0.13950260961503255,
+        "n": 38701
+      },
+      "GSE217108": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "scale": 0.24511224444945875,
+        "n": 6941
+      },
+      "GSE302356": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "scale": 0.2234194574554371,
+        "n": 21771
+      }
+    },
+    "support": {
+      "GSE122960": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "scale": 0.07008286461466438,
+        "n": 32977
+      },
+      "GSE135851": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "scale": 0.19607621586572446,
+        "n": 30708
+      },
+      "GSE190260": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "scale": 0.21386780295101632,
+        "n": 38701
+      },
+      "GSE217108": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "scale": 0.16519584649746724,
+        "n": 6941
+      },
+      "GSE302356": {
+        "median": 0.0,
+        "iqr": 0.12260647490620613,
+        "scale": 0.12260647490620613,
+        "n": 21771
+      }
+    },
+    "lamcore_CORE2": {
+      "GSE122960": {
+        "median": 0.0,
+        "iqr": 0.21579155325889587,
+        "scale": 0.21579155325889587,
+        "n": 32977
+      },
+      "GSE135851": {
+        "median": 0.0,
+        "iqr": 0.2013915814459324,
+        "scale": 0.2013915814459324,
+        "n": 30708
+      },
+      "GSE190260": {
+        "median": 0.0,
+        "iqr": 0.029251281172037125,
+        "scale": 0.029251281172037125,
+        "n": 38701
+      },
+      "GSE217108": {
+        "median": 0.0,
+        "iqr": 0.13667990267276764,
+        "scale": 0.13667990267276764,
+        "n": 6941
+      },
+      "GSE302356": {
+        "median": 0.0,
+        "iqr": 0.10030604526400566,
+        "scale": 0.10030604526400566,
+        "n": 21771
+      }
+    },
+    "CORE3_identity": {
+      "GSE122960": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "scale": 0.06817396104269458,
+        "n": 32977
+      },
+      "GSE135851": {
+        "median": 0.0,
+        "iqr": 0.07520452328026295,
+        "scale": 0.07520452328026295,
+        "n": 30708
+      },
+      "GSE190260": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "scale": 0.15498891762503322,
+        "n": 38701
+      },
+      "GSE217108": {
+        "median": 0.0,
+        "iqr": 0.16421213746070862,
+        "scale": 0.16421213746070862,
+        "n": 6941
+      },
+      "GSE302356": {
+        "median": 0.0,
+        "iqr": 0.16495902091264725,
+        "scale": 0.16495902091264725,
+        "n": 21771
+      }
+    },
+    "ciliated": {
+      "GSE122960": {
+        "median": 0.0,
+        "iqr": 0.03838063031435013,
+        "scale": 0.03838063031435013,
+        "n": 32977
+      },
+      "GSE135851": {
+        "median": 0.0,
+        "iqr": 0.019273300655186176,
+        "scale": 0.019273300655186176,
+        "n": 30708
+      },
+      "GSE190260": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "scale": 0.31510912129774743,
+        "n": 38701
+      },
+      "GSE217108": {
+        "median": 0.0,
+        "iqr": 0.13257215917110443,
+        "scale": 0.13257215917110443,
+        "n": 6941
+      },
+      "GSE302356": {
+        "median": 0.0,
+        "iqr": 0.07505334168672562,
+        "scale": 0.07505334168672562,
+        "n": 21771
+      }
+    },
+    "AT2": {
+      "GSE122960": {
+        "median": 2.745248317718506,
+        "iqr": 3.620457172393799,
+        "scale": 3.620457172393799,
+        "n": 32977
+      },
+      "GSE135851": {
+        "median": 0.8975984454154968,
+        "iqr": 1.0044234097003937,
+        "scale": 1.0044234097003937,
+        "n": 30708
+      },
+      "GSE190260": {
+        "median": 0.21456633508205414,
+        "iqr": 0.8907090425491333,
+        "scale": 0.8907090425491333,
+        "n": 38701
+      },
+      "GSE217108": {
+        "median": 0.8873445987701416,
+        "iqr": 1.58070707321167,
+        "scale": 1.58070707321167,
+        "n": 6941
+      },
+      "GSE302356": {
+        "median": 0.49417582154273987,
+        "iqr": 1.144759178161621,
+        "scale": 1.144759178161621,
+        "n": 21771
+      }
+    },
+    "macrophage": {
+      "GSE122960": {
+        "median": 0.2418232411146164,
+        "iqr": 1.9982134029269218,
+        "scale": 1.9982134029269218,
+        "n": 32977
+      },
+      "GSE135851": {
+        "median": 1.223764181137085,
+        "iqr": 2.2346271499991417,
+        "scale": 2.2346271499991417,
+        "n": 30708
+      },
+      "GSE190260": {
+        "median": 0.17829427123069763,
+        "iqr": 1.0219298601150513,
+        "scale": 1.0219298601150513,
+        "n": 38701
+      },
+      "GSE217108": {
+        "median": 0.0,
+        "iqr": 0.1986929327249527,
+        "scale": 0.1986929327249527,
+        "n": 6941
+      },
+      "GSE302356": {
+        "median": 0.12436161190271378,
+        "iqr": 0.3645075261592865,
+        "scale": 0.3645075261592865,
+        "n": 21771
+      }
+    },
+    "endothelial": {
+      "GSE122960": {
+        "median": 0.0,
+        "iqr": 0.09809334576129913,
+        "scale": 0.09809334576129913,
+        "n": 32977
+      },
+      "GSE135851": {
+        "median": 0.0,
+        "iqr": 0.10812196880578995,
+        "scale": 0.10812196880578995,
+        "n": 30708
+      },
+      "GSE190260": {
+        "median": 0.0,
+        "iqr": 0.11911765486001968,
+        "scale": 0.11911765486001968,
+        "n": 38701
+      },
+      "GSE217108": {
+        "median": 0.0,
+        "iqr": 0.20845547318458557,
+        "scale": 0.20845547318458557,
+        "n": 6941
+      },
+      "GSE302356": {
+        "median": 0.0,
+        "iqr": 0.19139449298381805,
+        "scale": 0.19139449298381805,
+        "n": 21771
+      }
+    },
+    "fibroblast": {
+      "GSE122960": {
+        "median": 0.0,
+        "iqr": 0.08683783560991287,
+        "scale": 0.08683783560991287,
+        "n": 32977
+      },
+      "GSE135851": {
+        "median": 0.03758208639919758,
+        "iqr": 0.16184135898947716,
+        "scale": 0.16184135898947716,
+        "n": 30708
+      },
+      "GSE190260": {
+        "median": 0.0,
+        "iqr": 0.14296020567417145,
+        "scale": 0.14296020567417145,
+        "n": 38701
+      },
+      "GSE217108": {
+        "median": 0.0,
+        "iqr": 0.11247885972261429,
+        "scale": 0.11247885972261429,
+        "n": 6941
+      },
+      "GSE302356": {
+        "median": 0.0,
+        "iqr": 0.12419019266963005,
+        "scale": 0.12419019266963005,
+        "n": 21771
+      }
+    },
+    "mesothelial": {
+      "GSE122960": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "scale": 0.08671888266788476,
+        "n": 32977
+      },
+      "GSE135851": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "scale": 0.06487029080331182,
+        "n": 30708
+      },
+      "GSE190260": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "scale": 0.17524199782156294,
+        "n": 38701
+      },
+      "GSE217108": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "scale": 0.09414202908797634,
+        "n": 6941
+      },
+      "GSE302356": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "scale": 0.06717733636278456,
+        "n": 21771
+      }
+    },
+    "pericyte_VSMC": {
+      "GSE122960": {
+        "median": 0.0,
+        "iqr": 0.057361017912626266,
+        "scale": 0.057361017912626266,
+        "n": 32977
+      },
+      "GSE135851": {
+        "median": 0.0,
+        "iqr": 0.08026736415922642,
+        "scale": 0.08026736415922642,
+        "n": 30708
+      },
+      "GSE190260": {
+        "median": 0.0,
+        "iqr": 0.07421611994504929,
+        "scale": 0.07421611994504929,
+        "n": 38701
+      },
+      "GSE217108": {
+        "median": 0.0,
+        "iqr": 0.14847393333911896,
+        "scale": 0.14847393333911896,
+        "n": 6941
+      },
+      "GSE302356": {
+        "median": 0.037529993802309036,
+        "iqr": 0.155657060444355,
+        "scale": 0.155657060444355,
+        "n": 21771
+      }
+    },
+    "core3_identity_upstream": {
+      "GSE122960": {
+        "median": NaN,
+        "iqr": NaN,
+        "scale": NaN,
+        "n": 0
+      },
+      "GSE135851": {
+        "median": 0.0,
+        "iqr": 0.0769384375,
+        "scale": 0.0769384375,
+        "n": 23228
+      },
+      "GSE190260": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "scale": 0.15498891723178268,
+        "n": 38701
+      },
+      "GSE217108": {
+        "median": 0.0,
+        "iqr": 0.17668073,
+        "scale": 0.17668073,
+        "n": 6941
+      },
+      "GSE302356": {
+        "median": 0.0,
+        "iqr": 0.18703162499999998,
+        "scale": 0.18703162499999998,
+        "n": 21771
+      }
+    },
+    "lamcore_777_upstream": {
+      "GSE122960": {
+        "median": NaN,
+        "iqr": NaN,
+        "scale": NaN,
+        "n": 0
+      },
+      "GSE135851": {
+        "median": -0.06514332635597275,
+        "iqr": 0.04161105803414572,
+        "scale": 0.04161105803414572,
+        "n": 30708
+      },
+      "GSE190260": {
+        "median": NaN,
+        "iqr": NaN,
+        "scale": NaN,
+        "n": 0
+      },
+      "GSE217108": {
+        "median": NaN,
+        "iqr": NaN,
+        "scale": NaN,
+        "n": 0
+      },
+      "GSE302356": {
+        "median": NaN,
+        "iqr": NaN,
+        "scale": NaN,
+        "n": 0
+      }
+    }
+  },
+  "positive_reference_definition": "source_author_style OR source_formal_signature OR upstream CORE3_like, condition=LAM",
+  "negative_reference_definition": "normal/control OR strong signature-defined competing lineage, excluding positive reference",
+  "assignment_formula": "0.60*identity_anchor + 0.25*support - 0.20*non_pericyte_penalty - 0.10*conditional_pericyte_penalty",
+  "full_thresholds": {
+    "calibration_label": "full_four_dataset",
+    "train_datasets": [
+      "GSE135851",
+      "GSE190260",
+      "GSE217108",
+      "GSE302356"
+    ],
+    "n_positive_reference": 2257,
+    "n_negative_reference": 85460,
+    "LAM_identity_score_core_threshold": 3.0961594581604004,
+    "identity_anchor_core_threshold": 0.0,
+    "support_core_threshold": 6.530579090118408,
+    "LAM_identity_score_boundary_threshold": -1.721476435661316,
+    "identity_anchor_boundary_threshold": 0.0,
+    "support_boundary_threshold": 0.0,
+    "competing_lineage_95pct_cutoffs": {
+      "ciliated": 6.279854893684392,
+      "AT2": 5.340696644783021,
+      "macrophage": 2.6103678703308106,
+      "endothelial": 7.907103252410889,
+      "fibroblast": 3.3934786200523397,
+      "mesothelial": 2.7343085885047915
+    },
+    "pericyte_VSMC_95pct_cutoff": 5.994787526130678,
+    "score_metrics": {
+      "balanced_accuracy": 0.523948770660299,
+      "tpr": 0.05449712007089056,
+      "tnr": 0.9934004212497075,
+      "youden_j": 0.04789754132059798
+    },
+    "identity_metrics": {
+      "balanced_accuracy": 0.5176105780482096,
+      "tpr": 1.0,
+      "tnr": 0.035221156096419376,
+      "youden_j": 0.03522115609641929
+    },
+    "support_metrics": {
+      "balanced_accuracy": 0.5176321066187095,
+      "tpr": 0.05006645990252548,
+      "tnr": 0.9851977533348936,
+      "youden_j": 0.03526421323741902
+    }
+  },
+  "n_positive_reference": 2257,
+  "n_negative_reference": 85460,
+  "full_assignment_counts": {
+    "LAM_core_candidate": 208,
+    "LAM_boundary_candidate": 65930,
+    "non_LAM_like": 24503,
+    "competing_lineage_exclusion": 20820
+  },
+  "output_files": [
+    "cell_identity_evidence.csv",
+    "identity_gate_report.md",
+    "identity_score_by_dataset.csv",
+    "leave_one_dataset_out_validation.csv",
+    "new_candidate_assignment.csv",
+    "new_candidate_by_old_state.csv",
+    "reference_calibration.csv",
+    "stage16_manifest.json"
+  ]
+}

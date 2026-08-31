@@ -1,0 +1,5 @@
+dataset,focus_dataset,n_positive_reference,median_total_umi,median_detected_genes,PMEL_detection_rate,MLANA_detection_rate,MITF_detection_rate,ACTA2_detection_rate,ESR1_detection_rate,VEGFD_detection_rate,CTSK_detection_rate,identity_markers_detected_0_fraction,identity_markers_detected_1_fraction,identity_markers_detected_2_fraction,identity_markers_detected_ge3_fraction,support_markers_detected_0_fraction,support_markers_detected_1_fraction,support_markers_detected_2_fraction,support_markers_detected_ge3_fraction
+GSE135851,False,140,1857.5,885.0,0.5,0.05,0.21428571428571427,0.9142857142857143,0.21428571428571427,0.2857142857142857,0.9428571428571428,0.44285714285714284,0.36428571428571427,0.17857142857142858,0.014285714285714285,0.0,0.05,0.6071428571428571,0.34285714285714286
+GSE190260,True,2117,9892.0,2582.0,0.0,0.0,0.0023618327822390174,0.0004723665564478035,0.0,0.0,0.000944733112895607,0.997638167217761,0.0023618327822390174,0.0,0.0,0.9985829003306566,0.0014170996693434106,0.0,0.0
+GSE217108,False,0,,,,,,,,,,,,,,,,,
+GSE302356,False,0,,,,,,,,,,,,,,,,,
