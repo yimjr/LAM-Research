@@ -155,7 +155,7 @@
 ## State 16 — immune/T-NK-adjacent mixed state; no confirmed transition
 
 - 解释类别：mixed or uncertain。
-- 支持证据：396 cells; CORE1/CORE3/LAM-myogenic programs; corrected Stage22 local slope=-0.023931, direct empirical p=0.878244 and BH q=0.878244; per-patient slopes were negative in 7/7 represented patients and LOPO slopes in 10/10 omissions, but this direction was not separated from the matched local null.
+- 支持证据：396 cells; CORE1/CORE3/LAM-myogenic programs; per-patient slopes were negative in 7/7 represented patients and LOPO slopes in 10/10 omissions, but the direction-matched left-tail test did not separate this branch from its local matched null.
 - 冲突证据：Only 8 patients contribute State16 cells in the direct 1-hop branch criterion; immune signal is heterogeneous, upstream cell_type is unknown, and Stage11 biological reproducibility is 0.323088.
 - 与 LAM 的关系：Geometrically adjacent to State15 with a directional LAMCORE decrease, but current corrected evidence does not support a LAM-preserving transition label; ordinary adjacency and mixed biology remain plausible.
 - 不确定性：High; no temporal or lineage-transition evidence.

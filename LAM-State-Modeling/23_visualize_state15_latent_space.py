@@ -271,8 +271,22 @@ def prepare_tables(
     evidence_path = STAGE22 / "branch_evidence_summary.csv"
     if evidence_path.exists():
         evidence = read_csv(evidence_path, ["source_state", "matched_null_empirical_p", "matched_null_q_value"])
+        # The direction-aware columns are produced by the corrected Stage22
+        # run.  Keep this reader backward-compatible with an older Stage22
+        # output so visualization itself never becomes a data migration step.
+        for column in ["matched_null_empirical_left_p", "matched_null_left_q_value"]:
+            if column not in evidence:
+                evidence[column] = np.nan
         null = null.merge(
-            evidence[["source_state", "matched_null_empirical_p", "matched_null_q_value"]].drop_duplicates("source_state"),
+            evidence[
+                [
+                    "source_state",
+                    "matched_null_empirical_p",
+                    "matched_null_q_value",
+                    "matched_null_empirical_left_p",
+                    "matched_null_left_q_value",
+                ]
+            ].drop_duplicates("source_state"),
             on="source_state",
             how="left",
             validate="many_to_one",
@@ -517,7 +531,9 @@ def save_null_plot(null: pd.DataFrame, output: Path, branch_states: list[str] | 
             axis.axvline(real.iloc[0], color="#d62728", linewidth=2, label=f"real={real.iloc[0]:.3g}")
         p = safe_text(sub["empirical_two_sided_p"].iloc[0]) if len(sub) else "NA"
         q = safe_text(sub["matched_null_q_value"].iloc[0]) if len(sub) and "matched_null_q_value" in sub else "NA"
-        axis.set_title(f"{state} · raw p={p}; BH q={q}")
+        left_p = safe_text(sub["matched_null_empirical_left_p"].iloc[0]) if len(sub) and "matched_null_empirical_left_p" in sub else "NA"
+        left_q = safe_text(sub["matched_null_left_q_value"].iloc[0]) if len(sub) and "matched_null_left_q_value" in sub else "NA"
+        axis.set_title(f"{state} · two-sided p/q={p}/{q}; left-tail p/q={left_p}/{left_q}")
         axis.set_xlabel("matched-null slope")
         axis.set_ylabel("replicates")
         axis.legend(frameon=False, fontsize=8)

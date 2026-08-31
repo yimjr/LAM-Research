@@ -10,7 +10,7 @@
 | State15 | 200-cell frozen LAM-rich candidate state | 从“待验证 anchor”变成“provisional reference-anchor candidate”，未升级为正式 classifier |
 | State16 | State15 邻近的 396-cell frozen state | 修正后仅保留为局部几何邻接/混合状态候选；不再标为 `LAM_to_lineage_transition_candidate` |
 | manifold | Stage20 提出的全局 State15-centered gradient hypothesis | Stage21 削弱为非稳健统一 manifold；Stage22 保留局部分支 candidate |
-| ordinary lineage adjacency | 与 State15 几何相邻但 matched-null/gradient 不支持 LAM branch | 当前用于 State12、20、7 |
+| ordinary lineage adjacency | 与 State15 几何相邻但 matched-null/gradient 不支持 LAM branch | 当前用于 State16、State12、State20、State7；State16 虽有患者内 slope/LOPO 方向一致的探索性特点，但未通过方向匹配的 left-tail q 检验 |
 | author-style | 上游真实作者逐细胞标签 | 只有 GSE135851 `available`；其余三个 dataset 是 `not_assayed` |
 | formal LAMCORE | 777-gene formal signature score | Stage16 运行时 unavailable，Stage18 后在 data-temp 可用；不能倒写 Stage16 |
 | structural stability | LOO/partition recovery 等结构维度 | 与 biological reproducibility 分开报告 |

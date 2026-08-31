@@ -403,8 +403,10 @@ def stage22_snapshot() -> dict[str, Any]:
     for _, row in evidence.iterrows():
         lines.append(
             f"{row.get('source_state', '')}: slope={row.get('LAMCORE_independent_latent_slope', ''):.6f}, "
-            f"raw_p={row.get('matched_null_empirical_p', ''):.6f}, "
-            f"BH_q={row.get('matched_null_q_value', ''):.6f}, "
+            f"left_p={row.get('matched_null_empirical_left_p', ''):.6f}, "
+            f"left_BH_q={row.get('matched_null_left_q_value', ''):.6f}, "
+            f"two_sided_p={row.get('matched_null_empirical_p', ''):.6f}, "
+            f"two_sided_BH_q={row.get('matched_null_two_sided_q_value', row.get('matched_null_q_value', '')):.6f}, "
             f"label={row.get('evidence_label', '')}"
         )
     state16 = evidence[evidence.get("source_state", pd.Series(dtype=str)).astype(str).eq("State_16")]
@@ -418,6 +420,10 @@ def stage22_snapshot() -> dict[str, Any]:
         "state16_slope": float(state16_row.get("LAMCORE_independent_latent_slope")) if pd.notna(state16_row.get("LAMCORE_independent_latent_slope")) else float("nan"),
         "state16_raw_p": float(state16_row.get("matched_null_empirical_p")) if pd.notna(state16_row.get("matched_null_empirical_p")) else float("nan"),
         "state16_q": float(state16_row.get("matched_null_q_value")) if pd.notna(state16_row.get("matched_null_q_value")) else float("nan"),
+        "state16_left_p": float(state16_row.get("matched_null_empirical_left_p")) if pd.notna(state16_row.get("matched_null_empirical_left_p")) else float("nan"),
+        "state16_left_q": float(state16_row.get("matched_null_left_q_value")) if pd.notna(state16_row.get("matched_null_left_q_value")) else float("nan"),
+        "state16_two_sided_p": float(state16_row.get("matched_null_empirical_p")) if pd.notna(state16_row.get("matched_null_empirical_p")) else float("nan"),
+        "state16_two_sided_q": float(state16_row.get("matched_null_two_sided_q_value", state16_row.get("matched_null_q_value"))) if pd.notna(state16_row.get("matched_null_two_sided_q_value", state16_row.get("matched_null_q_value"))) else float("nan"),
         "state16_label": str(state16_row.get("evidence_label", "not_available")),
         "boundary_rows": len(boundary),
         "boundary_unresolved": boundary_unresolved,
@@ -442,7 +448,7 @@ STATE_INTERPRETATIONS: dict[str, dict[str, str]] = {
     "13": {"analogue": "rare HOX/CORE3-mixed substate", "class": "insufficient evidence", "support": "Six cells; HOX/PBX and CORE3_identity signals.", "conflict": "Only three datasets, no patient-level DE support and mixed programs.", "lam": "A possible LAM-like signal cannot be separated from sampling noise.", "uncertainty": "Very high."},
     "14": {"analogue": "rare LAM-myogenic/contractile-like substate", "class": "insufficient evidence", "support": "Three cells with high LAM-myogenic, uterine-smooth, CORE1 and CORE3 program deltas.", "conflict": "One dataset, no patient support and no formal DE replication.", "lam": "Interesting LAM-like signal, but not a reproducible state claim.", "uncertainty": "Very high."},
     "15": {"analogue": "LAM-rich contractile/mesenchymal candidate; provisional LAM-core anchor", "class": "LAM-associated candidate", "support": "200 cells; 7 patients/4 datasets; LAMCORE median 0.5125 in Stage18; CORE1/CORE3/LAM-myogenic/ECM programs; 49 author-style cells where author labels are available; removal of LAM1163 leaves 73 cells and LAMCORE median 0.4683.", "conflict": "LAM1163 contributes 127/200 with 6.8301-fold composition enrichment; author labels are available only in GSE135851; Stage11 biological reproducibility is 0.374758; Stage18 did not formally upgrade the anchor.", "lam": "Strongest LAM-rich state in this project, but still a provisional reference candidate rather than a diagnostic classifier or formal cross-patient anchor.", "uncertainty": "Moderate-to-high due to patient composition and incomplete independent author annotation."},
-    "16": {"analogue": "immune/T-NK-adjacent mixed state; no confirmed transition", "class": "mixed or uncertain", "support": "396 cells; CORE1/CORE3/LAM-myogenic programs; corrected Stage22 local slope=-0.023931, direct empirical p=0.878244 and BH q=0.878244; per-patient slopes were negative in 7/7 represented patients and LOPO slopes in 10/10 omissions, but this direction was not separated from the matched local null.", "conflict": "Only 8 patients contribute State16 cells in the direct 1-hop branch criterion; immune signal is heterogeneous, upstream cell_type is unknown, and Stage11 biological reproducibility is 0.323088.", "lam": "Geometrically adjacent to State15 with a directional LAMCORE decrease, but current corrected evidence does not support a LAM-preserving transition label; ordinary adjacency and mixed biology remain plausible.", "uncertainty": "High; no temporal or lineage-transition evidence."},
+    "16": {"analogue": "immune/T-NK-adjacent mixed state; no confirmed transition", "class": "mixed or uncertain", "support": "396 cells; CORE1/CORE3/LAM-myogenic programs; per-patient slopes were negative in 7/7 represented patients and LOPO slopes in 10/10 omissions, but the direction-matched left-tail test did not separate this branch from its local matched null.", "conflict": "Only 8 patients contribute State16 cells in the direct 1-hop branch criterion; immune signal is heterogeneous, upstream cell_type is unknown, and Stage11 biological reproducibility is 0.323088.", "lam": "Geometrically adjacent to State15 with a directional LAMCORE decrease, but current corrected evidence does not support a LAM-preserving transition label; ordinary adjacency and mixed biology remain plausible.", "uncertainty": "High; no temporal or lineage-transition evidence."},
     "17": {"analogue": "mesothelial/secretory epithelial-like, uncertain", "class": "mixed or uncertain", "support": "121 cells; ITLN1, CALB2, CPB1, CPA4 and ANXA8 among top markers; mTOR/ECM/inflammatory programs.", "conflict": "Only 3 supported patients, 3 datasets, and the marker profile is not a single clean mesothelial signature.", "lam": "No evidence for LAM-core; shared ECM/inflammatory signals are non-specific.", "uncertainty": "High."},
     "18": {"analogue": "pericyte/VSMC/smooth-muscle-like", "class": "relatively clear normal-lineage analogue", "support": "COX4I2, FOXC2, CASQ2, KCNA5, FHL5 and HIGD1B; high uterine-smooth/LAM-myogenic and CORE1 signal; strong structural stability 0.940033.", "conflict": "LAM and smooth-muscle programs overlap biologically, so ACTA2/myogenic signal alone cannot identify LAM; State18 did not meet the direct-connection branch rule.", "lam": "Important LAM mimic/comparator; current evidence favors ordinary VSMC/pericyte adjacency rather than a LAM branch.", "uncertainty": "Moderate."},
     "19": {"analogue": "undetermined rare interstitial/hormone-like substate", "class": "insufficient evidence", "support": "Two cells; hormone, normal-interstitial and LAF programs.", "conflict": "Two patients, two datasets and no biological replication.", "lam": "Cannot establish LAM relationship.", "uncertainty": "Very high."},
@@ -623,7 +629,8 @@ def findings_frame() -> pd.DataFrame:
     live_stage22 = stage22_snapshot()
     branch_observation = (
         f"After corrected direct-hop eligibility/local scope/null calibration, selected branches are {live_stage22['selected_text']}; "
-        f"State16 label={live_stage22['state16_label']} (raw p={live_stage22['state16_raw_p']:.6f}, BH q={live_stage22['state16_q']:.6f})."
+        f"State16 label={live_stage22['state16_label']} (left-tail p={live_stage22['state16_left_p']:.6f}, left-tail BH q={live_stage22['state16_left_q']:.6f}; "
+        f"two-sided p={live_stage22['state16_two_sided_p']:.6f}, two-sided BH q={live_stage22['state16_two_sided_q']:.6f})."
     )
     rows = [
         ("F01", "candidate gate", "5,238/5,378 candidates entered through marker-combo support; 1,443 had only 1-UMI support.", "Stage15", "root_cause_evidence.csv", "methodological finding", "The original high-recall gate is not a specific LAM classifier; this explains normal-lineage states in the pool.", "confirmed by read-only audit"),
@@ -655,7 +662,7 @@ def audit_frame() -> pd.DataFrame:
         ("A03", "Stage16 says formal 777 signature unavailable; Stage18 says available.", "high", "stage16/identity_gate_report.md; stage18/state15_anchor_summary.json", "Explain availability changed when data-temp file arrived; Stage16 was not rerun.", "chronology"),
         ("A04", "External author-style fields are false/present but not_assayed.", "high", "stage19/author_annotation_availability.csv", "Use not_assayed, never author-negative; enrichment is only formally assessed in GSE135851.", "definition correction"),
         ("A05", "Stage21 independent score has negative patient-adjusted slope but positive pooled Spearman and near/far medians not monotonically decreasing.", "high", "stage21/gradient_models.csv; non_state15_distance_gradient.csv", "Report as scope/shape dependence and patient heterogeneity; do not algebraically reconcile as if they were the same estimand.", "statistical qualification"),
-        ("A06", f"Stage22 corrected State16 raw empirical p={live_stage22['state16_raw_p']:.6f}, BH q={live_stage22['state16_q']:.6f}; the prior p=0.025948 came from the superseded scope/null method.", "high", "stage22/branch_evidence_summary.csv; branch_patient_lopo.csv", "Withdraw the prior State16 transition label; current evidence is ordinary-lineage adjacency under corrected local matched-null/FDR analysis.", "method correction and conclusion withdrawal"),
+        ("A06", f"Stage22 corrected State16 left-tail empirical p={live_stage22['state16_left_p']:.6f}, left-tail BH q={live_stage22['state16_left_q']:.6f}; two-sided p={live_stage22['state16_two_sided_p']:.6f}, q={live_stage22['state16_two_sided_q']:.6f}; the prior p=0.025948 came from the superseded scope/null method.", "high", "stage22/branch_evidence_summary.csv; branch_patient_lopo.csv", "Use direction-matched left-tail q for LAM/transition labels and retain State16 as ordinary-lineage adjacency under the corrected local matched-null/FDR analysis.", "method correction and conclusion withdrawal"),
         ("A07", "All state_by_cell_type values are unknown, while reports sometimes use human cell analogues.", "medium", "stage7/state_by_cell_type.csv; Stage13/Stage24 interpretation", "Use analogue/inferred lineage terminology, not verified cell_type.", "terminology clarification"),
         ("A08", "Stage13 novel_or_unexplained is false for all rows, but this does not mean all states are biologically explained.", "medium", "stage13/state_atlas.csv", "Treat this field as the atlas generation flag, not as proof of identity or absence of uncertainty.", "interpretation boundary"),
         ("A09", "Stage12 normal and Stage20 normal_remote use different named scopes.", "low", "stage12/state_auxiliary_summary.csv; stage20/normal_remote_summary.csv", "Describe normal as auxiliary comparison and preserve the stage-specific scope.", "scope clarification"),
@@ -679,7 +686,7 @@ def glossary() -> str:
 | State15 | 200-cell frozen LAM-rich candidate state | 从“待验证 anchor”变成“provisional reference-anchor candidate”，未升级为正式 classifier |
 | State16 | State15 邻近的 396-cell frozen state | 修正后仅保留为局部几何邻接/混合状态候选；不再标为 `LAM_to_lineage_transition_candidate` |
 | manifold | Stage20 提出的全局 State15-centered gradient hypothesis | Stage21 削弱为非稳健统一 manifold；Stage22 保留局部分支 candidate |
-| ordinary lineage adjacency | 与 State15 几何相邻但 matched-null/gradient 不支持 LAM branch | 当前用于 State12、20、7 |
+| ordinary lineage adjacency | 与 State15 几何相邻但 matched-null/gradient 不支持 LAM branch | 当前用于 State16、State12、State20、State7；State16 虽有患者内 slope/LOPO 方向一致的探索性特点，但未通过方向匹配的 left-tail q 检验 |
 | author-style | 上游真实作者逐细胞标签 | 只有 GSE135851 `available`；其余三个 dataset 是 `not_assayed` |
 | formal LAMCORE | 777-gene formal signature score | Stage16 运行时 unavailable，Stage18 后在 data-temp 可用；不能倒写 Stage16 |
 | structural stability | LOO/partition recovery 等结构维度 | 与 biological reproducibility 分开报告 |
@@ -740,7 +747,8 @@ def source_materials(states: pd.DataFrame, stages: pd.DataFrame, findings: pd.Da
     stage22_evidence = live_stage22["evidence_lines"]
     stage22_short = (
         f"修正后的 Stage22 仍选择 {live_stage22['selected_text']}；其 State16 为 {live_stage22['state16_label']} "
-        f"（raw empirical p={live_stage22['state16_raw_p']:.6f}，BH q={live_stage22['state16_q']:.6f}）。"
+        f"（方向性 left-tail p={live_stage22['state16_left_p']:.6f}，left-tail BH q={live_stage22['state16_left_q']:.6f}；"
+        f"双侧 p={live_stage22['state16_two_sided_p']:.6f}，双侧 BH q={live_stage22['state16_two_sided_q']:.6f}）。"
     )
     return f"""# LAM-State-Modeling：Stage 24 最终报告原材料包
 
@@ -808,7 +816,7 @@ Stage1–6 inventory 中的 pool counts 为：
 
 ### State16 及关键 comparator
 
-- State16：396 cells，4 datasets，Stage22 1-hop=96、直接 1-hop 患者数=8（全 state 覆盖 10 patients）；修正后 local independent LAMCORE slope=-0.023931、直接经验 p=0.878244、BH q=0.878244，当前不再是 `LAM_to_lineage_transition_candidate`，而是 State15 邻接/混合状态的探索性描述。
+- State16：396 cells，4 datasets，Stage22 1-hop=96、直接 1-hop 患者数=8（全 state 覆盖 10 patients）；修正后 local independent LAMCORE slope=-0.023931，患者内 slope 和 LOPO 方向较一致，但 direction-matched left-tail test 未支持 `LAM_to_lineage_transition_candidate`，当前是 State15 邻接/混合状态的探索性描述。
 - State18：pericyte/VSMC/smooth-muscle-like，COX4I2/FOXC2/CASQ2 等支持；结构稳定但未进入 Stage22 direct branch selection，保留为重要 LAM mimic/comparator。
 - State20：PI16/SFRP2/SCARA5/DPT/C7/COMP/CXCL14，fibroblast/lung interstitial-like；Stage22 ordinary lineage adjacency。
 - State12：MMRN1/CCL21/FLT4 等 endothelial/lymphatic-like；ordinary lineage adjacency。
@@ -926,8 +934,10 @@ Stage24 is a read-only synthesis stage. It performs deterministic reading, table
 | Stage21 candidate-only independent slope | -0.015466 | `results/stage21/gradient_models.csv` |
 | Stage21 matched-null empirical two-sided p | 0.001996 | `results/stage21/matched_anchor_null.csv` |
 | Stage22 State16 independent branch slope | {live_stage22['state16_slope']:.6f} | `results/stage22/branch_evidence_summary.csv` |
-| Stage22 State16 corrected matched-null raw p | {live_stage22['state16_raw_p']:.6f} | `results/stage22/branch_evidence_summary.csv` |
-| Stage22 State16 corrected BH q | {live_stage22['state16_q']:.6f} | `results/stage22/branch_evidence_summary.csv` |
+| Stage22 State16 corrected matched-null left-tail p | {live_stage22['state16_left_p']:.6f} | `results/stage22/branch_evidence_summary.csv` |
+| Stage22 State16 corrected left-tail BH q | {live_stage22['state16_left_q']:.6f} | `results/stage22/branch_evidence_summary.csv` |
+| Stage22 State16 corrected matched-null two-sided p | {live_stage22['state16_two_sided_p']:.6f} | `results/stage22/branch_evidence_summary.csv` |
+| Stage22 State16 corrected two-sided BH q | {live_stage22['state16_two_sided_q']:.6f} | `results/stage22/branch_evidence_summary.csv` |
 
 The Stage21 slope, Spearman rho and binned medians are different estimands/scopes. Stage22 uses the corrected local 1–3-hop scope, distance-structure matched null, direct empirical tails and BH correction; its branch labels are not comparable to the superseded raw-p-value-only version. Their signs and shapes are intentionally reported without forced reconciliation.
 """
@@ -966,6 +976,12 @@ def main() -> None:
     args = parser.parse_args()
     output = args.output_dir if args.output_dir.is_absolute() else PROJECT_ROOT / args.output_dir
     output.mkdir(parents=True, exist_ok=True)
+    # The source-material package is the single authoritative long-form
+    # document.  Remove the obsolete duplicate report before indexing and
+    # generating the Stage24 manifest so stale reruns cannot resurrect it.
+    legacy_report = output / "final_project_report.md"
+    if legacy_report.exists():
+        legacy_report.unlink()
 
     stages = stage_frame()
     states = state_frame()
@@ -985,13 +1001,12 @@ def main() -> None:
 
     full_report = report_text(stages, states, findings, audits)
     write_text(output / "final_project_source_materials.md", full_report)
-    write_text(output / "final_project_report.md", full_report)
     live_stage22 = stage22_snapshot()
     write_text(output / "final_project_summary.md", f"""# 最终项目摘要
 
 本项目最终支持的最稳妥结论是：在一个高召回、包含明显普通肺谱系的 LAM candidate pool 中，State15 是当前最 LAM-rich 的 frozen consensus state，并具有 formal LAMCORE、可用数据集中的 author-label enrichment、患者匹配及去除 LAM1163 后仍保留的 profile。它尚未达到独立、均衡跨患者的正式 reference anchor 标准。
 
-Stage20 的 pooled State15-centered gradient 在 Stage21 被限定为“存在部分独立 LAM-rich gradient，但不是稳健统一 global manifold”。Stage22 修正 branch eligibility、local scope、距离匹配、经验尾部和多重比较后，当前选中 {live_stage22['selected_text']}；State16 的当前标签为 {live_stage22['state16_label']}（raw p={live_stage22['state16_raw_p']:.6f}，BH q={live_stage22['state16_q']:.6f}）。因此不再把 State15→State16 称为 transition candidate。没有证明时间转化、诊断 classifier 或所有 candidate state 都是 LAM。
+Stage20 的 pooled State15-centered gradient 在 Stage21 被限定为“存在部分独立 LAM-rich gradient，但不是稳健统一 global manifold”。Stage22 修正 branch eligibility、local scope、距离匹配、经验尾部和多重比较后，当前选中 {live_stage22['selected_text']}；State16 的当前标签为 {live_stage22['state16_label']}（方向性 left-tail p={live_stage22['state16_left_p']:.6f}，left-tail BH q={live_stage22['state16_left_q']:.6f}；two-sided p={live_stage22['state16_two_sided_p']:.6f}，two-sided BH q={live_stage22['state16_two_sided_q']:.6f}）。因此不再把 State15→State16 称为 transition candidate。没有证明时间转化、诊断 classifier 或所有 candidate state 都是 LAM。
 
 完整材料见 `final_project_source_materials.md`；数字和文件来源见 `artifact_index.csv`、`stage_index.csv` 与 `narrative_audit.csv`。
 """)
@@ -1047,12 +1062,13 @@ Stage20 的 pooled State15-centered gradient 在 Stage21 被限定为“存在�
         "stage22_corrected_downstream_regenerated": ["results/stage23_visualization", "results/stage24_final"],
         "stage22_prior_state16_transition_label_withdrawn": True,
         "stage22_current_checkpoint": live_stage22["manifest"].get("checkpoint", "not_available"),
+        "final_project_report_removed": True,
         "history_conflicts_preserved": True,
         "expected_core_artifacts_missing": missing_core,
         "artifact_index_rows": int(len(artifacts)),
         "generated_files": sorted(
-            [rel(path) for path in output.rglob("*") if path.is_file()]
-            + [rel(output / "stage24_manifest.json")]
+            {rel(path) for path in output.rglob("*") if path.is_file()}
+            | {rel(output / "stage24_manifest.json")}
         ),
         "primary_frozen_inputs": expected_core,
     }

@@ -389,7 +389,7 @@
   "branch_analysis_scope": "real branch and matched-null both restricted to non-State15 local 1–3-hop cells",
   "matched_null_distance_matching": "patient×dataset strata plus five global distance bins; nearest-distance fallback recorded per replicate",
   "matched_null_empirical_p": "direct left/right empirical tails with two-sided 2*min tail probability; no zero-centered/symmetry assumption",
-  "matched_null_multiple_testing": "Benjamini-Hochberg q over all selected branches with available empirical p",
+  "matched_null_multiple_testing": "Benjamini-Hochberg q computed separately for left-tail, right-tail and two-sided empirical p across all selected branches; LAM/transition labels use left-tail q",
   "patient_level_robustness": "per-patient slope for branches with at least 10 local cells and LOPO patient-adjusted slopes",
   "boundary_projection_scope": "boundary cells within local 1–3-hop scope only; farther boundary cells remain unresolved/not projected",
   "score_source": "Stage21 scores for non-State15 cells; same Stage21 score function backfilled only for 200 anchor cells; Stage20 marker_VEGFD/marker_CTSK preserved as VEGFD/CTSK",

@@ -778,22 +778,32 @@ def evidence_summary(
                 "matched_null_empirical_right_p": float(null.get("empirical_right_p", np.nan)) if null else np.nan,
                 "matched_null_empirical_p": null_p,
                 "matched_null_q_value": null_q,
+                "matched_null_two_sided_q_value": null_q,
+                "matched_null_left_q_value": np.nan,
+                "matched_null_right_q_value": np.nan,
+                "branch_label_pvalue": "matched_null_empirical_left_p",
+                "branch_label_qvalue": "matched_null_left_q_value",
                 "evidence_label": label,
             }
         )
     output = pd.DataFrame(rows)
     if len(output):
-        output["matched_null_q_value"] = bh_adjust(output["matched_null_empirical_p"])
-        # The corrected multiple-testing result, not an individual raw p,
-        # controls whether a branch can receive a LAM-preserving label.
+        # Keep the two-sided q for general difference testing, but use the
+        # direction-matched left-tail q for LAM/transition labels.  The
+        # latter tests the prespecified hypothesis that the real branch
+        # slope is more negative than the empirical matched-null slopes.
+        output["matched_null_two_sided_q_value"] = bh_adjust(output["matched_null_empirical_p"])
+        output["matched_null_q_value"] = output["matched_null_two_sided_q_value"]
+        output["matched_null_left_q_value"] = bh_adjust(output["matched_null_empirical_left_p"])
+        output["matched_null_right_q_value"] = bh_adjust(output["matched_null_empirical_right_p"])
         for index, row in output.iterrows():
-            q_value = row["matched_null_q_value"]
+            left_q_value = row["matched_null_left_q_value"]
             raw_label = str(row["evidence_label"])
             lam_like = bool(
                 np.isfinite(row["LAMCORE_independent_latent_slope"])
                 and row["LAMCORE_independent_latent_slope"] < 0
-                and np.isfinite(q_value)
-                and q_value <= 0.05
+                and np.isfinite(left_q_value)
+                and left_q_value <= 0.05
                 and (not np.isfinite(row["patient_LAMCORE_slope_negative_fraction"]) or row["patient_LAMCORE_slope_negative_fraction"] > 0.5)
             )
             lineage_positive = np.isfinite(row["dominant_competing_lineage_slope"]) and row["dominant_competing_lineage_slope"] > 0
@@ -805,6 +815,8 @@ def evidence_summary(
             )
             output.at[index, "evidence_label"] = corrected_label
             output.at[index, "raw_evidence_label_before_fdr"] = raw_label
+            output.at[index, "branch_label_pvalue"] = "matched_null_empirical_left_p"
+            output.at[index, "branch_label_qvalue"] = "matched_null_left_q_value"
     return output
 
 
@@ -852,7 +864,7 @@ def write_report(output_dir: Path, manifest: dict[str, Any], connectivity: pd.Da
         f"- Null repetitions per available branch: {manifest['branch_null_repetitions']}.",
         "- Real and null scopes are identical: non-State15 local 1–3-hop cells; null cells match patient×dataset, cell count and five-bin local distance structure.",
         "- Empirical p-values use direct left/right tails of the observed null distribution; the two-sided p is `2*min(left,right)`, with no zero-centered or symmetry assumption.",
-        "- Benjamini–Hochberg q-values are computed across all selected branches with available null tests; labels use q rather than raw p alone.",
+        "- Benjamini–Hochberg q-values are computed separately for left-tail, right-tail and two-sided empirical p-values across all selected branches; LAM/transition labels use the direction-matched left-tail q, while two-sided q remains a general difference statistic.",
         "- Per-patient slopes and leave-one-patient-out fits are recorded in `branch_patient_consistency.csv` and `branch_patient_lopo.csv`.",
         "",
         "## Stage 22 checkpoint",
@@ -975,7 +987,7 @@ def main() -> None:
             "branch_analysis_scope": "real branch and matched-null both restricted to non-State15 local 1–3-hop cells",
             "matched_null_distance_matching": "patient×dataset strata plus five global distance bins; nearest-distance fallback recorded per replicate",
             "matched_null_empirical_p": "direct left/right empirical tails with two-sided 2*min tail probability; no zero-centered/symmetry assumption",
-            "matched_null_multiple_testing": "Benjamini-Hochberg q over all selected branches with available empirical p",
+            "matched_null_multiple_testing": "Benjamini-Hochberg q computed separately for left-tail, right-tail and two-sided empirical p across all selected branches; LAM/transition labels use left-tail q",
             "patient_level_robustness": "per-patient slope for branches with at least 10 local cells and LOPO patient-adjusted slopes",
             "boundary_projection_scope": "boundary cells within local 1–3-hop scope only; farther boundary cells remain unresolved/not projected",
             "score_source": "Stage21 scores for non-State15 cells; same Stage21 score function backfilled only for 200 anchor cells; Stage20 marker_VEGFD/marker_CTSK preserved as VEGFD/CTSK",
