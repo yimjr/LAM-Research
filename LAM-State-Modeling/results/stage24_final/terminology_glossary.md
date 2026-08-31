@@ -8,7 +8,7 @@
 | candidate | 高召回、可供 State Modeling 检查的输入集合 | 不等于已证实 LAM；Stage15 证明 marker-combo gate 特异性不足 |
 | consensus state | Stage7 的 20 个 frozen state labels | 不等同 Stage6 的 12 个 LAM-only grid clusters，也不等同 full-cohort 33 clusters |
 | State15 | 200-cell frozen LAM-rich candidate state | 从“待验证 anchor”变成“provisional reference-anchor candidate”，未升级为正式 classifier |
-| State16 | State15 邻近的 396-cell frozen state | Stage22 的 `LAM_to_lineage_transition_candidate`，不是已证实时间转化 |
+| State16 | State15 邻近的 396-cell frozen state | 修正后仅保留为局部几何邻接/混合状态候选；不再标为 `LAM_to_lineage_transition_candidate` |
 | manifold | Stage20 提出的全局 State15-centered gradient hypothesis | Stage21 削弱为非稳健统一 manifold；Stage22 保留局部分支 candidate |
 | ordinary lineage adjacency | 与 State15 几何相邻但 matched-null/gradient 不支持 LAM branch | 当前用于 State12、20、7 |
 | author-style | 上游真实作者逐细胞标签 | 只有 GSE135851 `available`；其余三个 dataset 是 `not_assayed` |
@@ -20,6 +20,6 @@
 
 ## 结论状态变化
 
-`Stage 6 GO` → `Stage 7 20-state consensus` → `Stage 15 gate-specificity problem` → `Stage 18 State15 provisional anchor` → `Stage 20 global manifold hypothesis` → `Stage 21 non-robust global manifold` → `Stage 22 local State15→State16 branch candidate`.
+`Stage 6 GO` → `Stage 7 20-state consensus` → `Stage 15 gate-specificity problem` → `Stage 18 State15 provisional anchor` → `Stage 20 global manifold hypothesis` → `Stage 21 non-robust global manifold` → `Stage 22 corrected local branch audit; State16 transition label withdrawn`.
 
 这条链不是矛盾需要消除，而是研究问题在新证据下被逐步收窄。

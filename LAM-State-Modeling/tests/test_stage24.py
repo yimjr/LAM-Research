@@ -20,6 +20,8 @@ def test_stage24_freezes_existing_core_artifacts():
     assert manifest["no_scvi_training"] is True
     assert manifest["no_reclustering"] is True
     assert manifest["no_candidate_gate_change"] is True
+    assert manifest["stage22_prior_state16_transition_label_withdrawn"] is True
+    assert manifest["stage22_current_checkpoint"] == "ordinary_lineage_adjacency_dominates"
     assert manifest["expected_core_artifacts_missing"] == []
 
 
@@ -39,6 +41,7 @@ def test_stage24_indexes_all_states_and_key_artifacts():
         "results/stage20/state15_centered_manifold.csv",
         "results/stage21/gradient_models.csv",
         "results/stage22/branch_evidence_summary.csv",
+        "results/stage22/branch_patient_lopo.csv",
         "results/stage23_visualization/visualization_manifest.json",
     ]:
         assert path in indexed

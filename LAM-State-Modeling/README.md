@@ -113,9 +113,9 @@ results/stage23_visualization/
 
 Stage 22 不再判断全局 manifold，而是用既有 `X_scVI` 在 22,261 个 candidate+boundary cells 上建立固定 k=30 局部图。图采用无向化 kNN 的 1–3 hop，State 15 的 200 个细胞始终只作中心 anchor；保留 State 1–20 标签，不重新聚类。branch 自动选择规则为：外部已有 state 与 State15 直接相连的细胞数至少 10，且至少来自 2 个患者；boundary 不被提升为 branch。
 
-本次选出 4 个局部方向：State16（1/2/3-hop 为 96/234/65，10 patients）、State12（22/165/327）、State20（22/320/384）和 State7（11/87/308）。State18 直接连接不足，因此未强行定义为 branch。State16 的 independent LAMCORE 在 near/mid/far 为 0.1820/0.1128/0.1146，7 个患者中 5 个呈 near→far 下降；State16 branch matched-null 经验双侧 p=0.02595。State12、State20、State7 的 matched-null 分别为 0.67465、0.31537、1.0，当前更适合解释为 ordinary lineage adjacency。
+本次仍选出 4 个局部方向：State16（1/2/3-hop 为 96/234/65，1-hop 覆盖 8 个患者、全 state 覆盖 10 个患者）、State12（22/165/327）、State20（22/320/384）和 State7（11/87/308）。State18 直接连接不足，因此未强行定义为 branch。修正后的 State16 local independent LAMCORE slope=-0.023931，直接经验双侧 p=0.878244、BH q=0.878244；虽然 7/7 个有足够细胞的患者 slope 为负、LOPO 为 10/10 负，但未超出距离结构匹配的 local null。State12/20/7 的 raw p/q 分别为 0.027944/0.055888、0.003992/0.015968、0.211577/0.282102；它们的正向 competing-lineage 方向仍按 ordinary lineage adjacency 描述。
 
-Boundary 只在 1–3 hop 范围内按直接 branch-neighbor 优势进行方向投射，10,645 个 boundary 保持 unresolved，不生成新的 LAM 标签。Stage 22 checkpoint 为 `local_branched_lam_manifold_candidate`：State16 是当前最有支持的 LAM-preserving/lineage-transition candidate，其他方向暂不升级为 LAM branch。
+Boundary 只在 1–3 hop 范围内按直接 branch-neighbor 优势进行方向投射；本次实际投射 11,648 个 local boundary cells，其中 6,736 个保持 unresolved，远端 boundary 不参与本地投射，不生成新的 LAM 标签。修正后的 Stage 22 checkpoint 为 `ordinary_lineage_adjacency_dominates`：State16 的旧 LAM-preserving/lineage-transition candidate 标签已撤回，当前仅保留为 State15 邻接/混合状态的探索性描述。
 
 ## Stage 21：State 15-centered manifold 独立验证
 
@@ -147,4 +147,4 @@ Stage 24 是只读整理阶段。它冻结 Stage 1–23 已有的 state、State1
 $PY 24_finalize_project.py
 ```
 
-Stage 24 最终采用的叙事边界是：State15 为当前最 LAM-rich 的 provisional reference-anchor candidate；Stage20 的 global manifold 结论经 Stage21 限定为不稳健统一 manifold；Stage22 只保留 State15→State16 的局部 transition candidate，State12/20/7 暂为 ordinary lineage adjacency。历史版本仍在对应 Stage 报告和 `narrative_audit.csv` 中保留。
+Stage 24 最终采用的叙事边界是：State15 为当前最 LAM-rich 的 provisional reference-anchor candidate；Stage20 的 global manifold 结论经 Stage21 限定为不稳健统一 manifold；修正后的 Stage22 仍保留四个局部方向，但全部按 `ordinary_lineage_adjacency` 或探索性邻接解释，State15→State16 的旧 transition candidate 标签已撤回。历史版本仍在对应 Stage 报告和 `narrative_audit.csv` 中保留。

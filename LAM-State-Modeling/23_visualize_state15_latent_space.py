@@ -257,21 +257,32 @@ def prepare_tables(
             main = main.drop(columns=[fallback])
         main[feature] = pd.to_numeric(main[feature], errors="coerce")
 
+    branches = read_csv(branch_path, ["source_state", "branch_id"])
+    selected_branch_states = sorted(branches["source_state"].astype(str).unique().tolist())
     main["branch"] = ""
     main.loc[main["state"].eq(TARGET_STATE), "branch"] = "State15_anchor"
-    main.loc[main["state"].isin(BRANCH_STATES), "branch"] = main.loc[main["state"].isin(BRANCH_STATES), "state"]
+    main.loc[main["state"].isin(selected_branch_states), "branch"] = main.loc[main["state"].isin(selected_branch_states), "state"]
     boundary_mask = main["state"].eq("boundary")
     main.loc[boundary_mask, "branch"] = main.loc[boundary_mask, "branch_assignment"].replace("", "unresolved")
     main.loc[main["branch"].eq(""), "branch"] = "unassigned"
     main["cohort_label"] = np.where(main["state"].eq("boundary"), "boundary", "candidate")
 
-    branches = read_csv(branch_path, ["source_state", "branch_id"])
     null = read_csv(null_path, ["source_state", "null_slope", "real_slope"])
+    evidence_path = STAGE22 / "branch_evidence_summary.csv"
+    if evidence_path.exists():
+        evidence = read_csv(evidence_path, ["source_state", "matched_null_empirical_p", "matched_null_q_value"])
+        null = null.merge(
+            evidence[["source_state", "matched_null_empirical_p", "matched_null_q_value"]].drop_duplicates("source_state"),
+            on="source_state",
+            how="left",
+            validate="many_to_one",
+        )
     latent, embedding_2d, latent_manifest = load_latent_and_embeddings(scvi_path, main["analysis_cell_id"])
     return main, latent, embedding_2d, null, {
         "latent_manifest": latent_manifest,
         "score_manifest": score_manifest,
         "branch_candidates": branches.to_dict(orient="records"),
+        "branch_states": selected_branch_states,
     }
 
 
@@ -493,8 +504,9 @@ def save_heatmap(table: pd.DataFrame, stage16_position_path: Path, output: Path)
     plt.close(fig)
 
 
-def save_null_plot(null: pd.DataFrame, output: Path) -> None:
-    sources = [state for state in BRANCH_STATES if state in set(null["source_state"].astype(str))]
+def save_null_plot(null: pd.DataFrame, output: Path, branch_states: list[str] | None = None) -> None:
+    states = branch_states if branch_states is not None else BRANCH_STATES
+    sources = [state for state in states if state in set(null["source_state"].astype(str))]
     fig, axes = plt.subplots(2, 2, figsize=(12, 8), constrained_layout=True)
     for axis, state in zip(axes.ravel(), sources):
         sub = null[null["source_state"].astype(str).eq(state)]
@@ -504,7 +516,8 @@ def save_null_plot(null: pd.DataFrame, output: Path) -> None:
         if len(real):
             axis.axvline(real.iloc[0], color="#d62728", linewidth=2, label=f"real={real.iloc[0]:.3g}")
         p = safe_text(sub["empirical_two_sided_p"].iloc[0]) if len(sub) else "NA"
-        axis.set_title(f"{state} · empirical p={p}")
+        q = safe_text(sub["matched_null_q_value"].iloc[0]) if len(sub) and "matched_null_q_value" in sub else "NA"
+        axis.set_title(f"{state} · raw p={p}; BH q={q}")
         axis.set_xlabel("matched-null slope")
         axis.set_ylabel("replicates")
         axis.legend(frameon=False, fontsize=8)
@@ -607,6 +620,7 @@ def make_manifest(
     local_edges: int,
     outputs: list[str],
     score_manifest: dict[str, Any],
+    branch_states: list[str],
 ) -> dict[str, Any]:
     anchor_ids = sorted(table.loc[table["state"].eq(TARGET_STATE), "analysis_cell_id"].astype(str).tolist())
     return {
@@ -623,7 +637,7 @@ def make_manifest(
         "embedding_3d_pca_source": "PCA(n_components=3) from X_scVI",
         "local_graph": {"scope": "Stage22 min_graph_hop_to_State15 0–3", "k": GRAPH_K, "edges_plotted": local_edges, "edges_are_reconstructed_for_plotting": True},
         "highlight_states": HIGHLIGHT_STATES,
-        "branch_states": BRANCH_STATES,
+        "branch_states": branch_states,
         "score_source": score_manifest,
         "no_scvi_training": True,
         "no_reclustering": True,
@@ -668,7 +682,7 @@ def main() -> None:
     save_local_graph(umap_2d, main_table, local_edges, args.output_dir / "02_state15_local_knn_lamcore", "lamcore", args.max_edges)
     save_gradient_plot(main_table, args.output_dir / "03_distance_lamcore_gradient")
     save_heatmap(main_table, STAGE22 / "state16_branch_position.csv", args.output_dir / "04_state16_program_heatmap")
-    save_null_plot(null, args.output_dir / "05_branch_matched_null")
+    save_null_plot(null, args.output_dir / "05_branch_matched_null", input_manifest["branch_states"])
 
     # The two local static calls contain the requested state and LAMCORE panels;
     # retain explicit filenames by copying the generated pair's PNG/PDF to the
@@ -699,7 +713,7 @@ def main() -> None:
     }
     manifest = make_manifest(
         main_table, latent_manifest, umap_2d_source, umap_3d_source,
-        plotted_local_edges, outputs, input_manifest["score_manifest"],
+        plotted_local_edges, outputs, input_manifest["score_manifest"], input_manifest["branch_states"],
     )
     (args.output_dir / "visualization_manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
     print(json.dumps({"output_dir": str(args.output_dir), "files": outputs, "main_cells": len(main_table), "local_edges": plotted_local_edges}, ensure_ascii=False))

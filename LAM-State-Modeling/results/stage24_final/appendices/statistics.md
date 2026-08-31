@@ -13,7 +13,8 @@
 | Stage19 LAM1163 composition enrichment | 6.8301 | `results/stage19/state15_patient_composition.csv` |
 | Stage21 candidate-only independent slope | -0.015466 | `results/stage21/gradient_models.csv` |
 | Stage21 matched-null empirical two-sided p | 0.001996 | `results/stage21/matched_anchor_null.csv` |
-| Stage22 State16 independent branch slope | -0.023659 | `results/stage22/branch_evidence_summary.csv` |
-| Stage22 State16 matched-null p | 0.025948 | `results/stage22/branch_evidence_summary.csv` |
+| Stage22 State16 independent branch slope | -0.023931 | `results/stage22/branch_evidence_summary.csv` |
+| Stage22 State16 corrected matched-null raw p | 0.878244 | `results/stage22/branch_evidence_summary.csv` |
+| Stage22 State16 corrected BH q | 0.878244 | `results/stage22/branch_evidence_summary.csv` |
 
-The Stage21 slope, Spearman rho and binned medians are different estimands/scopes. Their signs and shapes are intentionally reported without forced reconciliation.
+The Stage21 slope, Spearman rho and binned medians are different estimands/scopes. Stage22 uses the corrected local 1–3-hop scope, distance-structure matched null, direct empirical tails and BH correction; its branch labels are not comparable to the superseded raw-p-value-only version. Their signs and shapes are intentionally reported without forced reconciliation.

@@ -1,5 +1,5 @@
-branch_id,source_state,1hop_cells,2hop_cells,3hop_cells,patient_count,dataset_count,connectivity
-branch_01,State_16,96,234,65,10,4,0.73989898989899
-branch_02,State_12,22,165,327,9,4,0.09917355371900827
-branch_03,State_20,22,320,384,10,4,0.04894179894179894
-branch_04,State_7,11,87,308,11,4,0.06597222222222222
+branch_id,source_state,1hop_cells,2hop_cells,3hop_cells,patient_count,dataset_count,state_patient_count,state_dataset_count,connectivity
+branch_01,State_16,96,234,65,8,4,10,4,0.73989898989899
+branch_02,State_12,22,165,327,5,3,9,4,0.09917355371900827
+branch_03,State_20,22,320,384,6,3,10,4,0.04894179894179894
+branch_04,State_7,11,87,308,3,3,11,4,0.06597222222222222

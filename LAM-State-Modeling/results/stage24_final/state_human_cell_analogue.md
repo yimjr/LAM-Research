@@ -152,13 +152,13 @@
 - 细胞/覆盖/结构证据：200 cells；7 patients；4 datasets；structural=0.8541110574273367；biological=0.37475757007007。
 - 表达/程序摘要：top DE markers=HTN3(7.12), MMP11(6.47), PAGE4(6.25), PGM5-AS1(6.25), HOXA11(6.10), EMX2(5.64), PLAT(5.63), SFRP1(5.54)；top program deltas=LAM_myogenic_contractile=2.051; lineage_uterine_smooth_muscle=2.051; CORE1=1.456; CORE3_identity=1.145; ECM_remodeling=1.035。
 
-## State 16 — LAM-like to immune/T-NK transitional candidate
+## State 16 — immune/T-NK-adjacent mixed state; no confirmed transition
 
-- 解释类别：mixed or transitional。
-- 支持证据：396 cells; CORE1/CORE3/LAM-myogenic programs; State22 independent LAMCORE slope -0.023659, CORE3 slope -0.216772, 10 patients/4 datasets, matched-null p=0.025948; 74 author-style cells where assayed.
-- 冲突证据：Only 7 patients meet the Stage22 per-patient branch criterion; immune signal is heterogeneous and upstream cell_type is unknown; Stage11 biological reproducibility 0.323088.
-- 与 LAM 的关系：The only current local direction labeled LAM_to_lineage_transition_candidate; not a confirmed temporal transition.
-- 不确定性：High; may be a mixed state or a local LAM-preserving direction.
+- 解释类别：mixed or uncertain。
+- 支持证据：396 cells; CORE1/CORE3/LAM-myogenic programs; corrected Stage22 local slope=-0.023931, direct empirical p=0.878244 and BH q=0.878244; per-patient slopes were negative in 7/7 represented patients and LOPO slopes in 10/10 omissions, but this direction was not separated from the matched local null.
+- 冲突证据：Only 8 patients contribute State16 cells in the direct 1-hop branch criterion; immune signal is heterogeneous, upstream cell_type is unknown, and Stage11 biological reproducibility is 0.323088.
+- 与 LAM 的关系：Geometrically adjacent to State15 with a directional LAMCORE decrease, but current corrected evidence does not support a LAM-preserving transition label; ordinary adjacency and mixed biology remain plausible.
+- 不确定性：High; no temporal or lineage-transition evidence.
 - 细胞/覆盖/结构证据：396 cells；10 patients；4 datasets；structural=0.7196327799664204；biological=0.3230880484706342。
 - 表达/程序摘要：top DE markers=PCP4(5.73), HOXC10(5.42), TMEM196(5.32), CD3G(5.16), LINC00906(4.99), OR2L5(4.98), LINC00402(4.95), FABP7(4.94)；top program deltas=LAM_myogenic_contractile=1.286; lineage_uterine_smooth_muscle=1.286; CORE1=0.948; CORE3_identity=0.696; CORE2=0.220。
 

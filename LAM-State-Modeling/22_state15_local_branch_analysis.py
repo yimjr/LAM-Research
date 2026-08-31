@@ -35,6 +35,8 @@ EXPECTED_MAIN_CELLS = 22261
 EXPECTED_CANDIDATE_CELLS = 5378
 EXPECTED_BOUNDARY_CELLS = 16883
 GRAPH_K = 30
+LOCAL_HOPS = [1, 2, 3]
+DISTANCE_MATCH_BINS = 5
 DISTANCE_SEGMENTS = ["near", "mid", "far"]
 LAMCORE_FEATURES = [
     "LAMCORE_full", "LAMCORE_no_gate", "LAMCORE_outside_scVI", "LAMCORE_independent",
@@ -232,8 +234,13 @@ def state_connectivity(table: pd.DataFrame, adjacency: sparse.csr_matrix, hops: 
         direct_cells = int(np.sum((state == target_state) & (hops == 1)))
         hop_counts = [int(np.sum((state == target_state) & (hops == hop))) for hop in [1, 2, 3]]
         target_indices = np.flatnonzero(state == target_state)
-        patient_count = int(table.iloc[target_indices]["patient"].astype(str).nunique()) if len(target_indices) else 0
-        dataset_count = int(table.iloc[target_indices]["dataset"].astype(str).nunique()) if len(target_indices) else 0
+        direct_target_indices = np.flatnonzero((state == target_state) & (hops == 1))
+        # Branch eligibility must use the direct State15 neighborhood.  Keep
+        # whole-state coverage separately for descriptive context.
+        patient_count = int(table.iloc[direct_target_indices]["patient"].astype(str).nunique()) if len(direct_target_indices) else 0
+        dataset_count = int(table.iloc[direct_target_indices]["dataset"].astype(str).nunique()) if len(direct_target_indices) else 0
+        state_patient_count = int(table.iloc[target_indices]["patient"].astype(str).nunique()) if len(target_indices) else 0
+        state_dataset_count = int(table.iloc[target_indices]["dataset"].astype(str).nunique()) if len(target_indices) else 0
         rows.append(
             {
                 "state": target_state,
@@ -246,6 +253,8 @@ def state_connectivity(table: pd.DataFrame, adjacency: sparse.csr_matrix, hops: 
                 "state15_direct_neighbor_cell_count": direct_cells,
                 "patient_count": patient_count,
                 "dataset_count": dataset_count,
+                "state_patient_count": state_patient_count,
+                "state_dataset_count": state_dataset_count,
             }
         )
     return pd.DataFrame(rows).sort_values("state").reset_index(drop=True)
@@ -253,7 +262,7 @@ def state_connectivity(table: pd.DataFrame, adjacency: sparse.csr_matrix, hops: 
 
 def select_branches(connectivity: pd.DataFrame) -> pd.DataFrame:
     if len(connectivity) == 0:
-        return pd.DataFrame(columns=["branch_id", "source_state", "1hop_cells", "2hop_cells", "3hop_cells", "patient_count", "dataset_count", "connectivity"])
+        return pd.DataFrame(columns=["branch_id", "source_state", "1hop_cells", "2hop_cells", "3hop_cells", "patient_count", "dataset_count", "state_patient_count", "state_dataset_count", "connectivity"])
     eligible = connectivity[(connectivity["state"] != "boundary") & (connectivity["hop_1_cells"] >= 10) & (connectivity["patient_count"] >= 2)].copy()
     eligible = eligible.sort_values(["hop_1_cells", "state"], ascending=[False, True]).reset_index(drop=True)
     eligible["branch_id"] = [f"branch_{i + 1:02d}" for i in range(len(eligible))]
@@ -265,7 +274,7 @@ def select_branches(connectivity: pd.DataFrame) -> pd.DataFrame:
             "hop_3_cells": "3hop_cells",
             "state15_edge_count_over_state_cells": "connectivity",
         }
-    )[["branch_id", "source_state", "1hop_cells", "2hop_cells", "3hop_cells", "patient_count", "dataset_count", "connectivity"]]
+    )[["branch_id", "source_state", "1hop_cells", "2hop_cells", "3hop_cells", "patient_count", "dataset_count", "state_patient_count", "state_dataset_count", "connectivity"]]
 
 
 def assign_segments(values: pd.Series) -> pd.Series:
@@ -321,8 +330,16 @@ def score_summary(table: pd.DataFrame, group_field: str, group_value: str, featu
     return row
 
 
+def local_branch_scope(table: pd.DataFrame, source_state: str) -> pd.DataFrame:
+    """Return a branch's fixed local 1–3-hop scope."""
+    return table[
+        table["state"].eq(source_state)
+        & table["min_graph_hop_to_State15"].isin(LOCAL_HOPS)
+    ].copy()
+
+
 def branch_gradient(branch_id: str, source_state: str, table: pd.DataFrame, features: list[str]) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    sub = table[table["state"].eq(source_state)].copy()
+    sub = local_branch_scope(table, source_state)
     sub["distance_segment"] = assign_segments(sub["latent_distance_to_State15"])
     segment_rows: list[dict[str, Any]] = []
     for segment in DISTANCE_SEGMENTS:
@@ -371,7 +388,7 @@ def branch_gradient(branch_id: str, source_state: str, table: pd.DataFrame, feat
 
 
 def patient_branch_consistency(branch_id: str, source_state: str, table: pd.DataFrame, features: list[str], min_cells: int = 10) -> pd.DataFrame:
-    branch = table[table["state"].eq(source_state)].copy()
+    branch = local_branch_scope(table, source_state)
     rows: list[dict[str, Any]] = []
     for patient, sub in branch.groupby("patient", observed=True):
         if len(sub) < min_cells:
@@ -380,7 +397,25 @@ def patient_branch_consistency(branch_id: str, source_state: str, table: pd.Data
         sub["distance_segment"] = assign_segments(sub["latent_distance_to_State15"])
         near = sub[sub["distance_segment"].eq("near")]
         far = sub[sub["distance_segment"].eq("far")]
-        row: dict[str, Any] = {"branch_id": branch_id, "source_state": source_state, "patient": str(patient), "n_branch_cells": len(sub), "near_cells": len(near), "far_cells": len(far)}
+        patient_fit = numeric_slope(sub["latent_distance_to_State15"], sub["LAMCORE_independent"])
+        row: dict[str, Any] = {
+            "branch_id": branch_id,
+            "source_state": source_state,
+            "patient": str(patient),
+            "n_branch_cells": len(sub),
+            "near_cells": len(near),
+            "far_cells": len(far),
+            "patient_LAMCORE_slope": patient_fit["slope"],
+            "patient_LAMCORE_slope_ci95_low": patient_fit["ci95_low"],
+            "patient_LAMCORE_slope_ci95_high": patient_fit["ci95_high"],
+            "patient_LAMCORE_slope_pvalue": patient_fit["pvalue"],
+            "patient_LAMCORE_slope_direction": (
+                "decrease" if np.isfinite(patient_fit["slope"]) and patient_fit["slope"] < 0
+                else "increase_or_flat" if np.isfinite(patient_fit["slope"])
+                else "not_estimable"
+            ),
+            "patient_distance_range": float(sub["latent_distance_to_State15"].max() - sub["latent_distance_to_State15"].min()),
+        }
         for feature in features:
             near_value = pd.to_numeric(near[feature], errors="coerce").median() if feature in near else np.nan
             far_value = pd.to_numeric(far[feature], errors="coerce").median() if feature in far else np.nan
@@ -395,8 +430,49 @@ def patient_branch_consistency(branch_id: str, source_state: str, table: pd.Data
     return pd.DataFrame(rows)
 
 
+def patient_lopo_robustness(branches: pd.DataFrame, table: pd.DataFrame) -> pd.DataFrame:
+    """Fit the branch slope after leaving each represented patient out."""
+    rows: list[dict[str, Any]] = []
+    for _, branch in branches.iterrows():
+        branch_id = str(branch["branch_id"])
+        source_state = str(branch["source_state"])
+        local = local_branch_scope(table, source_state)
+        patients = sorted(local["patient"].astype(str).unique())
+        for omitted_patient in patients:
+            remaining = local[~local["patient"].astype(str).eq(omitted_patient)].copy()
+            fit = numeric_slope(
+                remaining["latent_distance_to_State15"],
+                remaining["LAMCORE_independent"],
+                remaining["patient"],
+            )
+            rows.append(
+                {
+                    "branch_id": branch_id,
+                    "source_state": source_state,
+                    "omitted_patient": omitted_patient,
+                    "n_remaining_cells": len(remaining),
+                    "n_remaining_patients": int(remaining["patient"].astype(str).nunique()),
+                    "LOPO_LAMCORE_slope": fit["slope"],
+                    "LOPO_ci95_low": fit["ci95_low"],
+                    "LOPO_ci95_high": fit["ci95_high"],
+                    "LOPO_pvalue": fit["pvalue"],
+                    "LOPO_slope_direction": (
+                        "decrease" if np.isfinite(fit["slope"]) and fit["slope"] < 0
+                        else "increase_or_flat" if np.isfinite(fit["slope"])
+                        else "not_estimable"
+                    ),
+                }
+            )
+    return pd.DataFrame(rows)
+
+
 def boundary_assignment(table: pd.DataFrame, adjacency: sparse.csr_matrix, branches: pd.DataFrame) -> pd.DataFrame:
-    boundary = table[table["state"].eq("boundary")].copy().reset_index(drop=True)
+    # Only local boundary cells are eligible for branch projection. Farther
+    # boundary cells remain in the frozen cohort but have no local direction.
+    boundary = table[
+        table["state"].eq("boundary")
+        & table["min_graph_hop_to_State15"].isin(LOCAL_HOPS)
+    ].copy().reset_index(drop=True)
     branch_states = branches["source_state"].astype(str).tolist()
     state = table["state"].astype(str).to_numpy()
     rows: list[dict[str, Any]] = []
@@ -430,7 +506,7 @@ def boundary_extension(boundary: pd.DataFrame, branches: pd.DataFrame, table: pd
     for _, branch in branches.iterrows():
         branch_id = str(branch["branch_id"])
         state = str(branch["source_state"])
-        branch_table = table[table["state"].eq(state)].copy()
+        branch_table = local_branch_scope(table, state)
         branch_table["distance_segment"] = assign_segments(branch_table["latent_distance_to_State15"])
         for segment in DISTANCE_SEGMENTS:
             part = branch_table[branch_table["distance_segment"].eq(segment)]
@@ -438,6 +514,115 @@ def boundary_extension(boundary: pd.DataFrame, branches: pd.DataFrame, table: pd
         extension = boundary[boundary["branch_assignment"].eq(state)].copy()
         rows.append({"branch_id": branch_id, "source_state": state, "extension_stage": "boundary_assigned_extension", **score_summary(extension, "branch_assignment", state, features)})
     return pd.DataFrame(rows)
+
+
+def empirical_tail_probabilities(null_values: np.ndarray, real_slope: float) -> dict[str, float]:
+    """Compute direct empirical tails without assuming a zero-centered null."""
+    if len(null_values) == 0 or not np.isfinite(real_slope):
+        return {"empirical_left_p": np.nan, "empirical_right_p": np.nan, "empirical_two_sided_p": np.nan}
+    n = len(null_values)
+    left = float((1 + np.sum(null_values <= real_slope)) / (n + 1))
+    right = float((1 + np.sum(null_values >= real_slope)) / (n + 1))
+    return {
+        "empirical_left_p": left,
+        "empirical_right_p": right,
+        "empirical_two_sided_p": float(min(1.0, 2.0 * min(left, right))),
+    }
+
+
+def bh_adjust(values: pd.Series) -> np.ndarray:
+    """Benjamini–Hochberg adjustment, preserving NaN for unavailable tests."""
+    p = pd.to_numeric(values, errors="coerce").to_numpy(dtype=float)
+    q = np.full(len(p), np.nan, dtype=float)
+    valid = np.isfinite(p)
+    if not valid.any():
+        return q
+    indices = np.flatnonzero(valid)
+    order = indices[np.argsort(p[valid], kind="mergesort")]
+    ranked = p[order] * len(order) / np.arange(1, len(order) + 1, dtype=float)
+    ranked = np.minimum.accumulate(ranked[::-1])[::-1]
+    q[order] = np.minimum(ranked, 1.0)
+    return q
+
+
+def _distance_bins(table: pd.DataFrame, n_bins: int = DISTANCE_MATCH_BINS) -> pd.Series:
+    distances = pd.to_numeric(table["distance_to_state15"], errors="coerce")
+    ranks = distances.rank(method="first", pct=False)
+    bins = np.floor((ranks - 1) * n_bins / max(len(table), 1)).astype("Int64")
+    return bins.clip(lower=0, upper=n_bins - 1)
+
+
+def _sample_distance_matched(
+    real: pd.DataFrame,
+    pool: pd.DataFrame,
+    rng: np.random.Generator,
+) -> tuple[list[int], int, float, set[str]]:
+    """Sample null cells matching patient×dataset, distance-bin and count.
+
+    Distance bins preserve the coarse local geometry. If a joint stratum/bin
+    is absent, the method falls back to the same joint stratum, then the same
+    patient, choosing cells closest to the target distances and recording the
+    relaxation level.
+    """
+    real = real.copy()
+    pool = pool.copy()
+    real["_key"] = real["patient"].astype(str) + "||" + real["dataset"].astype(str)
+    pool["_key"] = pool["patient"].astype(str) + "||" + pool["dataset"].astype(str)
+    real["_distance_bin"] = real["_distance_bin"].astype(int)
+    pool["_distance_bin"] = pool["_distance_bin"].astype(int)
+    by_key_bin = {
+        (str(key), int(distance_bin)): values.index.to_numpy(dtype=int)
+        for (key, distance_bin), values in pool.groupby(["_key", "_distance_bin"], observed=True)
+    }
+    by_key = {str(key): values.index.to_numpy(dtype=int) for key, values in pool.groupby("_key", observed=True)}
+    by_patient = {str(key): values.index.to_numpy(dtype=int) for key, values in pool.groupby("patient", observed=True)}
+    sampled: list[int] = []
+    replacements = 0
+    abs_distance_differences: list[float] = []
+    levels: set[str] = set()
+    grouped = real.groupby(["_key", "_distance_bin"], observed=True, sort=False)
+    for (key, distance_bin), target in grouped:
+        key = str(key)
+        distance_bin = int(distance_bin)
+        target_distances = pd.to_numeric(target["distance_to_state15"], errors="coerce").to_numpy(dtype=float)
+        eligible = by_key_bin.get((key, distance_bin))
+        level = "patient_dataset_distance_bin"
+        if eligible is None or len(eligible) == 0:
+            eligible = by_key.get(key)
+            level = "patient_dataset_nearest_distance"
+        if eligible is None or len(eligible) == 0:
+            eligible = by_patient.get(key.split("||", 1)[0])
+            level = "patient_nearest_distance"
+        if eligible is None or len(eligible) == 0:
+            raise ValueError(f"No matched null pool for patient/dataset stratum {key}")
+        replace = len(eligible) < len(target)
+        if level == "patient_dataset_distance_bin":
+            choices = rng.choice(eligible, size=len(target), replace=replace)
+            chosen_distances = pd.to_numeric(pool.loc[choices, "distance_to_state15"], errors="coerce").to_numpy(dtype=float)
+        else:
+            choices_list: list[int] = []
+            chosen_distances_list: list[float] = []
+            for target_distance in target_distances:
+                candidate_distances = pd.to_numeric(pool.loc[eligible, "distance_to_state15"], errors="coerce").to_numpy(dtype=float)
+                delta = np.abs(candidate_distances - target_distance)
+                finite = np.isfinite(delta)
+                if not finite.any():
+                    choice_pool = eligible
+                else:
+                    finite_indices = np.flatnonzero(finite)
+                    nearest_order = finite_indices[np.argsort(delta[finite], kind="mergesort")]
+                    choice_pool = eligible[nearest_order[: min(10, len(nearest_order))]]
+                choice = int(rng.choice(choice_pool))
+                choices_list.append(choice)
+                chosen_distances_list.append(float(pool.loc[choice, "distance_to_state15"]))
+            choices = np.asarray(choices_list, dtype=int)
+            chosen_distances = np.asarray(chosen_distances_list, dtype=float)
+        sampled.extend(int(value) for value in choices)
+        replacements += int(len(target)) if replace else 0
+        abs_distance_differences.extend(np.abs(chosen_distances - target_distances).tolist())
+        levels.add(level)
+    mean_abs_delta = float(np.nanmean(abs_distance_differences)) if abs_distance_differences else np.nan
+    return sampled, replacements, mean_abs_delta, levels
 
 
 def matched_branch_null(
@@ -449,39 +634,30 @@ def matched_branch_null(
     rng = np.random.default_rng(seed)
     rows: list[dict[str, Any]] = []
     summaries: dict[str, Any] = {}
+    # Real and null branches share exactly this local scope.
+    local = table[table["min_graph_hop_to_State15"].isin(LOCAL_HOPS)].copy()
+    local["_distance_bin"] = _distance_bins(local)
     for _, branch in branches.iterrows():
         branch_id = str(branch["branch_id"])
         source_state = str(branch["source_state"])
-        real = table[table["state"].eq(source_state)].copy()
-        pool = table[(table["state"].ne(source_state)) & (table["state"].ne(TARGET_STATE)) & table["min_graph_hop_to_State15"].isin([1, 2, 3])].copy()
+        real = local[local["state"].eq(source_state)].copy()
+        pool = local[(local["state"].ne(source_state)) & (local["state"].ne(TARGET_STATE))].copy()
         real_keys = real["patient"].astype(str) + "||" + real["dataset"].astype(str)
         pool_keys = pool["patient"].astype(str) + "||" + pool["dataset"].astype(str)
         requested = real_keys.value_counts().to_dict()
-        by_key = {key: values.index.to_numpy() for key, values in pool.assign(_key=pool_keys).groupby("_key", observed=True)}
-        missing = sorted(set(requested).difference(by_key))
-        if missing:
-            # If a joint stratum is absent outside the branch, relax only that
-            # stratum to patient-level matching and record the relaxation.
-            by_patient = {key: values.index.to_numpy() for key, values in pool.groupby("patient", observed=True)}
-            missing_patient = sorted({key.split("||")[0] for key in missing if key.split("||")[0] not in by_patient})
-            if missing_patient:
-                summaries[branch_id] = {"status": "insufficient_matched_null_pool", "missing_strata": missing, "missing_patients": missing_patient}
-                continue
-        real_valid = real[["patient", "dataset", "distance_to_state15", "LAMCORE_independent"]].copy()
+        pool_key_set = set(pool_keys)
+        missing = sorted(set(requested).difference(pool_key_set))
+        by_patient = set(pool["patient"].astype(str))
+        missing_patient = sorted({key.split("||", 1)[0] for key in missing if key.split("||", 1)[0] not in by_patient})
+        if missing_patient:
+            summaries[branch_id] = {"status": "insufficient_matched_null_pool", "missing_strata": missing, "missing_patients": missing_patient}
+            continue
+        real_valid = real[["patient", "distance_to_state15", "LAMCORE_independent"]].copy()
         real_fit = numeric_slope(real_valid["distance_to_state15"], real_valid["LAMCORE_independent"], real_valid["patient"])
         null_slopes: list[float] = []
         branch_summary: list[dict[str, Any]] = []
         for replicate in range(reps):
-            sampled: list[int] = []
-            replacements = 0
-            for key, count in requested.items():
-                eligible = by_key.get(key)
-                if eligible is None:
-                    eligible = by_patient[key.split("||")[0]]
-                replace = len(eligible) < int(count)
-                choices = rng.choice(eligible, size=int(count), replace=replace)
-                sampled.extend(int(value) for value in choices)
-                replacements += int(count) if replace else 0
+            sampled, replacements, mean_abs_delta, levels = _sample_distance_matched(real, pool, rng)
             fake = pool.loc[sampled]
             fit = numeric_slope(fake["distance_to_state15"], fake["LAMCORE_independent"], fake["patient"])
             null_slopes.append(float(fit["slope"]) if np.isfinite(fit["slope"]) else np.nan)
@@ -494,20 +670,40 @@ def matched_branch_null(
                     "n_fake_branch_cells": len(fake),
                     "matched_strata": len(requested),
                     "sampling_with_replacement_cells": replacements,
+                    "distance_match_bins": DISTANCE_MATCH_BINS,
+                    "distance_match_mean_abs_delta": mean_abs_delta,
+                    "distance_match_levels": ";".join(sorted(levels)),
                     "real_slope": real_fit["slope"],
                     "null_slope": fit["slope"],
                     "distance_metric": "Stage20 distance_to_state15",
+                    "scope": "real and null: non-State15 local 1–3-hop cells",
                 }
             )
         null_values = np.asarray([value for value in null_slopes if np.isfinite(value)], dtype=float)
         real_slope = float(real_fit["slope"]) if np.isfinite(real_fit["slope"]) else np.nan
-        empirical_p = float((1 + np.sum(np.abs(null_values) >= abs(real_slope))) / (len(null_values) + 1)) if len(null_values) and np.isfinite(real_slope) else np.nan
+        tails = empirical_tail_probabilities(null_values, real_slope)
         null_median = float(np.median(null_values)) if len(null_values) else np.nan
+        null_q05 = float(np.quantile(null_values, 0.05)) if len(null_values) else np.nan
+        null_q95 = float(np.quantile(null_values, 0.95)) if len(null_values) else np.nan
         for row in branch_summary:
             row["null_median_slope"] = null_median
-            row["empirical_two_sided_p"] = empirical_p
+            row["null_q05_slope"] = null_q05
+            row["null_q95_slope"] = null_q95
+            row.update(tails)
         rows.extend(branch_summary)
-        summaries[branch_id] = {"status": "available", "real_slope": real_slope, "null_median_slope": null_median, "empirical_two_sided_p": empirical_p, "repetitions": len(null_values), "matched_strata": requested}
+        summaries[branch_id] = {
+            "status": "available",
+            "real_slope": real_slope,
+            "null_median_slope": null_median,
+            "null_q05_slope": null_q05,
+            "null_q95_slope": null_q95,
+            **tails,
+            "repetitions": len(null_values),
+            "matched_strata": requested,
+            "scope": "real and null: non-State15 local 1–3-hop cells",
+            "distance_match_bins": DISTANCE_MATCH_BINS,
+            "distance_match_method": "patient×dataset plus global distance-bin matching with nearest-distance fallback",
+        }
     return pd.DataFrame(rows), summaries
 
 
@@ -515,6 +711,7 @@ def evidence_summary(
     branches: pd.DataFrame,
     all_models: pd.DataFrame,
     patient_consistency: pd.DataFrame,
+    patient_lopo: pd.DataFrame,
     null_manifest: dict[str, Any],
 ) -> pd.DataFrame:
     rows: list[dict[str, Any]] = []
@@ -533,11 +730,24 @@ def evidence_summary(
             best_lineage_slope = float(lineages.iloc[0]["patient_adjusted_slope"])
         patient = patient_consistency[patient_consistency["branch_id"].eq(branch_id)]
         lam_direction_fraction = float((patient["LAMCORE_direction"].eq("decrease")).mean()) if len(patient) else np.nan
+        patient_slopes = pd.to_numeric(patient.get("patient_LAMCORE_slope", pd.Series(dtype=float)), errors="coerce").dropna()
+        patient_slope_negative_fraction = float((patient_slopes < 0).mean()) if len(patient_slopes) else np.nan
+        lopo = patient_lopo[patient_lopo["branch_id"].eq(branch_id)] if len(patient_lopo) else pd.DataFrame()
+        lopo_slopes = pd.to_numeric(lopo.get("LOPO_LAMCORE_slope", pd.Series(dtype=float)), errors="coerce").dropna()
+        lopo_negative_fraction = float((lopo_slopes < 0).mean()) if len(lopo_slopes) else np.nan
         null = null_manifest.get(branch_id, {})
         lam_slope = float(independent["patient_adjusted_slope"].iloc[0]) if len(independent) and pd.notna(independent["patient_adjusted_slope"].iloc[0]) else np.nan
         core3_slope = float(core3["patient_adjusted_slope"].iloc[0]) if len(core3) and pd.notna(core3["patient_adjusted_slope"].iloc[0]) else np.nan
         null_p = float(null.get("empirical_two_sided_p", np.nan)) if null else np.nan
-        lam_like = bool(np.isfinite(lam_slope) and lam_slope < 0 and np.isfinite(null_p) and null_p <= 0.05 and (not np.isfinite(lam_direction_fraction) or lam_direction_fraction > 0.5))
+        null_q = np.nan
+        lam_like = bool(
+            np.isfinite(lam_slope)
+            and lam_slope < 0
+            and np.isfinite(null_p)
+            and null_p <= 0.05
+            and (not np.isfinite(lam_direction_fraction) or lam_direction_fraction > 0.5)
+            and (not np.isfinite(patient_slope_negative_fraction) or patient_slope_negative_fraction > 0.5)
+        )
         transition = bool(lam_like and np.isfinite(best_lineage_slope) and best_lineage_slope > 0)
         if transition:
             label = "LAM_to_lineage_transition_candidate"
@@ -557,13 +767,45 @@ def evidence_summary(
                 "LAMCORE_independent_latent_slope": lam_slope,
                 "CORE3_latent_slope": core3_slope,
                 "patient_LAMCORE_decrease_fraction": lam_direction_fraction,
+                "patient_LAMCORE_slope_median": float(patient_slopes.median()) if len(patient_slopes) else np.nan,
+                "patient_LAMCORE_slope_negative_fraction": patient_slope_negative_fraction,
+                "patient_LAMCORE_slope_n": int(len(patient_slopes)),
+                "LOPO_LAMCORE_slope_negative_fraction": lopo_negative_fraction,
+                "LOPO_LAMCORE_slope_n": int(len(lopo_slopes)),
                 "dominant_competing_lineage": best_lineage,
                 "dominant_competing_lineage_slope": best_lineage_slope,
+                "matched_null_empirical_left_p": float(null.get("empirical_left_p", np.nan)) if null else np.nan,
+                "matched_null_empirical_right_p": float(null.get("empirical_right_p", np.nan)) if null else np.nan,
                 "matched_null_empirical_p": null_p,
+                "matched_null_q_value": null_q,
                 "evidence_label": label,
             }
         )
-    return pd.DataFrame(rows)
+    output = pd.DataFrame(rows)
+    if len(output):
+        output["matched_null_q_value"] = bh_adjust(output["matched_null_empirical_p"])
+        # The corrected multiple-testing result, not an individual raw p,
+        # controls whether a branch can receive a LAM-preserving label.
+        for index, row in output.iterrows():
+            q_value = row["matched_null_q_value"]
+            raw_label = str(row["evidence_label"])
+            lam_like = bool(
+                np.isfinite(row["LAMCORE_independent_latent_slope"])
+                and row["LAMCORE_independent_latent_slope"] < 0
+                and np.isfinite(q_value)
+                and q_value <= 0.05
+                and (not np.isfinite(row["patient_LAMCORE_slope_negative_fraction"]) or row["patient_LAMCORE_slope_negative_fraction"] > 0.5)
+            )
+            lineage_positive = np.isfinite(row["dominant_competing_lineage_slope"]) and row["dominant_competing_lineage_slope"] > 0
+            corrected_label = (
+                "LAM_to_lineage_transition_candidate" if lam_like and lineage_positive
+                else "LAM_like_branch_candidate" if lam_like
+                else "ordinary_lineage_adjacency" if lineage_positive
+                else "ambiguous_branch"
+            )
+            output.at[index, "evidence_label"] = corrected_label
+            output.at[index, "raw_evidence_label_before_fdr"] = raw_label
+    return output
 
 
 def checkpoint(summary: pd.DataFrame) -> tuple[str, str]:
@@ -594,7 +836,7 @@ def write_report(output_dir: Path, manifest: dict[str, Any], connectivity: pd.Da
         "## State 15 connectivity and branch selection",
         "",
         f"- Fixed branch candidates selected: {len(branches)}.",
-        "- Selection rule: external existing state, at least 10 one-hop cells, and at least 2 patients; boundary is not promoted to a branch.",
+        "- Selection rule: external existing state, at least 10 one-hop cells, and at least 2 patients among those one-hop cells; boundary is not promoted to a branch.",
         "详见 `state15_state_connectivity.csv` 和 `branch_candidates.csv`。",
         "",
         "## Branch evidence",
@@ -608,8 +850,10 @@ def write_report(output_dir: Path, manifest: dict[str, Any], connectivity: pd.Da
         "## Matched null",
         "",
         f"- Null repetitions per available branch: {manifest['branch_null_repetitions']}.",
-        f"- Null scope: non-State15, non-branch cells within 1–3 hops, matched on patient×dataset and branch cell count.",
-        "- Per-branch null summaries are recorded in `branch_matched_null.csv` and the manifest.",
+        "- Real and null scopes are identical: non-State15 local 1–3-hop cells; null cells match patient×dataset, cell count and five-bin local distance structure.",
+        "- Empirical p-values use direct left/right tails of the observed null distribution; the two-sided p is `2*min(left,right)`, with no zero-centered or symmetry assumption.",
+        "- Benjamini–Hochberg q-values are computed across all selected branches with available null tests; labels use q rather than raw p alone.",
+        "- Per-patient slopes and leave-one-patient-out fits are recorded in `branch_patient_consistency.csv` and `branch_patient_lopo.csv`.",
         "",
         "## Stage 22 checkpoint",
         "",
@@ -687,10 +931,12 @@ def main() -> None:
     models = pd.concat(all_model_rows, ignore_index=True) if all_model_rows else pd.DataFrame()
     positions = pd.concat(position_tables.values(), ignore_index=True) if position_tables else pd.DataFrame()
     patients = pd.concat(patient_tables, ignore_index=True) if patient_tables else pd.DataFrame()
+    patient_lopo = patient_lopo_robustness(branches, full)
     segments.to_csv(output_dir / "all_branch_gradients.csv", index=False)
     models.to_csv(output_dir / "branch_gradient_models.csv", index=False)
     patients.to_csv(output_dir / "branch_patient_consistency.csv", index=False)
-    state16 = full[full["state"].eq("State_16")].copy()
+    patient_lopo.to_csv(output_dir / "branch_patient_lopo.csv", index=False)
+    state16 = local_branch_scope(full, "State_16")
     if len(state16):
         state16_segment, state16_model, state16_positions = branch_gradient("state16", "State_16", full, BRANCH_FEATURES)
         state16_output = pd.concat([state16_segment, state16_model], ignore_index=True, sort=False)
@@ -713,7 +959,7 @@ def main() -> None:
     null_seed = int(args.null_seed if args.null_seed is not None else stage22_config.get("matched_branch_null_seed", 20260831))
     null, null_manifest = matched_branch_null(branches, full, null_reps, null_seed)
     null.to_csv(output_dir / "branch_matched_null.csv", index=False)
-    evidence = evidence_summary(branches, pd.concat([segments, models], ignore_index=True, sort=False), patients, null_manifest)
+    evidence = evidence_summary(branches, pd.concat([segments, models], ignore_index=True, sort=False), patients, patient_lopo, null_manifest)
     evidence.to_csv(output_dir / "branch_evidence_summary.csv", index=False)
     cp, interpretation = checkpoint(evidence)
     manifest.update(
@@ -725,6 +971,13 @@ def main() -> None:
             "branch_candidates": branches.to_dict(orient="records"),
             "branch_null_manifest": null_manifest,
             "graph_hop_definition": "shortest hop on symmetrized directed kNN graph; no clustering",
+            "branch_selection_patient_scope": "patient_count is the number of unique patients among state-specific hop==1 cells only",
+            "branch_analysis_scope": "real branch and matched-null both restricted to non-State15 local 1–3-hop cells",
+            "matched_null_distance_matching": "patient×dataset strata plus five global distance bins; nearest-distance fallback recorded per replicate",
+            "matched_null_empirical_p": "direct left/right empirical tails with two-sided 2*min tail probability; no zero-centered/symmetry assumption",
+            "matched_null_multiple_testing": "Benjamini-Hochberg q over all selected branches with available empirical p",
+            "patient_level_robustness": "per-patient slope for branches with at least 10 local cells and LOPO patient-adjusted slopes",
+            "boundary_projection_scope": "boundary cells within local 1–3-hop scope only; farther boundary cells remain unresolved/not projected",
             "score_source": "Stage21 scores for non-State15 cells; same Stage21 score function backfilled only for 200 anchor cells; Stage20 marker_VEGFD/marker_CTSK preserved as VEGFD/CTSK",
             "checkpoint": cp,
             "checkpoint_interpretation": interpretation,

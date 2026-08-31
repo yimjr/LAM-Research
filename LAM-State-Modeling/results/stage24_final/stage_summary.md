@@ -216,11 +216,11 @@
 
 **问题**：State15 周围哪些局部方向真正保留 LAM identity？
 **输入**：同一 X_scVI；22,261 candidate+boundary；Stage21 scores；frozen State labels
-**方法/参数**：k=30 不重新 Leiden；1–3 hop；自动选择 ≥10 direct cells 且 ≥2 patients 的 external states；near/mid/far、patient consistency、500 matched null。
+**方法/参数**：k=30 不重新 Leiden；只使用 State15 局部 1–3-hop；branch eligibility 按 1-hop 患者数；real/null 统一 local scope，并按 patient×dataset、细胞数和五档距离结构匹配；直接经验左右尾、BH-q、每患者 slope 与 LOPO。
 **输出**：branch_candidates.csv；branch evidence/gradients；boundary assignments；stage22 report
-**结果/checkpoint**：State16/12/20/7 入选；State16 independent slope -0.023659、CORE3 -0.216772、null p=0.025948，标为 LAM_to_lineage_transition_candidate；其余三条为 ordinary_lineage_adjacency。
-**为什么进入下一步**：最终主线从“统一 manifold”收窄到“State15→State16 局部分支 candidate”。
-**后续修正/边界**：Stage23 仅可视化，不再改变该 checkpoint。
+**结果/checkpoint**：修正后仍入选 State_12, State_16, State_20, State_7；State_16: slope=-0.023931, raw_p=0.878244, BH_q=0.878244, label=ordinary_lineage_adjacency; State_12: slope=-0.022764, raw_p=0.027944, BH_q=0.055888, label=ordinary_lineage_adjacency; State_20: slope=0.010504, raw_p=0.003992, BH_q=0.015968, label=ordinary_lineage_adjacency; State_7: slope=0.001486, raw_p=0.211577, BH_q=0.282102, label=ordinary_lineage_adjacency；Stage22 checkpoint=ordinary_lineage_adjacency_dominates。
+**为什么进入下一步**：依据校正后的 local geometry 重新评估分支；不再把 raw empirical p 当作唯一证据，State16 原 transition 标签被降级/撤回（若当前 q 不支持）。
+**后续修正/边界**：Stage23 已按新 branch/boundary 输出重生成；Stage24 采用本次修正数字，未改变 State15、X_scVI 或 State1–20 标签。
 
 ## Stage 23 — Latent-space visualization
 

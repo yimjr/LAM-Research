@@ -20,8 +20,10 @@
         "1hop_cells": 96,
         "2hop_cells": 234,
         "3hop_cells": 65,
-        "patient_count": 10,
+        "patient_count": 8,
         "dataset_count": 4,
+        "state_patient_count": 10,
+        "state_dataset_count": 4,
         "connectivity": 0.73989898989899
       },
       {
@@ -30,8 +32,10 @@
         "1hop_cells": 22,
         "2hop_cells": 165,
         "3hop_cells": 327,
-        "patient_count": 9,
-        "dataset_count": 4,
+        "patient_count": 5,
+        "dataset_count": 3,
+        "state_patient_count": 9,
+        "state_dataset_count": 4,
         "connectivity": 0.0991735537190082
       },
       {
@@ -40,8 +44,10 @@
         "1hop_cells": 22,
         "2hop_cells": 320,
         "3hop_cells": 384,
-        "patient_count": 10,
-        "dataset_count": 4,
+        "patient_count": 6,
+        "dataset_count": 3,
+        "state_patient_count": 10,
+        "state_dataset_count": 4,
         "connectivity": 0.0489417989417989
       },
       {
@@ -50,8 +56,10 @@
         "1hop_cells": 11,
         "2hop_cells": 87,
         "3hop_cells": 308,
-        "patient_count": 11,
-        "dataset_count": 4,
+        "patient_count": 3,
+        "dataset_count": 3,
+        "state_patient_count": 11,
+        "state_dataset_count": 4,
         "connectivity": 0.0659722222222222
       }
     ],
@@ -114,8 +122,8 @@
     "State_7"
   ],
   "branch_states": [
-    "State_16",
     "State_12",
+    "State_16",
     "State_20",
     "State_7"
   ],

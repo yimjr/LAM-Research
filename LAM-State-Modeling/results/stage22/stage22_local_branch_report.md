@@ -11,16 +11,16 @@
 ## State 15 connectivity and branch selection
 
 - Fixed branch candidates selected: 4.
-- Selection rule: external existing state, at least 10 one-hop cells, and at least 2 patients; boundary is not promoted to a branch.
+- Selection rule: external existing state, at least 10 one-hop cells, and at least 2 patients among those one-hop cells; boundary is not promoted to a branch.
 详见 `state15_state_connectivity.csv` 和 `branch_candidates.csv`。
 
 ## Branch evidence
 
-branch_id source_state  1hop_cells  patient_count  dataset_count  LAMCORE_independent_latent_slope  CORE3_latent_slope  patient_LAMCORE_decrease_fraction dominant_competing_lineage  dominant_competing_lineage_slope  matched_null_empirical_p                      evidence_label
-branch_01     State_16          96             10              4                         -0.023659           -0.216772                           0.714286                       T_NK                          0.050436                  0.025948 LAM_to_lineage_transition_candidate
-branch_02     State_12          22              9              4                         -0.024933           -0.040025                           1.000000                endothelial                          0.131434                  0.674651          ordinary_lineage_adjacency
-branch_03     State_20          22             10              4                          0.010979            0.002151                           0.625000                 fibroblast                          0.042601                  0.315369          ordinary_lineage_adjacency
-branch_04      State_7          11             11              4                          0.002490            0.006365                           0.666667                mesothelial                          0.019902                  1.000000          ordinary_lineage_adjacency
+branch_id source_state  1hop_cells  patient_count  dataset_count  LAMCORE_independent_latent_slope  CORE3_latent_slope  patient_LAMCORE_decrease_fraction  patient_LAMCORE_slope_median  patient_LAMCORE_slope_negative_fraction  patient_LAMCORE_slope_n  LOPO_LAMCORE_slope_negative_fraction  LOPO_LAMCORE_slope_n dominant_competing_lineage  dominant_competing_lineage_slope  matched_null_empirical_left_p  matched_null_empirical_right_p  matched_null_empirical_p  matched_null_q_value             evidence_label       raw_evidence_label_before_fdr
+branch_01     State_16          96              8              4                         -0.023931           -0.217391                           0.714286                     -0.028166                                 1.000000                        7                              1.000000                    10                       T_NK                          0.056351                       0.439122                        0.562874                  0.878244              0.878244 ordinary_lineage_adjacency          ordinary_lineage_adjacency
+branch_02     State_12          22              5              3                         -0.022764           -0.042583                           0.666667                     -0.022906                                 1.000000                        3                              1.000000                     9                endothelial                          0.122994                       0.988024                        0.013972                  0.027944              0.055888 ordinary_lineage_adjacency LAM_to_lineage_transition_candidate
+branch_03     State_20          22              6              3                          0.010504            0.004125                           0.625000                      0.000616                                 0.375000                        8                              0.000000                    10                 fibroblast                          0.051935                       1.000000                        0.001996                  0.003992              0.015968 ordinary_lineage_adjacency          ordinary_lineage_adjacency
+branch_04      State_7          11              3              3                          0.001486           -0.011434                           0.500000                     -0.003883                                 0.666667                        6                              0.090909                    11                mesothelial                          0.020780                       0.896208                        0.105788                  0.211577              0.282102 ordinary_lineage_adjacency          ordinary_lineage_adjacency
 
 ## Boundary
 
@@ -29,13 +29,15 @@ Boundary cells within 1–3 hops are assigned only to a local direction when the
 ## Matched null
 
 - Null repetitions per available branch: 500.
-- Null scope: non-State15, non-branch cells within 1–3 hops, matched on patient×dataset and branch cell count.
-- Per-branch null summaries are recorded in `branch_matched_null.csv` and the manifest.
+- Real and null scopes are identical: non-State15 local 1–3-hop cells; null cells match patient×dataset, cell count and five-bin local distance structure.
+- Empirical p-values use direct left/right tails of the observed null distribution; the two-sided p is `2*min(left,right)`, with no zero-centered or symmetry assumption.
+- Benjamini–Hochberg q-values are computed across all selected branches with available null tests; labels use q rather than raw p alone.
+- Per-patient slopes and leave-one-patient-out fits are recorded in `branch_patient_consistency.csv` and `branch_patient_lopo.csv`.
 
 ## Stage 22 checkpoint
 
-- `local_branched_lam_manifold_candidate`
-- At least one local branch retains independent LAM identity while moving toward a distinct lineage direction; interpret as a local branched candidate, not a new state.
+- `ordinary_lineage_adjacency_dominates`
+- Directly connected branches are better described as ordinary lineage adjacency than LAM-preserving branches.
 
 ## Outputs
 
@@ -47,6 +49,7 @@ Boundary cells within 1–3 hops are assigned only to a local direction when the
 - branch_gradient_models.csv
 - branch_matched_null.csv
 - branch_patient_consistency.csv
+- branch_patient_lopo.csv
 - stage22_local_branch_report.md
 - stage22_manifest.json
 - state15_local_graph_cells.csv
