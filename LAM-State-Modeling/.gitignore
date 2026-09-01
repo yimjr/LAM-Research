@@ -19,5 +19,4 @@ results/stage10/*
 results/stage11/*
 results/stage12/*
 results/stage13/*
-reports/*
 !reports/.gitkeep
