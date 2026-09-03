@@ -2,16 +2,20 @@
 
 一个基于公开生物医学数据的 **LAM（Lymphangioleiomyomatosis，淋巴管平滑肌瘤病）计算研究项目**。
 
-本项目尝试重新连接公开的转录组、单细胞、空间组学、药物扰动等数据，探索与 **LAM 发病机制、肺组织破坏、药物治疗、免疫识别和细胞状态组织方式** 有关的研究问题。
+本项目尝试重新连接公开的转录组、单细胞、空间组学、药物扰动等数据，探索与 **LAM 发病机制、肺组织破坏、药物治疗、免疫识别和细胞异质性** 有关的研究问题。
 
 目前主要包含四个相对独立、同时可以相互提供证据的研究方向：
 
 | 方向 | 核心问题 |
 | --- | --- |
-| [LAM Cell Research](LAM-Cell-Research/) | LAM 细胞有哪些状态和表达程序？它们如何适应肺部环境、参与组织破坏？ |
-| [LAM Drug Repurposing](LAM-Drug-Repurposing/) | 已有药物中，有没有可能逆转 LAM/TSC2-loss 的异常状态？sirolimus 没有完全改变的部分是什么？ |
-| [LAM Immune Visibility](LAM-Immune-Visibility/) | LAM 细胞表达了哪些可能被免疫系统识别的特征？抗原表达、呈递和免疫环境之间有什么关系？ |
-| [LAM State Modeling](LAM-State-Modeling/) | 整合单细胞数据后，能否得到稳健的 LAM-rich latent state？这些状态之间是否真的形成可复现的连续轨迹或局部转变？ |
+| [LAM Cell Research](LAM-Cell-Research/) | LAM 细胞具有哪些生物学程序？它们如何适应肺部环境、参与组织破坏？ |
+| [LAM Drug Repurposing](LAM-Drug-Repurposing/) | 已有药物中，有没有可能逆转 LAM/TSC2 缺失造成的异常状态？西罗莫司没有完全改变的部分是什么？ |
+| [LAM Immune Visibility](LAM-Immune-Visibility/) | LAM 细胞表达了哪些可能被免疫系统识别的特征？这些特征与抗原呈递之间有什么关系？ |
+| [LAM State Modeling](LAM-State-Modeling/) | 能否在多个单细胞数据集中更稳定地识别 LAM 细胞，并进一步研究这些细胞的状态和生物学特征？ |
+
+LAM State Modeling 在方法上引入了前三个方向中没有使用的 **神经网络单细胞模型 scVI**，用于整合不同患者、不同数据集中的高维基因表达信息。
+
+这一方向的核心目标是提高 LAM-rich 细胞群识别的可靠性，并进一步研究这些细胞的共同特征和内部异质性。
 
 [English](README.md)
 
@@ -28,8 +32,7 @@ LAM 是一种罕见病。一个重要分子基础是 **TSC1/TSC2 功能异常及
 * LAM 为什么尤其容易在肺内形成破坏性病变，仍有很多机制可以继续探索；
 * 肺囊性破坏可能涉及 LAM 细胞、成纤维细胞、免疫细胞和蛋白酶系统共同作用；
 * 已有药物中可能存在能够作用于 mTOR 之外异常程序的候选；
-* LAM 细胞具有一些比较特殊的黑色素细胞/间叶细胞相关特征，但这些特征与免疫识别之间的关系仍有探索空间；
-* 整合单细胞后的 latent-state 模型还需要区分真正可复现的 LAM 结构、患者效应、普通谱系邻接和潜在空间本身的几何结构。
+* LAM 细胞具有一些比较特殊的黑色素细胞/间叶细胞相关特征，但这些特征与免疫识别之间的关系仍有探索空间。
 
 与此同时，过去几年已经积累了不少公开的 LAM 单细胞、空间组学、扰动实验和药物数据库。
 
@@ -37,7 +40,7 @@ LAM 是一种罕见病。一个重要分子基础是 **TSC1/TSC2 功能异常及
 
 > **把已经公开、但原本服务于不同研究问题的数据重新连接起来，从中寻找新的研究问题、机制线索和可进一步实验验证的假说。**
 
-这个仓库更关注“还能从现有数据中发现什么值得继续研究的问题”，希望最终得到能够交给实验研究者继续验证的候选机制、候选药物、研究方向，以及有价值的限制性/阴性结果。
+这个仓库更关注“还能从现有数据中发现什么值得继续研究的问题”，希望最终得到能够交给实验研究者继续验证的候选机制、候选药物和研究方向。
 
 ---
 
@@ -411,118 +414,274 @@ HLA / antigen presentation machinery
 
 📁 [LAM-State-Modeling](LAM-State-Modeling/)
 
-## 为什么单独做状态建模？
+## 为什么单独进行 LAM 状态建模？
 
-`LAM-Cell-Research` 更关注 LAM 细胞的 gene programs、空间生态位和生物学机制；这个方向更专门研究另一个问题：
+LAM 单细胞研究首先面临一个基础问题：
 
-> **把多个单细胞数据整合进同一个 latent space 后，能否定义真正可复现的 LAM-rich state？这些状态之间的几何关系是否足以支持“连续轨迹”或“状态转变”这样的更强结论？**
+> **如何在复杂的肺组织单细胞数据中更可靠地识别 LAM 细胞？**
 
-该项目继承 `LAM-Cell-Research` 已经处理好的 AnnData、患者映射、candidate pool、LAMCORE、program 和 upstream state 信息，再建立专门的 latent-state 分析流程。
+LAM 细胞数量较少，不同患者之间存在表达差异，同时单个标志物还会受到测序深度、掉零和细胞状态变化等因素影响。
 
-目前已经完成 **Stage 1–24**，主要包括：
+为了尽量减少真正 LAM 细胞的遗漏，较宽的候选筛选通常具有较高召回率，但其中也可能包含具有普通肺细胞特征的细胞。
 
-* harmonization 和 QC；
-* PCA/NMF baseline；
-* scVI latent-space modeling；
-* consensus state construction；
-* patient/dataset leave-one-out robustness；
-* state hierarchy 和 biology annotation；
-* candidate identity audit；
-* State15 anchor validation；
-* global manifold 和 local branch 检验；
-* matched-null、patient-level 和 LOPO robustness analysis。
+因此这一方向尝试：
+
+> **整合多个 LAM 单细胞数据集，寻找能够跨患者重复出现的 LAM-rich 细胞群，并进一步分析这些细胞的生物学特征和内部结构。**
 
 ---
 
-## 当前结论
+## 使用神经网络整合单细胞数据
 
-### State15 是目前最可信的 LAM-rich consensus state
+项目使用 **scVI** 进行单细胞数据整合。
 
-在当前高召回 candidate pool 中，**State15 是最 LAM-rich 的 frozen consensus state**。
+scVI 是一种基于神经网络的概率模型。
 
-它得到 formal LAMCORE、可用数据中的 author-label enrichment、patient-matched comparison，以及去除占比较高的 LAM1163 后敏感性分析的支持。
+每个单细胞通常包含数千个基因的表达信息。scVI 将这些高维信息压缩为更紧凑的表示，同时处理不同数据集之间较大的技术差异。
 
-但 State15 还不能被视为一个完全独立、患者分布均衡的正式 reference anchor。
+基本过程可以概括为：
 
-### 目前不支持单一的 State15-centered global manifold
+```text
+每个细胞数千个基因的表达
+        ↓
+scVI 神经网络整合
+        ↓
+形成每个细胞的低维表示
+        ↓
+反复进行邻域和聚类分析
+        ↓
+建立稳定的共识状态
+        ↓
+验证 LAM 身份和生物学特征
+```
 
-早期 pooled analysis 中可以看到从 State15 向外的梯度，但更严格验证后，这种结构并不能稳定表现为一个统一的 LAM manifold。
+这种方法能够利用整个转录表达模式比较细胞，而不局限于少数标志物。
 
-因此当前**不把 latent space 解释为一条已经建立的发育或时间轨迹**。
+---
 
-### State16/12/20/7 的局部分支不支持 LAM-to-lineage transition
+## 总体研究思路
 
-Stage22 在 State15 周围识别出四条主要局部邻接 branch：**State16、State12、State20 和 State7**。
+当前分析从上游单细胞研究得到的高置信度候选细胞池出发。
 
-在修正 branch eligibility、统一 real/null 的 1–3 hop local scope、增加距离结构匹配、使用经验尾概率、进行 FDR 校正，并加入 patient-level/LOPO 检查以后，没有任何一条 branch 显示出超越 matched local null 的特异 LAM-to-lineage transition 证据。
+整体流程为：
 
-State16 仍然是一个值得记录的稳定局部邻接状态：患者内 slope 方向一致，但这种变化并没有超过 distance-matched null 的预期，因此目前仅保留为 **ordinary lineage adjacency / mixed neighboring state**，而不是 transition candidate。
+```text
+多个数据集中的 LAM 候选细胞
+        ↓
+质量控制与数据整理
+        ↓
+scVI 神经网络整合
+        ↓
+在不同参数下反复聚类
+        ↓
+建立共识状态
+        ↓
+跨患者、跨数据集稳健性分析
+        ↓
+重新验证各状态的 LAM 身份
+        ↓
+识别 LAM-rich 状态
+        ↓
+分析这些细胞的生物学特征
+        ↓
+研究不同状态之间的关系
+```
 
-当前最稳妥的总体结论是：
+分析同时考虑：
 
-> **可以识别一个可复现的 LAM-rich 核心状态，但现有数据既没有建立一条统一的 global LAM trajectory，也没有建立一个特异的局部 LAM-to-lineage transition。**
+* 不同聚类参数下的稳定性；
+* 不同患者和数据集之间的复现程度；
+* 正式 LAMCORE 基因程序；
+* 已知 LAM 相关标志物和表达程序；
+* 原始研究提供的细胞注释；
+* 普通肺细胞谱系信号；
+* 患者级敏感性分析。
 
-项目也不声称已经证明时间转化、建立诊断 classifier，或证明所有 candidate state 都是真正的 LAM。
+这些证据共同用于判断一个细胞群是否值得进行进一步的 LAM 生物学解释。
+
+---
+
+## 从五千多个候选细胞建立共识状态
+
+当前整合分析包含来自多个患者和数据集的五千多个高置信度候选细胞。
+
+scVI 首先将这些细胞映射到统一的低维空间。
+
+随后项目在多组邻居数量、聚类分辨率和随机种子下重复进行聚类。
+
+如果一批细胞在不同设置下仍然经常被分到一起，就说明这种结构具有较好的稳定性。
+
+这些重复出现的结构最终被整理为 **共识状态**。
+
+之后又分别进行患者和数据集的留一验证，检查去掉某一个患者或数据来源以后，相近的状态结构是否仍然能够保留。
+
+这一过程减少了由单一患者、单一实验或单次聚类参数造成的偶然结构。
+
+---
+
+## 重新验证哪些状态真正富集 LAM 特征
+
+分析进一步发现，最初的候选细胞池具有明显的生物学异质性。
+
+不同共识状态之间的 LAM 特征强度差异较大，其中部分状态同时具有内皮、成纤维、免疫、上皮等普通肺细胞谱系特征。
+
+因此项目增加了专门的 LAM 身份分析。
+
+主要比较：
+
+* 正式 LAMCORE 基因程序；
+* 黑色素细胞样和其他 LAM 相关标志物；
+* LAM 相关表达程序；
+* 普通肺细胞谱系信号；
+* 原始研究中的细胞注释；
+* 不同患者中的复现情况。
+
+这一步使研究从单纯描述不同共识状态，进一步转向识别其中最具有 LAM 生物学特征的细胞群。
+
+---
+
+## 识别出一个 LAM-rich 共识细胞群
+
+在 **LAM State Modeling** 内部，一个共识状态被编号为 **State15**。
+
+在当前所有共识状态中，State15 具有最集中的 LAM 相关证据。
+
+主要表现为：
+
+* 正式 LAMCORE 程序较强；
+* 在具有原始 LAM 注释的数据中明显富集；
+* 多种 LAM 相关标志物和表达程序较高；
+* 患者匹配比较中仍然保持较强的 LAM 特征。
+
+其中一个患者贡献了相对较多的 State15 细胞，因此又进行了去除该患者后的敏感性分析。
+
+State15 的 LAM-rich 特征仍然能够保留。
+
+这些结果支持将 State15 作为当前模型中最具有代表性的 **LAM-rich 共识细胞群**。
+
+其患者分布仍不完全均衡，因此目前主要将其作为后续分析中的高置信度 LAM-rich 参考群体。
+
+---
+
+## 分析 LAM-rich 细胞周围的状态结构
+
+识别出 State15 后，项目进一步研究其周围细胞是否呈现系统性的状态变化。
+
+首先分析了从 State15 向外延伸的整体结构，并观察 LAM 相关表达是否随着距离变化。
+
+合并分析中可以观察到一定梯度。
+
+随后进一步检查：
+
+* 独立 LAMCORE 指标；
+* 不同患者中的变化方向；
+* 不同数据集中的一致性；
+* 匹配对照；
+* 局部细胞邻接关系。
+
+结果显示，LAM 相关表达在局部空间中确实存在连续变化，但不同患者和不同方向之间具有明显异质性。
+
+因此后续分析进一步聚焦于 State15 周围的局部结构。
+
+---
+
+## 局部邻近状态
+
+在 **LAM State Modeling** 中，State15 周围主要形成四个局部邻近状态：
+
+* State16；
+* State12；
+* State20；
+* State7。
+
+其中 State16 表现出最清楚的患者级方向一致性。
+
+在具有足够细胞的患者中，随着与 State15 距离增加，LAMCORE 信号均呈下降趋势；留一患者分析中也保持相同方向。
+
+随后项目建立了更严格的局部匹配对照，同时控制：
+
+* 患者组成；
+* 数据集来源；
+* 局部图距离；
+* 与 State15 的连续距离。
+
+在完成这些匹配以后，State16 的变化幅度处于相似局部结构可以出现的范围内。
+
+同样的方法也被应用于其他邻近状态。
+
+目前这些结果更支持将它们视为 **LAM-rich 细胞周围稳定存在的局部状态结构**，其具体生物学含义仍需要空间组学和其他独立数据进一步解释。
+
+---
+
+## 当前认识
+
+这一方向目前形成了几项主要认识：
+
+* 多数据集整合可以识别出具有较强 LAM 特征的稳定共识细胞群；
+* 原始宽候选池中的 LAM 身份分布并不均一；
+* 共识状态的统计稳定性和 LAM 生物学身份需要分别验证；
+* LAM-rich 状态周围存在可重复的局部状态结构；
+* LAM 相关表达在局部空间中呈现连续变化；
+* 这些邻近状态的具体生物学含义仍有进一步研究空间。
+
+这些结果为后续连接 LAM 细胞识别、状态异质性、空间位置和功能研究提供了一个统一框架。
 
 ---
 
 # 四个方向之间的关系
 
-四个方向可以独立研究，但也从不同层次观察同一种疾病：
+四个项目分别研究 LAM 的不同层次：
 
 ```text
                          LAM biology
                              │
-       ┌─────────────────────┼─────────────────────┐
-       │                     │                     │
-       ▼                     ▼                     ▼
-  Cell Programs         State Geometry        Drug Response
-       │                     │                     │
-细胞表达什么、如何互作   哪些 latent state      什么能改变
-                        真正可复现              异常程序
-       │                     │                     │
-       └──────────────┬──────┴──────────────┬──────┘
-                      │                     │
-                      ▼                     ▼
-             Immune Visibility      Testable Hypotheses
-                      │
-                 免疫系统能看到什么
+        ┌────────────────────┼────────────────────┐
+        │                    │                    │
+        ▼                    ▼                    ▼
+   细胞程序与机制        LAM细胞识别与状态       药物反应
+        │                    │                    │
+ LAM细胞表达什么       哪些细胞形成稳定的       什么能够改变
+ 以及具有哪些功能        LAM-rich 群体          异常程序
+        │                    │                    │
+        └─────────────┬──────┴─────────────┬─────┘
+                      │                    │
+                      ▼                    ▼
+                  免疫可见性            可验证机制
 ```
 
-`LAM-Cell-Research` 与 `LAM-State-Modeling` 尤其互补：
+**LAM Cell Research** 主要研究 LAM 细胞中的生物学程序，包括肺适应、细胞外基质重塑、蛋白酶活动和微环境相互作用。
 
-* **LAM Cell Research** 更强调 gene programs、空间生态位、lung adaptation 和生物学机制；
-* **LAM State Modeling** 更强调 integrated latent states 是否足够稳健，以及 state-to-state geometry 是否真的支持更强的结构或 transition 假说。
+**LAM State Modeling** 主要研究如何在多个单细胞数据集中更稳定地识别 LAM-rich 细胞群，并描述这些细胞内部和周围的状态结构。
 
-例如，在 **LAM Cell Research** 中发现的 rapamycin-persistent ECM program，可以进一步：
+建立起来的状态框架可以进一步支持其他方向：
 
-* 映射到 **LAM State Modeling** 中较稳健的 state；
-* 在 **Drug Repurposing** 中寻找能够逆转它的药物；
-* 在空间数据中观察它是否位于肺组织破坏区域；
-* 在 **Immune Visibility** 中研究这种状态是否伴随不同的免疫环境。
+* 将 **LAM Cell Research** 中发现的基因程序定位到更稳定的 LAM-rich 细胞群；
+* 在 **LAM Drug Repurposing** 中分析不同 LAM-rich 状态可能对应的药物反应；
+* 在 **LAM Immune Visibility** 中比较这些细胞的抗原相关表达和抗原呈递特征。
 
-四个方向最终逐渐汇总成一个共同框架：
+四个方向最终可以连接为：
 
-> **识别可复现的 LAM 状态和程序，寻找能够改变这些异常的因素，并进一步理解这些状态如何与肺组织和免疫系统相互作用。**
+> **更可靠地识别 LAM 细胞，理解这些细胞的生物学程序和异质性，寻找能够改变异常程序的干预方式，并研究它们与肺组织和免疫系统之间的关系。**
 
 ---
 
 # 目前比较值得继续追踪的线索
 
-1. **LAMCORE 异质性可能包含连续和局部变化，但当前状态建模不支持单一、稳健的 global LAM trajectory；**
-2. **State15 是目前最强的 LAM-rich frozen consensus state，但患者分布仍限制其作为正式 reference anchor 的强度；**
-3. **State16 是 State15 的可复现局部邻接状态，但 distance-matched null 不支持把它解释为 LAM-to-lineage transition；**
-4. **肺部可能存在由多种细胞共同形成的 protease–antiprotease spatial niche；**
-5. **LAM 可能同时包含疾病本身的 lineage/transformation program 与进入肺后获得的 lung-adaptation program；**
-6. **rapamycin 后仍可能保留部分 ECM / protease / metabolic programs；**
-7. **ELANE、MMP2 等可能连接 rapamycin persistence 与肺组织破坏研究；**
-8. **NNMT、COL8A1 及 SRPK2-sensitive ECM/metabolic program 值得继续研究；**
-9. **TSC2-loss transcriptional state 已经产生一批可继续筛选的药物再利用候选；**
-10. **translation regulation 可能是 TSC2-loss abnormal state 的另一个重要层次；**
-11. **PMEL、MITF、GPNMB 等 LAM-associated lineage signals 在多个患者中具有较稳定表达；**
-12. **LAM antigen expression、antigen presentation 与 immune context 之间的关系值得进一步连接研究。**
+截至目前，比较值得继续研究的假说包括：
 
-这些方向的共同目标不是提前确定一个答案，而是把大规模公开数据逐渐压缩成少量、明确、可以继续实验验证的问题。
+1. **LAM 细胞的异质性可能来自多种共享生物学程序的不同组合和连续变化，而不只表现为少数边界清晰的亚型；**
+2. **更严格的跨患者 LAM 身份模型可能从当前高召回候选池中进一步分离出新的疾病特异状态；**
+3. **LAM-rich 细胞周围可重复出现的局部状态可能反映 LAM 细胞与特定基质、内皮、上皮或免疫微环境之间的关系；**
+4. **空间组学可能揭示这些局部状态是否在 LAM 病灶周围具有稳定的空间组织方式；**
+5. **肺部可能存在由多种细胞共同形成的蛋白酶—抗蛋白酶空间生态位；**
+6. **LAM 可能同时包含疾病本身的谱系/转化程序与进入肺以后获得的适应程序；**
+7. **雷帕霉素治疗后可能仍保留部分细胞外基质、蛋白酶和代谢程序；**
+8. **ELANE、MMP2 可能连接雷帕霉素后残留程序与肺组织破坏机制；**
+9. **NNMT、COL8A1 以及 SRPK2 敏感的细胞外基质/代谢程序可能代表值得进一步验证的非 mTOR 机制；**
+10. **TSC2 缺失造成的转录异常可能用于发现与 mTOR 抑制具有机制互补性的药物再利用候选；**
+11. **翻译调控可能构成 TSC2 缺失异常状态的另一个重要层次；**
+12. **LAM 相关谱系抗原及抗原呈递程序可能定义免疫可见性不同的 LAM 细胞状态。**
+
+这些方向的共同目标是把大规模公开数据逐渐压缩成少量、明确、可以继续实验验证的问题。
 
 ---
 
@@ -546,16 +705,16 @@ State16 仍然是一个值得记录的稳定局部邻接状态：患者内 slope
     ↓
 标准化处理
     ↓
-gene / program / latent-state analysis
+gene / program level analysis
     ↓
-跨数据集比较和稳健性检验
+跨数据集比较
     ↓
-candidate mechanism 或限制性结论
+candidate mechanism
     ↓
-可实验验证的问题
+Hypothesis Card
 ```
 
-每个子项目保存自己的分析脚本、数据 manifest、中间和最终结果、结果表格、图表以及研究记录/报告。
+每个子项目保存自己的分析脚本、数据 manifest、中间结果、最终表格、图表、research log 和 hypothesis cards。
 
 ---
 
@@ -567,33 +726,32 @@ LAM-Research/
 ├── LAM-Cell-Research/
 │   ├── 单细胞 / 空间组学
 │   ├── LAMCORE 状态
-│   ├── gene program discovery
-│   ├── protease spatial niche
-│   ├── lung adaptation
-│   └── rapamycin-persistent ECM/protease
+│   ├── 基因程序发现
+│   ├── 蛋白酶空间生态位
+│   ├── 肺适应
+│   └── 雷帕霉素后残留的 ECM / protease
 │
 ├── LAM-Drug-Repurposing/
-│   ├── TSC2-loss / rapamycin factorial analysis
-│   ├── residual programs
+│   ├── TSC2 缺失 / 雷帕霉素分析
+│   ├── 残留异常程序
 │   ├── LINCS / CMap
-│   ├── drug candidate analysis
-│   ├── mechanism integration
-│   └── translation analysis
+│   ├── 候选药物分析
+│   ├── 机制整合
+│   └── 翻译调控分析
 │
 ├── LAM-Immune-Visibility/
-│   ├── antigen-related expression
-│   ├── antigen presentation
-│   ├── immune context
-│   ├── candidate antigen ranking
-│   └── hypothesis cards
+│   ├── 抗原相关表达
+│   ├── 抗原呈递
+│   ├── 免疫环境
+│   ├── 候选抗原排序
+│   └── 研究假说
 │
 └── LAM-State-Modeling/
-    ├── scVI latent-state modeling
-    ├── consensus 与 robustness analysis
-    ├── candidate-identity audits
-    ├── State15 anchor validation
-    ├── manifold / local-branch testing
-    └── final state-modeling reports
+    ├── 神经网络单细胞整合
+    ├── 共识状态建模
+    ├── 跨患者稳健性分析
+    ├── LAM 身份分析
+    └── 状态特征分析
 ```
 
 详细的方法、运行方式和结果文件请进入各子目录查看。
@@ -608,10 +766,10 @@ LAM-Research/
 
 | 项目 | 当前阶段 |
 | --- | --- |
-| LAM Cell Research | 已建立复现基线，进入多条新生物学问题探索 |
-| LAM Drug Repurposing | 已完成主要 TSC2-loss/LINCS 候选生成，进入机制与跨数据验证 |
-| LAM Immune Visibility | 已完成首轮计算和候选抗原排序，进入进一步验证问题设计 |
-| LAM State Modeling | Stage 1–24 已完成；State15 保留为最强 LAM-rich consensus state，而 global manifold 与 local transition 均未得到最终 robustness analysis 支持 |
+| LAM Cell Research | 已建立复现基线，正在推进多条生物学问题 |
+| LAM Drug Repurposing | 已完成主要候选生成，正在进行机制和跨数据集验证 |
+| LAM Immune Visibility | 已完成首轮计算分析，正在设计进一步验证问题 |
+| LAM State Modeling | 已完成主要状态建模分析，正在进行生物学解释和与其他方向的整合 |
 
 项目会随着新的公开 LAM 数据、已有数据的重新分析和新的研究问题继续更新。
 
@@ -619,7 +777,7 @@ LAM-Research/
 
 ## 关于结果
 
-本仓库中的结果主要来自公开数据的计算分析，用于产生 **research hypotheses（研究假说）**、**candidate mechanisms（候选机制）**，以及定义清楚的阴性或限制性结果。
+本仓库中的结果主要来自公开数据的计算分析，用于产生 **research hypotheses（研究假说）** 和 **candidate mechanisms（候选机制）**。
 
 它们更适合作为后续实验研究、机制研究和药物研究的起点，不构成临床治疗建议。
 
