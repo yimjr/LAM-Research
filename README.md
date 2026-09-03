@@ -2,15 +2,16 @@
 
 A computational research project on **LAM (Lymphangioleiomyomatosis)** based primarily on publicly available biomedical datasets.
 
-This project reuses and connects transcriptomic, single-cell, spatial omics, drug perturbation, and other public datasets to explore research questions related to **LAM pathogenesis, lung tissue destruction, therapeutic response, and immune recognition**.
+This project reuses and connects transcriptomic, single-cell, spatial omics, drug perturbation, and other public datasets to explore research questions related to **LAM pathogenesis, lung tissue destruction, therapeutic response, immune recognition, and cellular-state organization**.
 
-The repository currently contains three major research directions. They are relatively independent, but can also provide complementary evidence for each other:
+The repository currently contains four major research directions. They are relatively independent, but can also provide complementary evidence for each other:
 
 | Direction                                       | Core Question                                                                                                                       |
 | ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | [LAM Cell Research](LAM-Cell-Research/)         | What cellular states exist in LAM, and how might LAM cells adapt to the lung and contribute to tissue destruction?                  |
 | [LAM Drug Repurposing](LAM-Drug-Repurposing/)   | Can existing drugs reverse abnormal LAM/TSC2-loss states, including programs that remain after sirolimus treatment?                 |
 | [LAM Immune Visibility](LAM-Immune-Visibility/) | Which LAM-associated features may be visible to the immune system, and how are antigen expression and antigen presentation related? |
+| [LAM State Modeling](LAM-State-Modeling/)       | Can integrated single-cell data identify robust LAM-rich latent states, and do nearby states form reproducible biological trajectories or transitions? |
 
 [中文](README_zh.md)
 
@@ -27,7 +28,8 @@ Sirolimus has substantially changed the treatment of LAM, but many biological qu
 * the mechanisms that allow LAM cells to survive and cause destructive lesions in the lung remain incompletely understood;
 * lung destruction may involve interactions among LAM cells, fibroblasts, immune cells, and protease systems;
 * existing drugs may affect abnormal programs outside the canonical mTOR pathway;
-* LAM cells express several unusual melanocytic and mesenchymal features, raising questions about their potential immune visibility.
+* LAM cells express several unusual melanocytic and mesenchymal features, raising questions about their potential immune visibility;
+* integrated single-cell state models may help distinguish reproducible LAM-rich structure from donor effects, ordinary lineage adjacency, and latent-space geometry.
 
 At the same time, an increasing number of LAM single-cell, spatial, perturbation, and transcriptomic datasets have become publicly available.
 
@@ -536,7 +538,7 @@ Potential immune visibility
 
 ## General Research Strategy
 
-This project reuses public single-cell and spatial datasets already processed in the other two research directions.
+This project reuses public single-cell and spatial datasets already processed in the other research directions.
 
 It examines several components separately.
 
@@ -607,41 +609,112 @@ Existing immunological knowledge around targets such as `PMEL/gp100` provides a 
 
 ---
 
-# How the Three Directions Connect
+# 4. LAM State Modeling
 
-The three projects can be studied independently.
+📁 [LAM-State-Modeling](LAM-State-Modeling/)
 
-At the same time, they examine the same disease from three complementary perspectives:
+## Why Model LAM States Separately?
+
+The broader cell-research direction asks which gene programs and biological mechanisms vary across LAM cells. This project focuses more narrowly on a complementary question:
+
+> **Can integrated single-cell data define reproducible LAM-rich latent states, and can the geometry around those states support stronger claims about continuous manifolds or biological transitions?**
+
+The analysis inherits the processed AnnData objects, patient mappings, candidate pools, LAMCORE annotations, and upstream state/program information from `LAM-Cell-Research`, then builds a dedicated latent-state workflow without repeatedly rediscovering those upstream features.
+
+The current implementation covers **Stage 1–24** and includes:
+
+* harmonization and QC;
+* PCA/NMF baselines;
+* scVI latent-space modeling;
+* consensus state construction;
+* patient/dataset leave-one-out robustness;
+* state hierarchy and biology annotation;
+* candidate-identity audits;
+* State15 anchor validation;
+* global-manifold and local-branch testing;
+* matched-null, patient-level, and LOPO robustness analyses.
+
+---
+
+## Current Findings
+
+The current results support a deliberately conservative interpretation.
+
+### State15 Is the Strongest LAM-Rich Consensus State
+
+Within the current high-recall candidate pool, **State15 is the most LAM-rich frozen consensus state**.
+
+Its profile is supported by formal LAMCORE signal, available author-label enrichment, patient-matched comparisons, and sensitivity analysis after removing the strongly represented LAM1163 donor.
+
+However, State15 is not treated as a fully independent or evenly cross-patient reference anchor.
+
+### A Single Global State15-Centered Manifold Is Not Robustly Supported
+
+An initial pooled State15-centered gradient was visible, but stricter validation showed that it does not behave like one robust, unified LAM manifold across the data.
+
+The project therefore does **not** interpret the latent space as a single established developmental or temporal trajectory.
+
+### Local State16/12/20/7 Branches Do Not Support a LAM-to-Lineage Transition Claim
+
+Stage22 identifies four main local neighboring branches around State15: **State16, State12, State20, and State7**.
+
+After correcting branch eligibility, restricting real and null analyses to the same local 1–3-hop scope, matching local distance structure, using empirical tail probabilities, applying FDR correction, and adding patient-level/LOPO checks, none of these branches shows statistical evidence for a specific LAM-to-lineage transition beyond the matched local null.
+
+State16 remains an interesting and reproducible local neighbor: patient-level slopes are directionally consistent, but the effect does not exceed distance-matched null expectations. It is therefore retained as an **ordinary lineage adjacency / mixed neighboring state**, not a transition candidate.
+
+The current conclusion is therefore:
+
+> **A reproducible LAM-rich core state can be identified, but the present data do not establish either a single global LAM trajectory or a specific local LAM-to-lineage transition.**
+
+The project also does not claim temporal conversion, a diagnostic classifier, or that every candidate state represents true LAM identity.
+
+---
+
+# How the Four Directions Connect
+
+The four projects can be studied independently.
+
+At the same time, they examine the same disease from four complementary perspectives:
 
 ```text
-                LAM biology
-                    │
-       ┌────────────┼────────────┐
-       │            │            │
-       ▼            ▼            ▼
-   Cell State    Drug Response   Immune Visibility
-       │            │            │
-What cells do   What can change  What the immune
-and become      those states     system may see
-       │            │            │
-       └────────────┼────────────┘
-                    ▼
-             Testable Hypotheses
+                         LAM biology
+                             │
+       ┌─────────────────────┼─────────────────────┐
+       │                     │                     │
+       ▼                     ▼                     ▼
+  Cell Programs         State Geometry        Drug Response
+       │                     │                     │
+What cells express      Which latent states   What can change
+and how they interact   are reproducible      abnormal programs
+       │                     │                     │
+       └──────────────┬──────┴──────────────┬──────┘
+                      │                     │
+                      ▼                     ▼
+             Immune Visibility      Testable Hypotheses
+                      │
+             What the immune
+             system may see
 ```
+
+`LAM-Cell-Research` and `LAM-State-Modeling` are especially complementary:
+
+* **LAM Cell Research** emphasizes gene programs, spatial niches, lung adaptation, and biological mechanisms;
+* **LAM State Modeling** tests whether integrated latent states and state-to-state geometry are reproducible enough to support stronger structural or transition hypotheses.
 
 For example, a rapamycin-persistent ECM program discovered in **LAM Cell Research** can be further investigated by:
 
+* locating the program within robust states from **LAM State Modeling**;
 * searching for compounds that reverse it in **LAM Drug Repurposing**;
 * locating it in spatial regions associated with lung destruction;
 * examining whether the same cellular state has a distinct immune context in **LAM Immune Visibility**.
 
 Conversely, a candidate drug mechanism can be mapped back into single-cell datasets to ask:
 
-> Which LAM cellular state is most likely to respond to this perturbation?
+> Which reproducible LAM-rich state or program is most likely to respond to this perturbation?
 
-The three directions therefore gradually converge on a broader framework:
+The four directions therefore gradually converge on a broader framework:
 
-> **Understand what state LAM cells are in, identify what can change that state, and determine how those states interact with lung tissue and the immune system.**
+> **Identify reproducible LAM states and programs, determine what can change them, and understand how they interact with lung tissue and the immune system.**
 
 ---
 
@@ -649,16 +722,18 @@ The three directions therefore gradually converge on a broader framework:
 
 Several questions currently appear particularly worth pursuing:
 
-1. **LAMCORE may contain substantial continuous-state variation rather than only a few fixed subtypes;**
-2. **The lung may contain a multicellular protease–antiprotease spatial niche associated with LAM lesions;**
-3. **LAM may combine lineage/transformation programs with lung-acquired adaptation programs;**
-4. **ECM, protease, and metabolic programs may partly persist after rapamycin treatment;**
-5. **ELANE and MMP2 may connect rapamycin persistence with mechanisms of lung tissue destruction;**
-6. **NNMT, COL8A1, and an SRPK2-sensitive ECM/metabolic program deserve further investigation;**
-7. **TSC2-loss transcriptional signatures have produced a substantial set of drug-repurposing candidates;**
-8. **Translation regulation may represent an additional layer of the abnormal TSC2-loss state;**
-9. **PMEL, MITF, GPNMB, and related lineage signals are consistently detected across multiple LAM patients;**
-10. **The relationship among LAM antigen expression, antigen presentation, and immune context remains a promising research question.**
+1. **LAMCORE heterogeneity may involve continuous and local variation, but the current state-modeling analysis does not support a single robust global LAM trajectory;**
+2. **State15 is currently the strongest LAM-rich frozen consensus state, while its cross-patient balance and use as a formal reference anchor remain limited;**
+3. **State16 is a reproducible local neighbor of State15, but current distance-matched null analyses do not support interpreting it as a LAM-to-lineage transition;**
+4. **The lung may contain a multicellular protease–antiprotease spatial niche associated with LAM lesions;**
+5. **LAM may combine lineage/transformation programs with lung-acquired adaptation programs;**
+6. **ECM, protease, and metabolic programs may partly persist after rapamycin treatment;**
+7. **ELANE and MMP2 may connect rapamycin persistence with mechanisms of lung tissue destruction;**
+8. **NNMT, COL8A1, and an SRPK2-sensitive ECM/metabolic program deserve further investigation;**
+9. **TSC2-loss transcriptional signatures have produced a substantial set of drug-repurposing candidates;**
+10. **Translation regulation may represent an additional layer of the abnormal TSC2-loss state;**
+11. **PMEL, MITF, GPNMB, and related lineage signals are consistently detected across multiple LAM patients;**
+12. **The relationship among LAM antigen expression, antigen presentation, and immune context remains a promising research question.**
 
 The common objective is to progressively reduce large public datasets into a smaller number of clearly defined questions that can be experimentally tested.
 
@@ -684,24 +759,23 @@ Public dataset
     ↓
 Standardized processing
     ↓
-Gene / program-level analysis
+Gene / program / latent-state analysis
     ↓
-Cross-dataset comparison
+Cross-dataset and robustness testing
     ↓
-Candidate mechanism
+Candidate mechanism or constrained conclusion
     ↓
-Hypothesis Card
+Testable hypothesis
 ```
 
 Each subproject maintains its own:
 
 * analysis scripts;
 * data manifests;
-* intermediate results;
+* intermediate and final results;
 * result tables;
 * figures;
-* research logs;
-* hypothesis cards.
+* research logs or reports.
 
 ---
 
@@ -726,12 +800,20 @@ LAM-Research/
 │   ├── mechanism integration
 │   └── translation analysis
 │
-└── LAM-Immune-Visibility/
-    ├── antigen-related expression
-    ├── antigen presentation
-    ├── immune context
-    ├── candidate antigen ranking
-    └── hypothesis cards
+├── LAM-Immune-Visibility/
+│   ├── antigen-related expression
+│   ├── antigen presentation
+│   ├── immune context
+│   ├── candidate antigen ranking
+│   └── hypothesis cards
+│
+└── LAM-State-Modeling/
+    ├── scVI latent-state modeling
+    ├── consensus and robustness analysis
+    ├── candidate-identity audits
+    ├── State15 anchor validation
+    ├── manifold / local-branch testing
+    └── final state-modeling reports
 ```
 
 For detailed methods, execution instructions, and result files, see the README and research documents within each subdirectory.
@@ -742,13 +824,14 @@ For detailed methods, execution instructions, and result files, see the README a
 
 This repository is under active development.
 
-The three current directions are approximately at the following stages:
+The four current directions are approximately at the following stages:
 
 | Project               | Current Stage                                                                                                          |
 | --------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | LAM Cell Research     | Reproduction baseline established; multiple new biological questions under active exploration                          |
 | LAM Drug Repurposing  | Major TSC2-loss / LINCS candidate-generation stage completed; mechanism and cross-dataset validation ongoing           |
 | LAM Immune Visibility | Initial computational analysis and candidate-antigen ranking completed; follow-up validation questions being developed |
+| LAM State Modeling    | Stage 1–24 analysis completed; State15 retained as the strongest LAM-rich consensus state, while global-manifold and local-transition claims are not supported by the final robustness analyses |
 
 The project will continue to evolve as new public LAM datasets become available and existing datasets are reanalyzed from new perspectives.
 
@@ -756,7 +839,7 @@ The project will continue to evolve as new public LAM datasets become available 
 
 ## About the Results
 
-The results in this repository are primarily derived from computational analysis of public datasets and are intended to generate **research hypotheses** and **candidate mechanisms**.
+The results in this repository are primarily derived from computational analysis of public datasets and are intended to generate **research hypotheses**, **candidate mechanisms**, and well-defined negative or constraining results.
 
 They are best interpreted as starting points for further experimental and mechanistic research and are not intended as clinical treatment recommendations.
 
